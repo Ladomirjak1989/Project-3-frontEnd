@@ -4,7 +4,15 @@ module.exports = {
     "./src/**/*.{js,jsx,ts,tsx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      backgroundImage: {
+        'hero-pattern': "url('./assets/signuploginbackground.jpg')",
+        'navbar': "url('./assets/navbarbg.png')",
+      }
+    },
+    
   },
   plugins: [],
 }
+
+
