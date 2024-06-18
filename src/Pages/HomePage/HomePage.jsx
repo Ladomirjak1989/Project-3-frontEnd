@@ -51,6 +51,10 @@ const HomePage = () => {
 
   return (
     <div className="container mx-auto py-8">
+      <div class=" py-4 sm:px-8 lg:px-12">
+        <h2 class="text-3xl font-bold text-gray-900 mb-4">Find the holiday that suits you...</h2>
+        <p class="text-lg text-gray-700">Our huge range of holidays includes everything from globetrotting tours and adventures at sea to beach-based getaways in Europe and beyond.</p>
+      </div>
       <div >
         <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {config.map(item => (

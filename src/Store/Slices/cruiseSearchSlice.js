@@ -2,32 +2,33 @@ import { createSlice } from '@reduxjs/toolkit';
 
 
 const initialState = {
+  cruiseType: '',
   departure: '',
   destination: '',
-  departureDate: '',
-  returnDate: '',
+  departureTime: '',
   duration: '',
   guests: {
     adults: 2,
     children: 0,
+    cruiseDuration:'',
   },
 };
 
-const vacationSearchSlice = createSlice({
-  name: 'vacationSearch',
+const cruiseSearchSlice = createSlice({
+  name: 'cruiseSearch',
   initialState,
   reducers: {
+    setCruiseType(state, action) {
+      state.cruiseType = action.payload;
+    },
     setDeparture(state, action) {
       state.departure = action.payload;
     },
     setDestination(state, action) {
       state.destination = action.payload;
     },
-    setDepartureDate(state, action) {
-      state.departureDate = action.payload;
-    },
-    setReturnDate(state, action) {
-      state.returnDate = action.payload;
+    setDepartureTime(state, action) {
+      state.departureTime = action.payload;
     },
     setDuration(state, action) {
         state.duration = action.payload;
@@ -38,10 +39,14 @@ const vacationSearchSlice = createSlice({
     },
     setClearSearch(state) {
       return initialState;
-    }
+    },
+
+    setCruiseDuration(state, action) {
+      state.duration = action.payload;
+    },
   },
 });
 
-export const { setDeparture, setDestination, setDepartureDate, setReturnDate, setGuests, setClearSearch } = vacationSearchSlice.actions;
+export const { setCruiseType, setDeparture, setDestination, setDepartureTime, setGuests, setCruiseDuration, setClearSearch } = cruiseSearchSlice.actions;
 
-export default vacationSearchSlice.reducer;
+export default cruiseSearchSlice.reducer;

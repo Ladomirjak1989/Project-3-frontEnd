@@ -1,66 +1,62 @@
-import React, { useState, } from 'react'
-import { useSelector } from 'react-redux';
+import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { deleteFlightAsync } from '../../Store/Slices/fetchFlightSliceAsync';
+import { setPopUp } from '../../Store/Slices/popUpSliceReducer';
 
 
 function FlightEl({ flight }) {
-    const user = useSelector(state => state.session.user)
+    const user = useSelector(state => state.session.user);
 
-    const [editFlight, setEditFlight] = useState(null)
-    const [deleteFlight, setDeleteFlight] = useState()
-
-
-    const handleEditFlight = async (id) => {
-        try {
-            const response = await axios.put(`/flights/${id}`, editFlight);
-            editFlight(flight.map(flight => (flight._id === id ? response.data : flight)));
-            setEditFlight(null);
-        } catch (error) {
-            console.error("There was an error editting the flight!", error);
-        }
-    };
-
+    const dispatch = useDispatch()
 
     const handleDeleteFlight = async (id) => {
         try {
-            await axios.delete(`/flights/${id}`, deleteFlight);
-            deleteFlight(flight.filter(flight => flight._id !== id));
-            setDeleteFlight()
+            const deleted = dispatch(deleteFlightAsync(id))
+            if(deleted){
+                dispatch(setPopUp("Flight succesfully deleted"))
+            }
+           
         } catch (error) {
             console.error("There was an error deleting the flight!", error);
         }
     };
 
-
     return (
-        <li>
-           <div>
-                    <span>{flight.origin}</span>
-                    <span>{flight.destination.toLocaleString()}</span>
-                    <span>{flight.departureDate}</span>
-                    <span>{flight.returnDate}</span>
-                    <span>{flight.price}</span>
-                    <span>{flight.flightDates}</span>
-                    <span>{flight.flightOffers}</span>
-                    <span>{flight.currencies}</span>
-                    <span>{flight.duration}</span>
-                    <span>{flight.detailedName}</span>
-                    <span>{flight.subType}</span>
-                    <span>{flight.nonStop}</span>
-                    <span>{flight.oneWay}</span>
-
-                    {user?.role === "admin" && (<>
-                        <button onClick={() => setEditFlight(flight)}>Edit</button>
-                        <button onClick={() => handleDeleteFlight(flight._id)}>Delete</button>
-                    </>)}
-                    <Link to={`/flights/${flight._id}`}>
-                        Show more...
-                    </Link>
-
-                </div>
+        <div>
             
-        </li>
-    )
+            <li className="bg-white shadow-md rounded-lg p-6 flex justify-between items-center">
+                <div className="p-4 bg-gray-100 rounded-lg">
+                    <p>
+                        <span className="block text-gray-800 font-semibold"> Departure City:</span> {flight.city}
+                    </p>
+                    <p>
+                        <span className="block text-gray-800 font-semibold"> Destination City:</span>{flight.destinationCity}
+                    </p>
+                    <p>
+                        <span className="block text-gray-800 font-semibold"> Flight Dates:</span>{flight.flightDates}
+                    </p>
+                    <p>
+                        <span className="block text-gray-800 font-semibold">Price:</span> ${flight.price}
+                    </p>
+                </div>
+                <div className="flex space-x-2">
+                    <Link to={`/flights/${flight._id}`} className="text-blue-500 hover:underline">Show more...</Link>
+                    {user?.role === "admin" && (
+                        <>
+                            <Link to={`/flights/flight-updated/${flight._id}`} className="text-blue-500 hover:underline">Edit</Link>
+                            <button onClick={() => handleDeleteFlight(flight._id)} className="text-red-500 hover:underline">Delete</button>
+                        </>
+                    )}
+                </div>
+            </li>
+        </div>
+    );
 }
 
-export default FlightEl
+export default FlightEl;
+
+
+
+
+

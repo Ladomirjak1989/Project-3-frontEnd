@@ -5,6 +5,8 @@ import flightSliceReducer from "./Slices/flightSliceReducer";
 import flightSearchReducer from './Slices/flightSearchSlice';
 import vacationSearchReducer from './Slices/vacationSearchSlice';
 import hotelSearchSlice from "./Slices/hotelSearchSlice";
+import popUpSliceReducer from "./Slices/popUpSliceReducer";
+import cruiseSearchSlice from "./Slices/cruiseSearchSlice";
 
 
 const Store = configureStore({
@@ -14,6 +16,8 @@ const Store = configureStore({
         flightSearch: flightSearchReducer,
         vacationSearch: vacationSearchReducer,
         hotelSearch: hotelSearchSlice,
+        cruiseSearch: cruiseSearchSlice,
+        popUp: popUpSliceReducer,
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger)
 })

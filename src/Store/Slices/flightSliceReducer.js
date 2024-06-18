@@ -1,11 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchFlightAsync, createFlightAsync } from "./fetchFlightSliceAsync";
+import { fetchFlightAsync, createFlightAsync, fetchFlightByIdAsync, updatedFlightAsync, deleteFlightAsync  } from "./fetchFlightSliceAsync";
 
 
 const flightSlice = createSlice({
     name: "flight",
     initialState: {
         flights: {},
+        flight: null,
         loading: false,
         error: null
     },
@@ -43,7 +44,56 @@ const flightSlice = createSlice({
         builder.addCase(createFlightAsync.rejected, (state, action) => {
             state.loading = false
             state.error = action.payload
+            // state.error = action.error.message;
         })
+
+
+
+        builder.addCase(fetchFlightByIdAsync.pending, (state) => {
+            state.loading = true
+            state.error = null
+        })
+        builder.addCase(fetchFlightByIdAsync.fulfilled, (state, action) => {
+            state.loading = false
+            state.flight = action.payload
+        })
+        builder.addCase(fetchFlightByIdAsync.rejected, (state, action) => {
+            state.loading = false
+            state.error = action.payload
+        })
+
+        
+        .addCase(updatedFlightAsync.pending, (state) => {
+            state.loading = true;
+        })
+        .addCase(updatedFlightAsync.fulfilled, (state, action) => {
+            state.loading = false;
+            state.flight = null
+            state.flights[action.payload._id] = action.payload
+            // const index = state.flights.findIndex(flight => flight._id === action.payload._id);
+            // if (index !== -1) {
+            //     state.flights[index] = action.payload;
+            // }
+        })
+        .addCase(updatedFlightAsync.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.error.message;
+        })
+
+        
+        .addCase(deleteFlightAsync.pending, (state) => {
+            state.loading = true;
+        })
+        .addCase(deleteFlightAsync.fulfilled, (state, action) => {
+            state.loading = false;
+            delete state.flights[action.payload]
+
+            // state.flights = state.flights.filter(flight => flight._id !== action.payload);
+        })
+        .addCase(deleteFlightAsync.rejected, (state, action) => {
+            state.loading = false;
+            state.error = action.error.message;
+        });
 
     }
 })

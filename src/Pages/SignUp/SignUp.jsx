@@ -1,4 +1,3 @@
-import './SignUp.css'
 import React, { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 import { FaUser, FaLock, } from "react-icons/fa";

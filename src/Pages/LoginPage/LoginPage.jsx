@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './LoginPage.css';
 import { FaLock } from 'react-icons/fa';
 import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { FaLockOpen } from "react-icons/fa";

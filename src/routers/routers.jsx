@@ -19,6 +19,7 @@ import Searchbar from "../components/Searchbar/Searchbar";
 import FlightDetails from "../Pages/FlightDetails/FlightDetails";
 import CreateFlightPage from "../Pages/CreateFlightPage/CreateFlightPage";
 import VacationPage from "../Pages/VacationPage/VacationPage";
+import UpdatedFlightPage from "../Pages/UpdatedFlightPage/UpdatedFlightPage";
 
 
 const router = createBrowserRouter([
@@ -44,6 +45,7 @@ const router = createBrowserRouter([
             { path: "/hotels", element: <HotelsPage /> },
             { path: "/flights/:id", element: <FlightDetails /> },
             { path: "/vacations", element: <VacationPage /> },
+            // { path: "/vacations/:id", element: <VacationPage /> },
 
             {
                 element: <PrivateRouter />,
@@ -54,7 +56,9 @@ const router = createBrowserRouter([
             {
                 element: <AdminRouter />,
                 children: [
-                    { path: "/flights/flight-new", element: <CreateFlightPage /> }
+                    { path: "/flights/flight-new", element: <CreateFlightPage /> },
+                    { path: "/flights/flight-updated/:id", element: <UpdatedFlightPage /> },
+            
                 ]
             },
             { path: "*", element: <NotFoundPage /> }

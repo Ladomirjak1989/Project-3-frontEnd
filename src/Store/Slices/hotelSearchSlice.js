@@ -20,24 +20,14 @@ const hotelSearchSlice = createSlice({
     setCheckOutDate(state, action) {
       state.checkOutDate = action.payload;
     },
-    setRooms(state, action) {
-      state.rooms = action.payload;
-    },
-    setaddRoom(state) {
-      state.rooms.push({ adults: 2, children: 0 });
-    },
-    setremoveRoom(state, action) {
-      state.rooms = state.rooms.filter((_, index) => index !== action.payload);
-    },
+    
     setGuests(state, action) {
       const { index, adults, children } = action.payload;
       state.rooms[index] = { adults, children };
     },
-    setclearAll(state) {
-      state.rooms = [{ adults: 2, children: 0 }];
-      state.destination = '';
-      state.checkInDate = '';
-      state.checkOutDate = '';
+    
+    setClearSearch(state) {
+      return initialState;
     }
   }
 });
@@ -46,11 +36,8 @@ export const {
   setDestination,
   setCheckInDate,
   setCheckOutDate,
-  setRooms,
-  setaddRoom,
-  setremoveRoom,
   setGuests,
-  setclearAll
+  setClearSearch
 } = hotelSearchSlice.actions;
 
 export default hotelSearchSlice.reducer;

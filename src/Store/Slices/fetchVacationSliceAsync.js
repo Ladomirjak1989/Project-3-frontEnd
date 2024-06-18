@@ -2,32 +2,32 @@ import { createAsyncThunk, } from "@reduxjs/toolkit";
 import axios from 'axios'
 import { API_URL } from "../../utils/variables";
 
-export const fetchFlightAsync = createAsyncThunk("flight/fetchFlight", async (_, { rejectWithValue }) => {
+export const fetchVacationAsync = createAsyncThunk("vacation/fetchVacation", async (_, { rejectWithValue }) => {
   try {
-    const response = await axios.get(`${API_URL}/flights`)
+    const response = await axios.get(`${API_URL}/vacations`)
     return response.data
   } catch (e) { return rejectWithValue(e.response.data.message); }
 
 
 })
 
-export const fetchFlightByIdAsync = createAsyncThunk("flight/fetchFlightById", async (id, { rejectWithValue }) => {
+export const fetchVacationByIdAsync = createAsyncThunk("vacation/fetchVacationById", async (id, { rejectWithValue }) => {
   try {
-    const response = await axios.get(`${API_URL}/flights/${id}`)
+    const response = await axios.get(`${API_URL}/vacations/${id}`)
     return response.data
   } catch (e) { return rejectWithValue(e.response.data.message); }
 
 
 })
 
-export const createFlightAsync = createAsyncThunk("flight/createFlight", async (formData, { rejectWithValue, getState }) => {
+export const createVacationAsync = createAsyncThunk("vacation/createVacation", async (formData, { rejectWithValue, getState }) => {
   try {
     const state = getState()
 
     const token = state.session.token; // Adjust this path based on your actual state structure
     const role = state.session.user.role; // Adjust this path based on your actual state structure
 
-    const response = await axios.post(`${API_URL}/flights`, formData,
+    const response = await axios.post(`${API_URL}/vacations`, formData,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -41,14 +41,14 @@ export const createFlightAsync = createAsyncThunk("flight/createFlight", async (
 
 })
 
-export const updatedFlightAsync = createAsyncThunk("flight/updateFlight", async ({ formData, id, }, { rejectWithValue, getState }) => {
+export const updatedVacationAsync = createAsyncThunk("vacation/updateVacation", async ({ formData, id, }, { rejectWithValue, getState }) => {
   try {
     const state = getState()
 
     const token = state.session.token; // Adjust this path based on your actual state structure
     const role = state.session.user.role; // Adjust this path based on your actual state structure
 
-    const response = await axios.put(`${API_URL}/flights/${id}`, formData,
+    const response = await axios.put(`${API_URL}/vacations/${id}`, formData,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -62,14 +62,14 @@ export const updatedFlightAsync = createAsyncThunk("flight/updateFlight", async 
 
 })
 
-export const deleteFlightAsync = createAsyncThunk("flight/deleteFlight", async (id, { rejectWithValue, getState }) => {
+export const deleteVacationAsync = createAsyncThunk("vacation/deleteVacation", async (id, { rejectWithValue, getState }) => {
   try {
     const state = getState()
 
     const token = state.session.token; // Adjust this path based on your actual state structure
     const role = state.session.user.role; // Adjust this path based on your actual state structure
 
-    const response = await axios.delete(`${API_URL}/flights/${id}`,
+    const response = await axios.delete(`${API_URL}/vacations/${id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

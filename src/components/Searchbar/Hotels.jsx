@@ -3,32 +3,37 @@ import { LuPlaneLanding } from 'react-icons/lu';
 import { BsPerson } from 'react-icons/bs';
 import { FaCalendarAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 import {
   setDestination,
   setCheckInDate,
   setCheckOutDate,
-  setRooms,
-  setaddRoom,
-  setremoveRoom,
   setGuests,
-  setclearAll
+  setClearSearch
 } from "../../Store/Slices/hotelSearchSlice";
+import { fetchSearchHotelAsync } from '../../Store/Slices/fetchSearchSliceAsync';
 
 const Hotels = () => {
   const dispatch = useDispatch();
-  const vacationSearch = useSelector((state) => state.vacationSearch);
+  const hotelSearch = useSelector((state) => state.hotelSearch);
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    dispatch(fetchSearchHotelAsync(hotelSearch))
+  
+  }
+  const [isHotelRoomsShown, setHotelRoomsShown] = useState(false)
   const [hotelRooms, setHotelRooms] = useState([{ adults: 2, children: 0 }]);
   const [result, setResults] = useState("");
-  const [input, setInput] = useState("");
+  // const [input, setInput] = useState("");
 
-  const navigate = useNavigate()
+  // const navigate = useNavigate()
 
   const handleInputChange = (e, index, type) => {
     const { name, value } = e.target;
-    if (type === "room") {
+    if (type === "hotelRoom") {
       const updatedHotelRooms = hotelRooms.map((hotelRoom, i) => i === index ? { ...hotelRoom, [name]: value } : hotelRoom);
-      setRooms(updatedHotelRooms);
+      setHotelRooms(updatedHotelRooms);
       dispatch(setGuests(updatedHotelRooms));
     } else {
       switch (name) {
@@ -43,43 +48,39 @@ const Hotels = () => {
         case 'checkOutDate':
           dispatch(setCheckOutDate(value));
           break;
-
-        case 'rooms':
-          dispatch(setRooms(value));
-          break;
-
-        case 'addRoom':
-          dispatch(setaddRoom(value));
-          break;
-
-        case 'removeRoom':
-          dispatch(setremoveRoom(value));
-          break;
-
-        case 'clearAll':
-          dispatch(setclearAll(value));
-          break;
-
-
         default:
           break;
       }
     }
   };
 
-  const addRoom = () => {
-    setRooms([...hotelRooms, { adults: 2, children: 0 }]);
+  const addHotelRoom = () => {
+    setHotelRooms([...hotelRooms, { adults: 2, children: 0 }]);
+    setHotelRooms(updatedHotelRooms);
+    dispatch(setHotelRooms(updatedHotelRooms));
+    dispatch(setGuests(updatedHotelRooms));
   };
 
-  const removeRoom = (index) => {
+  const removeHotelRoom = (index) => {
     const updatedHotelRooms = hotelRooms.filter((_, i) => i !== index);
-    setRooms(updatedHotelRooms);
+    setHotelRooms(updatedHotelRooms);
+    dispatch(setHotelRooms(updatedHotelRooms));
     dispatch(setGuests(updatedHotelRooms));
+  };
+
+  const handleClearSearch = () => {
+    dispatch(setClearSearch());
+  };
+
+  const handleDone = () => {
+    // Logic to close the popup or save the state
+    setHotelRoomsShown(false)
+    console.log('Done button clicked');
   };
 
   return (
     <div className="bg-blue-50 p-6 rounded-lg shadow-md">
-      <form className="flex justify-between items-center space-x-4">
+      <form onSubmit={handleSubmit} className="flex flex-wrap gap-4 justify-between items-center">
         <div className="flex-1">
           <label className="block text-indigo-900 font-semibold mb-2">Destination</label>
           <div className="flex items-center border border-gray-300 p-2 rounded">
@@ -88,8 +89,8 @@ const Hotels = () => {
               type="text"
               placeholder="city"
               name="destination"
-              value={vacationSearch.destination}
-              onChange={handleInputChange}
+              value={hotelSearch.destination}
+              onChange={(e) => handleInputChange(e, null, "input")}
               className="flex-1 outline-none"
             />
           </div>
@@ -100,36 +101,39 @@ const Hotels = () => {
             <FaCalendarAlt className="text-indigo-900 mr-2" />
             <input
               type="date"
-              name="departureDate"
-              value={vacationSearch.departureDate}
-              onChange={handleInputChange}
+              name="checkInDate"
+              value={hotelSearch.checkInDate}
+              onChange={(e) => handleInputChange(e, null, "input")}
               className="outline-none"
             />
             <span className="mx-2">-</span>
             <input
               type="date"
-              name="returnDate"
-              value={vacationSearch.returnDate}
-              onChange={handleInputChange}
+              name="checkOutDate"
+              value={hotelSearch.checkOutDate}
+              onChange={(e) => handleInputChange(e, null, "input")}
               className="outline-none"
             />
           </div>
         </div>
+
         <div className="flex-1 relative">
           <label className="block text-indigo-900 font-semibold mb-2">Rooms and Guests</label>
-          <div className="flex items-center border border-gray-300 p-2 rounded cursor-pointer">
+          <div onClick={() => setHotelRoomsShown(prev => !prev)} className="flex items-center border border-gray-300 p-2 rounded cursor-pointer">
             <BsPerson className="text-indigo-900 mr-2" />
             <span className="flex-1">{hotelRooms.length} room(s), {hotelRooms.reduce((sum, hotelRoom) => sum + parseInt(hotelRoom.adults), 0)} adults, {hotelRooms.reduce((sum, hotelRoom) => sum + parseInt(hotelRoom.children), 0)} children</span>
           </div>
-          <div className="absolute top-full mt-2 left-0 bg-white border border-gray-300 p-4 rounded shadow-lg z-10">
+          {isHotelRoomsShown && <div className="absolute top-full mt-2 left-0 bg-white border border-gray-300 p-4 rounded shadow-lg z-10">
+
             {hotelRooms.map((hotelRoom, index) => (
               <div key={index} className="mb-4">
                 <div className="flex justify-between items-center mb-2">
                   <span className="text-indigo-900 font-semibold">Room {index + 1}</span>
                   {index > 0 && (
-                    <button type="button" onClick={() => removeRoom(index)} className="text-red-500">Remove</button>
+                    <button type="button" onClick={() => removeHotelRoom(index)} className="text-red-500">Remove</button>
                   )}
                 </div>
+
                 <div className="flex space-x-2">
                   <div className="flex-1">
                     <label className="block text-indigo-900">Adults</label>
@@ -156,19 +160,37 @@ const Hotels = () => {
                 </div>
               </div>
             ))}
-            <button type="button" onClick={addRoom} className="text-blue-500">+ Add room</button>
+            <button type="button" onClick={addHotelRoom} className="text-blue-500">+ Add room</button>
             <div className="flex justify-between mt-4">
-              <button type="button" onClick={() => setRooms([{ adults: 2, children: 0 }])} className="text-blue-500">Clear all</button>
-              <button type="button" onClick={() => {/* Close the popup logic here */ }} className="bg-blue-500 text-white py-2 px-4 rounded">Done</button>
+              <button type="button" onClick={() => setHotelRooms([{ adults: 2, children: 0 }])} className="text-blue-500">Clear all</button>
+              <button type="button" onClick={handleDone} className="bg-blue-500 text-white py-2 px-4 rounded">Done</button>
             </div>
-          </div>
+          </div>}
+
         </div>
-        <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded">
-          Search
-        </button>
+        <div className="flex space-x-2">
+          <button type="submit" className="bg-blue-500 text-white py-2 px-4 rounded">
+            Search
+          </button>
+          <button type="button" onClick={handleClearSearch} className="bg-gray-700 text-white py-2 px-4 rounded">
+            Clear
+          </button>
+        </div>
       </form>
+      {/* Render the result content here */}
+      <div>
+        {!!result.length && result.map((result) => (
+          <div
+            onClick={() => handleResultClick(result)}
+            key={result.origin}
+          >
+            {/* Render result content here */}
+          </div>
+        ))}
+      </div>
     </div>
   );
 };
+
 
 export default Hotels;

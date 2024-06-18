@@ -1,35 +1,63 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { createFlightAsync } from '../../Store/Slices/fetchFlightSliceAsync';
+import { createFlightAsync, updatedFlightAsync, fetchFlightByIdAsync } from '../../Store/Slices/fetchFlightSliceAsync';
 import Loader from '../Loader/Loader';
-import { useNavigate } from 'react-router-dom';
-
-
+import { useNavigate, useParams } from 'react-router-dom';
+import Button from '../Button/Button';
 
 const FlightOfferForm = () => {
-    const dispatch = useDispatch()
-    const navigate = useNavigate()
-    const isLoading = useSelector(state => state.flights.loading)
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const { id } = useParams(); // Get the id from URL parameters
+    const isLoading = useSelector(state => state.flights.loading);
+    const flight = useSelector(state => state.flights.flight);
+    
+
     const [formData, setFormData] = useState({
         type: 'flight',
         origin: '',
-        departure: "",
+        city: '',
         destination: '',
-        destinationCity: "",
-        city: "",
+        destinationCity: '',
         departureDate: '',
         returnDate: '',
-        capacities: "",
         price: '',
         flightDates: '',
         flightOffers: '',
         currencies: 'EU, USD',
         duration: '',
         detailedName: '',
+        capacities: 250,
         subType: '',
         nonStop: '',
-        oneWay: ''
+        oneWay: 'false',
+        time: {
+            depart: '18:00',
+            arrive: '06:00'
+        },
+        returnTime: {
+            depart: "12:00",
+            arrive: "15:20"
+        },
+        summary: {
+            nights: 14,
+            pricePerPerson: 550,
+            totalPrice: 1100
+        },
+
     });
+
+    useEffect(() => {
+        if (id) {
+            dispatch(fetchFlightByIdAsync(id));
+        }
+    }, [id, dispatch]);
+
+    useEffect(() => {
+        if (flight) {
+            setFormData(prev => ({ ...prev, ...flight }));
+        }
+    }, [flight]);
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -39,48 +67,82 @@ const FlightOfferForm = () => {
         });
     };
 
+    const clearForm = ()=>{
+        setFormData({
+            type: 'flight',
+            origin: '',
+            city: '',
+            destination: '',
+            destinationCity: '',
+            departureDate: '',
+            returnDate: '',
+            price: '',
+            flightDates: '',
+            flightOffers: '',
+            currencies: 'EU, USD',
+            duration: '',
+            detailedName: '',
+            capacities: 250,
+            subType: '',
+            nonStop: '',
+            oneWay: 'false',
+            time: {
+                depart: '18:00',
+                arrive: '06:00'
+            },
+            returnTime: {
+                depart: "12:00",
+                arrive: "15:20"
+            },
+            summary: {
+                nights: 14,
+                pricePerPerson: 550,
+                totalPrice: 1100
+            },
+
+        });
+    }
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         formData.flightDates = `${formData.departureDate} to ${formData.returnDate}`; // Automatically set flightDates
         try {
+            dispatch(createFlightAsync(formData));
+            clearForm()
+            navigate(`/flights`);
 
-            const flight = dispatch(createFlightAsync(formData))
-            if(flight){
-                navigate("/flights")
-            }
+
+
             // Reset the form
-            setFormData({
-                type: 'flight',
-                origin: '',
-                departure: "",
-                destination: '',
-                departureDate: '',
-                destinationCity: "",
-                city: "",
-                returnDate: '',
-                price: '',
-                flightDates: '',
-                flightOffers: '',
-                currencies: 'EU, USD',
-                capacities: "",
-                duration: '',
-                detailedName: '',
-                subType: '',
-                nonStop: '',
-                oneWay: ''
-            });
+           
         } catch (err) {
             console.error('Error creating flight offer:', err);
         }
-
     };
+
+    const handleUpdated = async (e) => {
+        e.preventDefault();
+        formData.flightDates = `${formData.departureDate} to ${formData.returnDate}`; // Automatically set flightDates
+        try {
+            const updatedFlight = dispatch(updatedFlightAsync({ formData, id: flight._id }));
+            if (updatedFlight) {
+                clearForm()
+                navigate(`/flights/${flight._id}`);
+            }
+            // Reset the form
+           
+        } catch (err) {
+            console.error('Error updating flight offer:', err);
+        }
+    };
+
     if (isLoading) {
-        return <Loader />
+        return <Loader />;
     }
 
     return (
-        <form onSubmit={handleSubmit} className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
-            <h2 className="text-2xl font-bold mb-4">Create Flight Offer</h2>
+        <form onSubmit={flight ? handleUpdated : handleSubmit} className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
+            <h2 className="text-2xl font-bold mb-4">{flight ? 'Update Flight Offer' : 'Create Flight Offer'}</h2>
             <div className="mb-4">
                 <label className="block text-gray-700 mb-2" htmlFor="origin">Origin</label>
                 <input className="w-full p-2 border border-gray-300 rounded" type="text" id="origin" name="origin" placeholder="Origin" value={formData.origin} onChange={handleChange} required />
@@ -99,7 +161,7 @@ const FlightOfferForm = () => {
             </div>
             <div className="mb-4">
                 <label className="block text-gray-700 mb-2" htmlFor="city">City</label>
-                <input className="w-full p-2 border border-gray-300 rounded" type="text" id="city" name="city" placeholder="city" value={formData.city} onChange={handleChange} required />
+                <input className="w-full p-2 border border-gray-300 rounded" type="text" id="city" name="city" placeholder="City" value={formData.city} onChange={handleChange} required />
             </div>
             <div className="mb-4">
                 <label className="block text-gray-700 mb-2" htmlFor="departureDate">Departure Date</label>
@@ -145,9 +207,14 @@ const FlightOfferForm = () => {
                     <option value="false">No</option>
                 </select>
             </div>
-            <button className="bg-blue-500 text-white p-2 rounded" type="submit">Create Flight Offer</button>
+            
+            {!flight && <Button id="createFlight" />}
+            {flight && <Button id="updatedFlight" />}
+            <Button id="clearFlight" onClick={clearForm}/>
+            
         </form>
     );
 };
 
 export default FlightOfferForm;
+
