@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LuPlaneTakeoff, LuPlaneLanding } from 'react-icons/lu';
 import { BsPerson } from 'react-icons/bs';
-import { setDeparture, setDestination, setDepartureDate, setReturnDate, setGuests, setClearSearch } from "../../Store/Slices/vacationSearchSlice"
+import { setDeparture, setDestination, setDepartureDate, setDuration, setReturnDate, setGuests, setClearSearch } from "../../Store/Slices/vacationSearchSlice"
 import { fetchSearchVacationAsync } from '../../Store/Slices/fetchSearchSliceAsync';
 
 
@@ -66,7 +66,7 @@ const handleResultClick = (result) => {
 
   return (
     <>
-      <label className="text-xl font-bold mb-4">Find your Vacation</label>
+    
       <form onSubmit={handelSubmit} className="flex flex-wrap gap-4 justify-between">
         <div className="flex flex-col">
           <label className="flex text-indigo-900 gap-2 items-center">
@@ -123,11 +123,11 @@ const handleResultClick = (result) => {
             className="border border-gray-300 p-2 rounded"
           >
             <option value="">Select duration</option>
-            <option value="3">3 days</option>
-            <option value="5">5 days</option>
-            <option value="7">7 days</option>
-            <option value="10">10 days</option>
-            <option value="14">14 days</option>
+            <option value="3">3 nights</option>
+            <option value="5">5 nights</option>
+            <option value="7">7 nights</option>
+            <option value="10">10 nights</option>
+            <option value="14">14 nights</option>
           </select>
         </div>
         <div className="flex flex-col">

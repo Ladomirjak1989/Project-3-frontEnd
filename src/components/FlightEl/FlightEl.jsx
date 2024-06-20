@@ -37,7 +37,7 @@ function FlightEl({ flight }) {
 
                     </div>
                     <div>
-                        <p className="block text-gray-800 font-semibold">Price:</p> <p>${flight.price}</p></div>
+                        <p className="block text-gray-800 font-semibold">Price:</p> <p>€{flight.price}</p></div>
                 </div>
                 <div className="mt-2 flex space-x-5 col-span-5">
                     <Link to={`/flights/${flight._id}`} className="text-blue-500 hover:underline">Show more...</Link>

@@ -1,7 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { fetchSearchVacationAsync } from './fetchSearchSliceAsync';
 
 
 const initialState = {
+  vacations:{},
   departure: '',
   destination: '',
   departureDate: '',
@@ -40,8 +42,27 @@ const vacationSearchSlice = createSlice({
       return initialState;
     }
   },
+  extraReducers: (builder) => {
+    builder.addCase(fetchSearchVacationAsync.pending, (state) => {
+        state.loading = true
+        state.error = null
+    })
+    builder.addCase(fetchSearchVacationAsync.fulfilled, (state, action) => {
+        state.loading = false
+        const vacations = action.payload.reduce((acc, cur) => {
+            acc[cur._id] = cur
+            return acc
+        }, {})
+        state.vacations = vacations
+    })
+    builder.addCase(fetchSearchVacationAsync.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
+    })
+  }
 });
 
-export const { setDeparture, setDestination, setDepartureDate, setReturnDate, setGuests, setClearSearch } = vacationSearchSlice.actions;
+
+export const { setDeparture, setDestination, setDepartureDate, setDuration, setReturnDate, setGuests, setClearSearch } = vacationSearchSlice.actions;
 
 export default vacationSearchSlice.reducer;

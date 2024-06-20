@@ -21,6 +21,8 @@ import CreateFlightPage from "../Pages/CreateFlightPage/CreateFlightPage";
 import VacationPage from "../Pages/VacationPage/VacationPage";
 import UpdatedFlightPage from "../Pages/UpdatedFlightPage/UpdatedFlightPage";
 import VacationDetails from "../Pages/VacationDetails/VacationDetails";
+import CreateVacationPage from "../Pages/CreateVacationPage/CreateVacationPage";
+import UpdatedVacationPage from "../Pages/UpDateVacation/UpDateVacation";
 
 
 const router = createBrowserRouter([
@@ -48,6 +50,7 @@ const router = createBrowserRouter([
             { path: "/vacations", element: <VacationPage /> },
             { path: "/vacations/:id", element: <VacationDetails /> },
 
+
             {
                 element: <PrivateRouter />,
                 children: [
@@ -59,6 +62,9 @@ const router = createBrowserRouter([
                 children: [
                     { path: "/flights/flight-new", element: <CreateFlightPage /> },
                     { path: "/flights/flight-updated/:id", element: <UpdatedFlightPage /> },
+                    
+                    { path: "/vacations/vacation-new", element: <CreateVacationPage /> },
+                    { path: "/vacations/vacation-updated/:id", element: <UpdatedVacationPage /> },
             
                 ]
             },

@@ -10,7 +10,7 @@ const SortList = () => {
     const vacation = useSelector(state => Object.values(state.vacations.vacations))
 
     const sortOption = useSelector(state => state.sort.params);
-    console.log(sortOption)
+    
 
 
 

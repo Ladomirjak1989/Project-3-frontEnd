@@ -208,9 +208,9 @@ const FlightOfferForm = () => {
                 </select>
             </div>
             
-            {!flight && <Button id="createFlight" />}
-            {flight && <Button id="updatedFlight" />}
-            <Button id="clearFlight" onClick={clearForm}/>
+            {!flight && <Button id="create" />}
+            {flight && <Button id="updated" />}
+            <Button id="clear" onClick={clearForm}/>
             
         </form>
     );

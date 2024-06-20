@@ -3,26 +3,26 @@ import React from 'react'
 const Button = ({ id, onClick }) => {
     const config = {
         book: {
-            className: "inline-block px-4 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300",
+            className: "flex justify-end inline-block px-6 py-2 bg-blue-500 text-white font-semibold rounded-lg shadow-md hover:bg-blue-700 transition duration-300",
             type: "button",
             text: "Book",
         },
-        updatedFlight: {
+        updated: {
             className: "text-blue-500 hover:underline",
             type: "submit",
             text: "Updated",
         },
-        createFlight: {
+        create: {
             className: "bg-blue-500 text-white p-2 rounded",
             type: "submit",
             text: "Create",
         },
-        clearFlight: {
-            className: " bg-grey-500 text-white p-2 rounded",
+        clear: {
+            className: "  bg-gray-700 text-white p-2 px-6 m-4 rounded",
             text: "Clear",
             type: "button",
         },
-        deleteFlight: {
+        delete: {
             className: "text-red-500 hover:underline",
             text: "Delete",
             type: "button",
@@ -33,13 +33,14 @@ const Button = ({ id, onClick }) => {
             type: "button",
         },
         continue: {
-            className: "inline-block mt-4 text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-lg",
+            className: "flex justify-end inline-block mt-4 text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-lg",
             text: "Continue",
             type: "button",
         },
     };
 
     const buttonConfig = config[id];
+   
 
     if (!buttonConfig) {
         return null; // Or render a default button or an error message

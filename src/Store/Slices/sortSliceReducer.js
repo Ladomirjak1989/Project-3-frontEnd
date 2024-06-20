@@ -7,7 +7,9 @@ const sortSlice = createSlice({
   name: 'sort',
   initialState,
   reducers: {
-    setSortOption: (state, action) => state.params = action.payload,
+    setSortOption: (state, action) => {
+     
+      state.params = action.payload},
 
   },
 });

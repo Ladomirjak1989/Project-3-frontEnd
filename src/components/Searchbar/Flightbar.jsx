@@ -5,14 +5,13 @@ import { LuPlaneTakeoff } from "react-icons/lu";
 import { LuPlaneLanding } from "react-icons/lu";
 import { BsPerson } from "react-icons/bs";
 import { setFlyFrom, setFlyTo, setDeparting, setReturning, setPassengers, setTripType, setClearSearch } from '../../Store/Slices/flightSearchSlice';
-// import { useNavigate } from 'react-router-dom';
 import { fetchSearchFlightAsync } from '../../Store/Slices/fetchSearchSliceAsync';
 
 
 const Flightbar = () => {
-    // const [flights, setFlights] = useState([])
+   
     const [result, setResults] = useState("");
-    // const [input, setInput] = useState("");
+   
  
     const dispatch = useDispatch();
     const flightSearch = useSelector((state) => state.flightSearch);
@@ -56,8 +55,6 @@ const Flightbar = () => {
             default:
                 break;
         }
-
-        // navigate(`/flights`)
     };
 
     const handleClearSearch = () => {

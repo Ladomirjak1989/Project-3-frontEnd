@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteVacationAsync } from '../../Store/Slices/fetchVacationSliceAsync';
 import { setPopUp } from '../../Store/Slices/popUpSliceReducer';
 import RatingStars from '../../components/RatingStars/RatingStars';
-import Button from '../Button/Button';
+import { Link } from 'react-router-dom';
 
 
 
@@ -22,14 +22,7 @@ function VacationEl({ _id, destination, images, accommodation, duration, price, 
         }
     };
 
-    if (!destination) {
-        return <h2>Loading...</h2>;
-    }
 
-    // Generate a random integer between min (inclusive) and max (inclusive)
-    function getRandomInt() {
-        return Math.floor(Math.random() * (30 - 5 + 1)) + 5;
-    }
 
     return (
         <li className='bg-gray-100 p-4'>
@@ -51,7 +44,7 @@ function VacationEl({ _id, destination, images, accommodation, duration, price, 
                         <p className="text-sm text-gray-900 font-bold">{accommodation.type}</p>
                         <a href="#" className="text-blue-500 hover:underline">View in Map</a>
                         <div className="flex items-center mt-2">
-                            
+
                             <RatingStars vacation={_id} rating={accommodation.rating} />
                             <span className="ml-2 text-gray-500">{reviews} Reviews</span>
                         </div>
@@ -68,18 +61,25 @@ function VacationEl({ _id, destination, images, accommodation, duration, price, 
                             <div className="text-gray-500 ml-2"> per person</div>
                         </div>
                         <p className="text-red-600">Includes £89pp online discount</p>
-                        <div className=''>
-                        <Button id="continue" />
+                        <div className='flex space-x-5 col-span-5'>
+                            <Link className='inline-block mt-4 text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-lg' to={`/vacations/${_id}`}>Continue</Link>
+                             {user?.role === "admin" && (
+                                <>
+                                    <Link to={`/vacations/vacation-updated/${_id}`} className="inline-block mt-4 text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-lg hover:underline">Edit</Link>
+                                    <button onClick={() => handleDeleteVacation(_id)} className="inline-block mt-4 text-white bg-red-500 hover:bg-red-700 px-4 py-2 rounded-lg hover:underline">Delete</button>
+                                </>
+                            )}
+                           
                         </div>
                     </div>
                 </div>
             </div>
         </li>
-       
+
     );
 
 
-   
+
 
 }
 

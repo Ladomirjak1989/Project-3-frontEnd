@@ -7,7 +7,7 @@ const vacationSlice = createSlice({
     initialState: {
         vacations: {},
         vacation: null,
-        loading: false,
+        loading: true,
         error: null
     },
     reducers: {
