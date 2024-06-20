@@ -20,6 +20,7 @@ import FlightDetails from "../Pages/FlightDetails/FlightDetails";
 import CreateFlightPage from "../Pages/CreateFlightPage/CreateFlightPage";
 import VacationPage from "../Pages/VacationPage/VacationPage";
 import UpdatedFlightPage from "../Pages/UpdatedFlightPage/UpdatedFlightPage";
+import VacationDetails from "../Pages/VacationDetails/VacationDetails";
 
 
 const router = createBrowserRouter([
@@ -45,7 +46,7 @@ const router = createBrowserRouter([
             { path: "/hotels", element: <HotelsPage /> },
             { path: "/flights/:id", element: <FlightDetails /> },
             { path: "/vacations", element: <VacationPage /> },
-            // { path: "/vacations/:id", element: <VacationPage /> },
+            { path: "/vacations/:id", element: <VacationDetails /> },
 
             {
                 element: <PrivateRouter />,

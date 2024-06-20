@@ -7,6 +7,9 @@ import vacationSearchReducer from './Slices/vacationSearchSlice';
 import hotelSearchSlice from "./Slices/hotelSearchSlice";
 import popUpSliceReducer from "./Slices/popUpSliceReducer";
 import cruiseSearchSlice from "./Slices/cruiseSearchSlice";
+import vacationSliceReducer from "./Slices/vacationSliceReducer";
+import ratingSliceReducer from "./Slices/ratingSliceReducer";
+import sortSliceReducer from "./Slices/sortSliceReducer";
 
 
 const Store = configureStore({
@@ -18,6 +21,11 @@ const Store = configureStore({
         hotelSearch: hotelSearchSlice,
         cruiseSearch: cruiseSearchSlice,
         popUp: popUpSliceReducer,
+        vacations: vacationSliceReducer,
+        ratings: ratingSliceReducer,
+        sort: sortSliceReducer,
+
+
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger)
 })

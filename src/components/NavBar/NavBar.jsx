@@ -51,14 +51,17 @@ const navBarConfig = [{
 }]
 
 const Navbar = () => {
+  
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const token = useSelector(state => state.session.token)
   const user = useSelector(state => state.session.user)
   const [isPopUpOpen, setPopUpOpen] = useState(false)
   const onLogOut = () => {
+    
     localStorage.removeItem("token")
     localStorage.removeItem("user")
+
     dispatch(logout())
     navigate("/")
   }

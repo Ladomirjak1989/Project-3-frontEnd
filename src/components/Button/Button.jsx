@@ -31,7 +31,12 @@ const Button = ({ id, onClick }) => {
             className: " bg-blue-500 text-white p-2 rounded",
             text: "Search",
             type: "button",
-        }
+        },
+        continue: {
+            className: "inline-block mt-4 text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-lg",
+            text: "Continue",
+            type: "button",
+        },
     };
 
     const buttonConfig = config[id];

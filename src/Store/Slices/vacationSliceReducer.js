@@ -1,17 +1,23 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchVacationAsync, createVacationAsync, fetchVacationByIdAsync, updatedVacationAsync, deleteVacationAsync  } from "./fetchVacationSliceAsync";
+import { fetchVacationAsync, createVacationAsync, fetchVacationByIdAsync, updatedVacationAsync, deleteVacationAsync } from "./fetchVacationSliceAsync";
 
 
-const VacationSlice = createSlice({
+const vacationSlice = createSlice({
     name: "vacation",
     initialState: {
-        Vacations: {},
-        Vacation: null,
+        vacations: {},
+        vacation: null,
         loading: false,
         error: null
     },
     reducers: {
-
+        setSorted: (state, action) => {
+            const vacation = action.payload.reduce((acc, cur) => {
+                acc[cur._id] = cur
+                return acc
+            }, {})
+            state.vacations = vacation
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(fetchVacationAsync.pending, (state) => {
@@ -20,11 +26,13 @@ const VacationSlice = createSlice({
         })
         builder.addCase(fetchVacationAsync.fulfilled, (state, action) => {
             state.loading = false
-            const Vacation = action.payload.reduce((acc, cur) => {
-                acc[cur._id] = cur
+            const vacation = action.payload.reduce((acc, cur) => {
+                const reviews = Math.floor(Math.random() * 10000)
+                const object = { ...cur, reviews }
+                acc[cur._id] = object
                 return acc
             }, {})
-            state.Vacations = Vacation
+            state.vacations = vacation
         })
         builder.addCase(fetchVacationAsync.rejected, (state, action) => {
             state.loading = false
@@ -39,12 +47,12 @@ const VacationSlice = createSlice({
         })
         builder.addCase(createVacationAsync.fulfilled, (state, action) => {
             state.loading = false
-            state.Vacations[action.payload._id] = action.payload
+            state.vacations[action.payload._id] = action.payload
         })
         builder.addCase(createVacationAsync.rejected, (state, action) => {
             state.loading = false
             state.error = action.payload
-            // state.error = action.error.message;
+
         })
 
 
@@ -55,47 +63,45 @@ const VacationSlice = createSlice({
         })
         builder.addCase(fetchVacationByIdAsync.fulfilled, (state, action) => {
             state.loading = false
-            state.Vacation = action.payload
+            state.vacation = action.payload
         })
         builder.addCase(fetchVacationByIdAsync.rejected, (state, action) => {
             state.loading = false
             state.error = action.payload
         })
 
-        
-        .addCase(updatedVacationAsync.pending, (state) => {
-            state.loading = true;
-        })
-        .addCase(updatedVacationAsync.fulfilled, (state, action) => {
-            state.loading = false;
-            state.Vacation = null
-            state.Vacations[action.payload._id] = action.payload
-            // const index = state.Vacations.findIndex(Vacation => Vacation._id === action.payload._id);
-            // if (index !== -1) {
-            //     state.Vacations[index] = action.payload;
-            // }
-        })
-        .addCase(updatedVacationAsync.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.error.message;
-        })
 
-        
-        .addCase(deleteVacationAsync.pending, (state) => {
-            state.loading = true;
-        })
-        .addCase(deleteVacationAsync.fulfilled, (state, action) => {
-            state.loading = false;
-            delete state.Vacations[action.payload]
+            .addCase(updatedVacationAsync.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(updatedVacationAsync.fulfilled, (state, action) => {
+                state.loading = false;
+                state.vacation = null
+                state.vacations[action.payload._id] = action.payload
 
-            // state.Vacations = state.Vacations.filter(Vacation => Vacation._id !== action.payload);
-        })
-        .addCase(deleteVacationAsync.rejected, (state, action) => {
-            state.loading = false;
-            state.error = action.error.message;
-        });
+            })
+            .addCase(updatedVacationAsync.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            })
+
+
+            .addCase(deleteVacationAsync.pending, (state) => {
+                state.loading = true;
+            })
+            .addCase(deleteVacationAsync.fulfilled, (state, action) => {
+                state.loading = false;
+                delete state.vacations[action.payload]
+
+
+            })
+            .addCase(deleteVacationAsync.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message;
+            });
 
     }
 })
+export const { setSorted } = vacationSlice.actions;
 
-export default VacationSlice.reducer;
+export default vacationSlice.reducer;

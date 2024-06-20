@@ -2,6 +2,7 @@ import { createAsyncThunk, } from "@reduxjs/toolkit";
 import axios from 'axios'
 import { API_URL } from "../../utils/variables";
 
+
 export const fetchFlightAsync = createAsyncThunk("flight/fetchFlight", async (_, { rejectWithValue }) => {
   try {
     const response = await axios.get(`${API_URL}/flights`)

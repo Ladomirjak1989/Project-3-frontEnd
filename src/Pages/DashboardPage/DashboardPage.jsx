@@ -39,6 +39,8 @@ const DashboardPage = () => {
     }
 
     return (
+        <main className='mt-5 '>
+        <div className='mx-auto my-0 max-w-5xl'>
         <div className='bg-slate-50'>
             <div className="border-dotted bg-white border-2 border-blue-900 p-4  rounded-lg">
                 <p className="text-center text-blue-800">
@@ -48,7 +50,6 @@ const DashboardPage = () => {
             <div>
                 <h3 className="text-xl font-semibold mb-2">Alternative Flight</h3>
             </div>
-            <h1></h1>
             <div className='relative'>
                 <ul className='flex flex-col items-center gap-5'>
 
@@ -65,6 +66,8 @@ const DashboardPage = () => {
                 {popUp && <PopUpMessage/>}
             </div>
         </div>
+        </div>
+        </main>
     );
 };
 

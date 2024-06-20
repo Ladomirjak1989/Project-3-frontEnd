@@ -5,7 +5,9 @@ import FlightOfferForm from '../../components/FlightOfferForms/FlightOfferForms'
 const CreateFlightPage = () => {
   return (
 
-    <div><FlightOfferForm/></div>
+    <main>
+    <div className='mx-auto my-0 max-w-5xl'><FlightOfferForm/></div>
+    </main>
   )
 }
 

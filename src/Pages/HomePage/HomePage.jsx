@@ -50,6 +50,7 @@ const HomePage = () => {
   ]
 
   return (
+    <div className='mx-auto my-0 max-w-5xl'>
     <div className="container mx-auto py-8">
       <div class=" py-4 sm:px-8 lg:px-12">
         <h2 class="text-3xl font-bold text-gray-900 mb-4">Find the holiday that suits you...</h2>
@@ -72,6 +73,7 @@ const HomePage = () => {
           ))}
         </ul>
       </div>
+    </div>
     </div>
   );
 };

@@ -10,7 +10,6 @@ const popUpSlice = createSlice({
   initialState,
   reducers: {
     setPopUp(state, action) {
-      console.log(action.payload,123)
       state.popUp = action.payload;
  }
     }

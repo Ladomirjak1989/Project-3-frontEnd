@@ -11,6 +11,7 @@ export const fetchVacationAsync = createAsyncThunk("vacation/fetchVacation", asy
 
 })
 
+
 export const fetchVacationByIdAsync = createAsyncThunk("vacation/fetchVacationById", async (id, { rejectWithValue }) => {
   try {
     const response = await axios.get(`${API_URL}/vacations/${id}`)
