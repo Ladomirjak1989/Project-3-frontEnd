@@ -15,7 +15,6 @@ import CityDetailsPage from "../Pages/CityDetailsPage/CityDetailsPage";
 import CruisesPage from "../Pages/CruisesPage/CruisesPage";
 import HotelsPage from "../Pages/HotelsPage/HotelsPage";
 import AdminRouter from "./AdminRouter";
-import Searchbar from "../components/Searchbar/Searchbar";
 import FlightDetails from "../Pages/FlightDetails/FlightDetails";
 import CreateFlightPage from "../Pages/CreateFlightPage/CreateFlightPage";
 import VacationPage from "../Pages/VacationPage/VacationPage";
@@ -25,12 +24,13 @@ import CreateVacationPage from "../Pages/CreateVacationPage/CreateVacationPage";
 import UpdatedVacationPage from "../Pages/UpDateVacation/UpDateVacation";
 
 
+
 const router = createBrowserRouter([
 
     {
         element: (
             <><Header />
-            <Searchbar/>
+            
                 <Outlet />
                 <Footer />
             </>
@@ -49,6 +49,8 @@ const router = createBrowserRouter([
             { path: "/flights/:id", element: <FlightDetails /> },
             { path: "/vacations", element: <VacationPage /> },
             { path: "/vacations/:id", element: <VacationDetails /> },
+            
+            
 
 
             {
@@ -74,3 +76,8 @@ const router = createBrowserRouter([
 ])
 
 export default router
+
+
+
+
+

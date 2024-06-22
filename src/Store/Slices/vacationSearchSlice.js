@@ -50,7 +50,9 @@ const vacationSearchSlice = createSlice({
     builder.addCase(fetchSearchVacationAsync.fulfilled, (state, action) => {
         state.loading = false
         const vacations = action.payload.reduce((acc, cur) => {
-            acc[cur._id] = cur
+          const randomReviews = Math.floor(Math.random() * 10000)
+          const object = { ...cur, randomReviews }
+          acc[cur._id] = object
             return acc
         }, {})
         state.vacations = vacations

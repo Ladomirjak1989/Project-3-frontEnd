@@ -18,7 +18,7 @@ const VacationOfferForm = () => {
         duration: "",
         destination: '',
         price: 0,
-        currency:"",
+        currency: "",
         description: '',
         name: "",
         type: "",
@@ -36,7 +36,7 @@ const VacationOfferForm = () => {
     }, [id, dispatch]);
 
     useEffect(() => {
-        if (vacation) {
+        if (vacation && vacation.duration) {
             const data = {
                 duration: vacation.duration.split(" ")[0],
                 destination: vacation.destination,
@@ -49,7 +49,7 @@ const VacationOfferForm = () => {
                 amenities: vacation.accommodation.amenities.join(", "),
                 activities: vacation.activities.join(", "),
                 images: vacation.images.join(", "),
-        
+
             }
             setFormData(prev => ({ ...prev, ...data }));
         }
@@ -66,7 +66,7 @@ const VacationOfferForm = () => {
             accommodation: {
                 name: formData.name,
                 type: formData.type,
-                rating: vacation?vacation.accommodation.rating: 0.00,
+                rating: vacation ? vacation.accommodation.rating : 0.00,
                 address: formData.address,
                 amenities: formData.amenities.split(", ")
             },
@@ -76,7 +76,7 @@ const VacationOfferForm = () => {
 
             images:
                 formData.images.split(", "),
-            reviews: vacation?vacation.reviews:[]
+            reviews: vacation ? vacation.reviews : []
         })
     }
 
@@ -94,7 +94,7 @@ const VacationOfferForm = () => {
             duration: "",
             destination: '',
             price: 0,
-            currency:"",
+            currency: "",
             description: '',
             name: "",
             type: "",
@@ -127,7 +127,7 @@ const VacationOfferForm = () => {
         e.preventDefault();
         try {
             const data = formatData(formData)
-            console.log(data)
+
             const updatedVacation = dispatch(updatedVacationAsync({ formData: data, id: vacation._id }));
             if (updatedVacation) {
                 clearForm()
@@ -145,8 +145,8 @@ const VacationOfferForm = () => {
     }
 
     return (
-        <form onSubmit={vacation ? handleUpdated : handleSubmit} className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
-            <h2 className="text-2xl font-bold mb-4">{vacation ? 'Update Vacation Offer' : 'Create Vacation Offer'}</h2>
+        <form onSubmit={vacation.duration ? handleUpdated : handleSubmit} className="max-w-lg mx-auto bg-white p-6 rounded-lg shadow-lg">
+            <h2 className="text-2xl font-bold mb-4">{vacation.duration ? 'Update Vacation Offer' : 'Create Vacation Offer'}</h2>
 
             <div className="mb-4">
                 <label className="block text-gray-700 mb-2" htmlFor="destination">Destination</label>
@@ -207,8 +207,8 @@ const VacationOfferForm = () => {
             </div>
 
 
-            {!vacation && <Button id="create" />}
-            {vacation && <Button id="updated" />}
+            {!vacation.duration && <Button id="create" />}
+            {vacation.duration && <Button id="updated" />}
             <Button id="clear" onClick={clearForm} />
 
         </form>

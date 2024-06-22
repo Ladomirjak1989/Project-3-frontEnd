@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom';
 
 
 
-function VacationEl({ _id, destination, images, accommodation, duration, price, currency, reviews }) {
+function VacationEl({ _id, destination, images, accommodation, duration, price, currency, randomReviews }) {
     const user = useSelector(state => state.session.user);
     const dispatch = useDispatch();
 
@@ -46,7 +46,7 @@ function VacationEl({ _id, destination, images, accommodation, duration, price, 
                         <div className="flex items-center mt-2">
 
                             <RatingStars vacation={_id} rating={accommodation.rating} />
-                            <span className="ml-2 text-gray-500">{reviews} Reviews</span>
+                            <span className="ml-2 text-gray-500">{randomReviews} Reviews</span>
                         </div>
                         <p className="mt-2">
                             <span className="font-bold">Sat 22 Jun 2024 - {duration}</span> <a href="#" className="text-blue-500 hover:underline">See other dates & prices</a>

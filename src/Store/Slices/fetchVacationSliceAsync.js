@@ -83,3 +83,15 @@ export const deleteVacationAsync = createAsyncThunk("vacation/deleteVacation", a
 
 
 })
+
+
+
+export const fetchVacationDealsAsync = createAsyncThunk("vacation/fetchVacationDeals", async (params, { rejectWithValue }) => {
+  try {
+    const response = await axios.get(`${API_URL}/vacations/deals`,{params})
+    return response.data
+  } catch (e) { return rejectWithValue(e.response.data.message); }
+
+
+})
+

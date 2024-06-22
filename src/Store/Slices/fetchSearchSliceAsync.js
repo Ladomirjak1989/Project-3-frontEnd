@@ -17,7 +17,6 @@ export const fetchSearchVacationAsync = createAsyncThunk("search/fetchVacation",
     try {
         
         const response = await axios.get(`${API_URL}/vacations`, {params})
-        console.log(response.data)
       
         return response.data
     } catch (e) { return rejectWithValue(e.response.data.message); }

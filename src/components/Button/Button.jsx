@@ -8,7 +8,7 @@ const Button = ({ id, onClick }) => {
             text: "Book",
         },
         updated: {
-            className: "text-blue-500 hover:underline",
+            className: "bg-blue-500 text-white p-2 rounded",
             type: "submit",
             text: "Updated",
         },

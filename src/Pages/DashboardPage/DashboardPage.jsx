@@ -12,6 +12,8 @@ import { FaRegClock } from "react-icons/fa";
 import { FaRegStar } from "react-icons/fa";
 import { LuBaggageClaim } from "react-icons/lu";
 import { Link } from 'react-router-dom';
+import VacationDeals from '../../components/VacationDeals/VacationDeals';
+import Searchbar from '../../components/Searchbar/Searchbar';
 
 
 
@@ -23,8 +25,7 @@ const DashboardPage = () => {
     const flights = useSelector(state => Object.values(state.flights.flights))
     const flightSearch = useSelector(state => Object.values(state.flightSearch.flights))
     const popUp = useSelector(state => state.popUp.popUp)
-    const deals = useSelector(state => state.flightDeals.deals);
-
+   
 
     const dispatch = useDispatch()
 
@@ -48,6 +49,8 @@ const DashboardPage = () => {
     }
 
     return (
+        <>
+        {user?.role !== "admin" && <Searchbar />}
         <main className='mt-5'>
             <div className='mx-auto my-0 max-w-5xl'>
 
@@ -72,11 +75,15 @@ const DashboardPage = () => {
 
                             ))}
                         </ul>
-                        {!flightSearch.length && user?.role !== "admin" && <h2>No flights</h2>}
+                        {!flightSearch.length && user?.role !== "admin" && <h2 className='font-semibold'>Search for your flight above🡹</h2>}
                         {popUp && <PopUpMessage />}
                     </div>
                 </div>
             </div>
+
+
+<VacationDeals count={10}/>
+
 
 
 
@@ -138,11 +145,8 @@ const DashboardPage = () => {
                     </div>
                     <div className="flex flex-col items-center justify-center">
                         <SiGlobus className='text-6xl mb-2 text-blue-900' />
-                        <h3 className="font-bold text-xl text-blue-900">70+ destinations</h3>
-
-                        <Link to={`/flights`} className="text-blue-500 underline">
-                            Where we fly to
-                        </Link>
+                        <h3 className="font-bold text-xl text-blue-900">20 + destinations</h3>
+                        <p className="text-gray-500">We've most popular flight destinations to suit you.</p>
 
                     </div>
                     <div className="flex flex-col items-center justify-center">
@@ -165,6 +169,7 @@ const DashboardPage = () => {
 
 
         </main>
+        </>
     );
 };
 

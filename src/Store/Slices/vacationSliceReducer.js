@@ -6,8 +6,8 @@ const vacationSlice = createSlice({
     name: "vacation",
     initialState: {
         vacations: {},
-        vacation: null,
-        loading: true,
+        vacation: {},
+        loading: false,
         error: null
     },
     reducers: {
@@ -27,8 +27,8 @@ const vacationSlice = createSlice({
         builder.addCase(fetchVacationAsync.fulfilled, (state, action) => {
             state.loading = false
             const vacation = action.payload.reduce((acc, cur) => {
-                const reviews = Math.floor(Math.random() * 10000)
-                const object = { ...cur, reviews }
+                const randomReviews = Math.floor(Math.random() * 10000)
+                const object = { ...cur, randomReviews }
                 acc[cur._id] = object
                 return acc
             }, {})

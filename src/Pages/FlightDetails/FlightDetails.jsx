@@ -4,12 +4,15 @@ import axios from "axios";
 import { API_URL } from '../../utils/variables';
 import Button from '../../components/Button/Button';
 import Loader from '../../components/Loader/Loader';
+import { useSelector } from 'react-redux';
+import Searchbar from '../../components/Searchbar/Searchbar';
 
 
 const FlightDetails = () => {
     const { id } = useParams()
     const [isLoading, setIsLoading] = useState(false)
     const [flight, setFlights] = useState({})
+    
 
     useEffect(() => {
         (async function () {
@@ -51,7 +54,11 @@ const FlightDetails = () => {
     } = flight;
 
     return (
+<>
+
         <div className='mx-auto mt-5 my-0 max-w-5xl'>
+
+            
             <h2 className='text-xl font-semibold mb-2 p-3 underline'>Here is your detailed information about your selected flight! 😃</h2>
         <div className="max-w-4xl mx-auto p-6 bg-white rounded-lg shadow-md mt-6">
             <div className="flex justify-between items-center mb-6">
@@ -104,6 +111,7 @@ const FlightDetails = () => {
             </div>
         </div>
         </div>
+        </>
     );
 }
 

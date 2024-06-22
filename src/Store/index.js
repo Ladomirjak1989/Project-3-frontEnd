@@ -10,7 +10,8 @@ import cruiseSearchSlice from "./Slices/cruiseSearchSlice";
 import vacationSliceReducer from "./Slices/vacationSliceReducer";
 import ratingSliceReducer from "./Slices/ratingSliceReducer";
 import sortSliceReducer from "./Slices/sortSliceReducer";
-import FlightDealsSliceReducer from "./Slices/FlightDealsSliceReducer";
+import vacationDealsSliceReducer from "./Slices/vacationDealsSliceReducer";
+import shortListSliceReducer from "./Slices/shortListSliceReducer";
 
 
 
@@ -27,7 +28,8 @@ const Store = configureStore({
         vacations: vacationSliceReducer,
         ratings: ratingSliceReducer,
         sort: sortSliceReducer,
-        flightDeals: FlightDealsSliceReducer,
+        vacationDeals: vacationDealsSliceReducer,
+        shortList: shortListSliceReducer 
        
 
 

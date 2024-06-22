@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { LuPlaneTakeoff } from "react-icons/lu";
 import { LuPlaneLanding } from "react-icons/lu";
 import { BsPerson } from "react-icons/bs";
@@ -9,62 +9,63 @@ import { fetchSearchFlightAsync } from '../../Store/Slices/fetchSearchSliceAsync
 
 
 const Flightbar = () => {
-   
-    const [result, setResults] = useState("");
-   
- 
-    const dispatch = useDispatch();
-    const flightSearch = useSelector((state) => state.flightSearch);
 
-    const handelSubmit=(e) =>{
-        e.preventDefault()
-        dispatch(fetchSearchFlightAsync(flightSearch))
-       
+  const [result, setResults] = useState("");
+
+
+  const dispatch = useDispatch();
+  const flightSearch = useSelector((state) => state.flightSearch);
+
+  const handelSubmit = (e) => {
+    e.preventDefault()
+    dispatch(fetchSearchFlightAsync(flightSearch))
+
+  }
+
+
+  const handleInputChange = (e) => {
+
+    const { name, value } = e.target;
+    switch (name) {
+      case 'flyFrom':
+        dispatch(setFlyFrom(value));
+        break;
+
+      case 'flyTo':
+        dispatch(setFlyTo(value));
+        break;
+
+      case 'departing':
+        dispatch(setDeparting(value));
+        break;
+
+      case 'returning':
+        dispatch(setReturning(value));
+        break;
+
+      case 'adults':
+      case 'children':
+        dispatch(setPassengers({ ...flightSearch.passengers, [name]: value }));
+        break;
+
+      case 'tripType':
+        dispatch(setTripType(value));
+        break;
+
+      default:
+        break;
     }
+  };
 
+  const handleClearSearch = () => {
+    dispatch(setClearSearch());
+  };
 
-    const handleInputChange = (e) => {
-
-        const { name, value } = e.target;
-        switch (name) {
-            case 'flyFrom':
-                dispatch(setFlyFrom(value));
-                break;
-
-            case 'flyTo':
-                dispatch(setFlyTo(value));
-                break;
-
-            case 'departing':
-                dispatch(setDeparting(value));
-                break;
-
-            case 'returning':
-                dispatch(setReturning(value));
-                break;
-
-            case 'adults':
-            case 'children':
-                dispatch(setPassengers({ ...flightSearch.passengers, [name]: value }));
-                break;
-
-            case 'tripType':
-                dispatch(setTripType(value));
-                break;
-
-            default:
-                break;
-        }
-    };
-
-    const handleClearSearch = () => {
-        dispatch(setClearSearch());
-      };
-
-return (
+  return (
     <>
+     
       <label className="text-xl font-bold mb-4">Find your Flight</label>
-      
+
       <form className="flex justify-between" onSubmit={handelSubmit}>
         <div>
           <label className="flex text-indigo-900 gap-2 items-center"><LuPlaneTakeoff />Fly from:</label>
