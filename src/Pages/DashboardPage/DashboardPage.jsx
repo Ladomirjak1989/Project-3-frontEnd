@@ -11,7 +11,6 @@ import { SiGlobus } from "react-icons/si";
 import { FaRegClock } from "react-icons/fa";
 import { FaRegStar } from "react-icons/fa";
 import { LuBaggageClaim } from "react-icons/lu";
-import { Link } from 'react-router-dom';
 import VacationDeals from '../../components/VacationDeals/VacationDeals';
 import Searchbar from '../../components/Searchbar/Searchbar';
 
@@ -29,10 +28,10 @@ const DashboardPage = () => {
 
     const dispatch = useDispatch()
 
-    useEffect(() => {
-        dispatch(fetchFlightAsync());
+    // useEffect(() => {
+    //     dispatch(fetchFlightAsync());
 
-    }, [dispatch]);
+    // }, [dispatch]);
 
     useEffect(() => {
         if (popUp) {

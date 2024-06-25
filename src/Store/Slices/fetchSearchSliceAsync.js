@@ -45,3 +45,14 @@ export const fetchSearchCruiseAsync = createAsyncThunk("search/fetchCruise", asy
 
 
 })
+
+export const fetchSearchCityAsync = createAsyncThunk("search/fetchCity", async (params, { rejectWithValue }) => {
+    try {
+       
+        const response = await axios.get(`${API_URL}/cities`, {params})
+      
+        return response.data
+    } catch (e) { return rejectWithValue(e.response.data.message); }
+
+
+})

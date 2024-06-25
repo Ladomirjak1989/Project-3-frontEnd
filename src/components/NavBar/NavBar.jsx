@@ -36,7 +36,7 @@ const navBarConfig = [{
 },
 
 {
-  link: '/city',
+  link: '/cities',
   title: 'City',
 },
 {
@@ -49,9 +49,12 @@ const Navbar = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const token = useSelector(state => state.session.token)
+  const countFavorite = useSelector(state=> state.vacations.countFavorite)
   const user = useSelector(state => state.session.user)
   const [isPopUpOpen, setPopUpOpen] = useState(false)
 
+
+ 
   const onLogOut = () => {
     localStorage.removeItem("token")
     localStorage.removeItem("user")
@@ -92,9 +95,9 @@ const Navbar = () => {
            </ul>
           <div className='bg-yellow-100 p-2 rounded-sm'>
          
-            <Link to="/heart" className="flex items-center">
+            <Link to="/short-list" className="flex items-center">
               <FaHeart className="text-2xl text-red-700" />
-              <span className="ml-2 hover:underline ">Shortlist() </span>
+              <span className="ml-2 hover:underline ">Shortlist({countFavorite}) </span>
             </Link>
             
           </div>

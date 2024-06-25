@@ -21,12 +21,12 @@ const Searchbar = () => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
 
-  console.log(pathname)
+
   const [tab, setTab] = useState("flights")
 
   useEffect(() => {
     const location = pathname.split("/")
-    console.log(location)
+   
     setTab((prev) => {
       return location[1] || prev
     })

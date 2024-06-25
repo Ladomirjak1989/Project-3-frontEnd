@@ -4,10 +4,11 @@ import { deleteVacationAsync } from '../../Store/Slices/fetchVacationSliceAsync'
 import { setPopUp } from '../../Store/Slices/popUpSliceReducer';
 import RatingStars from '../../components/RatingStars/RatingStars';
 import { Link } from 'react-router-dom';
+import { setFavorite } from '../../Store/Slices/vacationSliceReducer';
 
 
 
-function VacationEl({ _id, destination, images, accommodation, duration, price, currency, randomReviews }) {
+function VacationEl({ _id, destination, images, accommodation, duration, price, currency, randomReviews, isFavorite }) {
     const user = useSelector(state => state.session.user);
     const dispatch = useDispatch();
 
@@ -21,7 +22,22 @@ function VacationEl({ _id, destination, images, accommodation, duration, price, 
             console.error("There was an error deleting the Vacation!", error);
         }
     };
+    const handleFavorite = () => {
 
+        let storage = JSON.parse(localStorage.getItem("favorite"))
+
+        const index = storage.findIndex(item => item === _id)
+      
+        if (index === -1) {
+            storage.push(_id)
+        } else {
+            storage = storage.filter(item => item !== _id)
+        }
+      
+        localStorage.setItem("favorite", JSON.stringify(storage))
+        dispatch(setFavorite(_id))
+
+    }
 
 
     return (
@@ -34,8 +50,8 @@ function VacationEl({ _id, destination, images, accommodation, duration, price, 
                     <div className="w-2/3 pl-4">
                         <div className="flex justify-between items-center">
                             <h2 className="text-2xl font-bold">{destination}</h2>
-                            <button className="bg-white rounded-full p-2 shadow-md hover:bg-gray-100 focus:outline-none">
-                                <svg className="w-6 h-6 text-red-500" fill="currentColor" viewBox="0 0 24 24">
+                            <button onClick={handleFavorite} className={`${isFavorite ? "bg-red-500" : "bg-white"} rounded-full p-2 shadow-md hover:bg-gray-100 focus:outline-none`}>
+                                <svg className={`w-6 h-6 ${isFavorite ? "text-white" : "text-red-500"} `} fill="currentColor" viewBox="0 0 24 24">
                                     <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
                                 </svg>
                             </button>
@@ -63,13 +79,13 @@ function VacationEl({ _id, destination, images, accommodation, duration, price, 
                         <p className="text-red-600">Includes £89pp online discount</p>
                         <div className='flex space-x-5 col-span-5'>
                             <Link className='inline-block mt-4 text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-lg' to={`/vacations/${_id}`}>Continue</Link>
-                             {user?.role === "admin" && (
+                            {user?.role === "admin" && (
                                 <>
                                     <Link to={`/vacations/vacation-updated/${_id}`} className="inline-block mt-4 text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-lg hover:underline">Edit</Link>
                                     <button onClick={() => handleDeleteVacation(_id)} className="inline-block mt-4 text-white bg-red-500 hover:bg-red-700 px-4 py-2 rounded-lg hover:underline">Delete</button>
                                 </>
                             )}
-                           
+
                         </div>
                     </div>
                 </div>

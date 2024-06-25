@@ -54,6 +54,7 @@ const HomePage = () => {
     },
   ];
 
+
   return (
     <>
       {user?.role !== "admin" && <Searchbar />}

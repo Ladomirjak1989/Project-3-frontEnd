@@ -7,6 +7,8 @@ const vacationSlice = createSlice({
     initialState: {
         vacations: {},
         vacation: {},
+        favoriteVacation: [],
+        countFavorite: 0,
         loading: false,
         error: null
     },
@@ -17,7 +19,22 @@ const vacationSlice = createSlice({
                 return acc
             }, {})
             state.vacations = vacation
+        },
+        setFavorite: (state, action) => {
+            const vacationIndex = action.payload;
+            if (state.vacations[vacationIndex]) {
+                if (state.vacations[vacationIndex].isFavorite) {
+                    state.vacations[vacationIndex].isFavorite = false;
+                    state.countFavorite -= 1;
+                    state.favoriteVacation = state.favoriteVacation.filter(item => item._id !== state.vacations[vacationIndex]._id);
+                } else {
+                    state.vacations[vacationIndex].isFavorite = true;
+                    state.countFavorite += 1;
+                    state.favoriteVacation = [...state.favoriteVacation, state.vacations[vacationIndex]];
+                }
+            }
         }
+        
     },
     extraReducers: (builder) => {
         builder.addCase(fetchVacationAsync.pending, (state) => {
@@ -25,16 +42,34 @@ const vacationSlice = createSlice({
             state.error = null
         })
         builder.addCase(fetchVacationAsync.fulfilled, (state, action) => {
+
             state.loading = false
-            const vacation = action.payload.reduce((acc, cur) => {
+            let counter = 0
+
+            const storage = JSON.parse(localStorage.getItem("favorite"))
+            const data = action.payload.map(item => {
                 const randomReviews = Math.floor(Math.random() * 10000)
-                const object = { ...cur, randomReviews }
-                acc[cur._id] = object
+                
+                if (storage && storage.includes(item._id)) {
+                    item.isFavorite = true
+
+                    counter += 1
+                } else {
+                    item.isFavorite = false
+                }
+                const object = { ...item, randomReviews }
+                return object
+            })
+            const vacation = data.reduce((acc, cur) => {
+                acc[cur._id] = cur
                 return acc
             }, {})
+            state.favoriteVacation = data.filter(item=>item.isFavorite)
+            state.countFavorite = counter
             state.vacations = vacation
         })
         builder.addCase(fetchVacationAsync.rejected, (state, action) => {
+
             state.loading = false
             state.error = action.payload
         })
@@ -43,6 +78,7 @@ const vacationSlice = createSlice({
 
         builder.addCase(createVacationAsync.pending, (state) => {
             state.loading = true
+
             state.error = null
         })
         builder.addCase(createVacationAsync.fulfilled, (state, action) => {
@@ -102,6 +138,6 @@ const vacationSlice = createSlice({
 
     }
 })
-export const { setSorted } = vacationSlice.actions;
+export const { setSorted, setFavorite } = vacationSlice.actions;
 
 export default vacationSlice.reducer;

@@ -12,6 +12,8 @@ import ratingSliceReducer from "./Slices/ratingSliceReducer";
 import sortSliceReducer from "./Slices/sortSliceReducer";
 import vacationDealsSliceReducer from "./Slices/vacationDealsSliceReducer";
 import shortListSliceReducer from "./Slices/shortListSliceReducer";
+import citySliceReducer from "./Slices/citySliceReducer";
+import hotelSliceReducer from "./Slices/hotelSliceReducer";
 
 
 
@@ -29,7 +31,10 @@ const Store = configureStore({
         ratings: ratingSliceReducer,
         sort: sortSliceReducer,
         vacationDeals: vacationDealsSliceReducer,
-        shortList: shortListSliceReducer 
+        shortList: shortListSliceReducer,
+        city: citySliceReducer,
+        hotels: hotelSliceReducer
+
        
 
 

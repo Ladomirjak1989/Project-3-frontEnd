@@ -5,7 +5,7 @@ import { fetchVacationByIdAsync } from '../../Store/Slices/fetchVacationSliceAsy
 import Loader from '../../components/Loader/Loader'
 import RatingStars from '../../components/RatingStars/RatingStars'
 import Button from '../../components/Button/Button'
-import Searchbar from '../../components/Searchbar/Searchbar'
+
 
 const VacationDetails = () => {
 

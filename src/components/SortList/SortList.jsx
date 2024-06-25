@@ -1,36 +1,70 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { setSorted } from '../../Store/Slices/vacationSliceReducer';
 import { setSortOption } from '../../Store/Slices/sortSliceReducer';
+import { useLocation } from 'react-router-dom';
+import { setSortedHotel } from '../../Store/Slices/hotelSliceReducer';
+
 
 
 
 const SortList = () => {
     const dispatch = useDispatch();
     const vacation = useSelector(state => Object.values(state.vacations.vacations))
-
+    const hotel = useSelector(state => Object.values(state.hotels.hotels))
+    const { pathname } = useLocation()
     const sortOption = useSelector(state => state.sort.params);
-    
 
+    const [sortParams, setSortParams] = useState("")
 
+    useEffect(() => {
+        const location = pathname.split("/")
 
-    const handleSortChange = (event) => {
-        const params = event.target.value.split("-")
-        const sorted = vacation.toSorted((a, b) => {
-            if(params[0] ==="rating" ){
-                return b.accommodation[params[0]] -a.accommodation[params[0]]  
+        setSortParams((prev) => {
+            return location[1] || prev
+        })
+    }, [pathname])
+
+    const sortingElement = (elementForSort, params) => {
+        return elementForSort.toSorted((a, b) => {
+            if (params[0] === "rating") {
+               
+                return b.accommodation[params[0]] - a.accommodation[params[0]]
+            }
+           
+
+            if (params[0] === "reviews") {
+                
+                return b.randomReviews - a.randomReviews
             }
             if (params[1] === "ASC") {
-                return a[params[0]] -b[params[0]]
+                console.log(111)
+                return a[params[0]] - b[params[0]]
 
             }
             if (params[1] === "DESC") {
-                return b[params[0]] -a[params[0]]
+                console.log(222)
+                return b[params[0]] - a[params[0]]
             }
-            
+
+
         })
+    }
+
+    const handleSortChange = (event) => {
+        const params = event.target.value.split("-")
+        let sorted = []
+        if (sortParams === "hotels") {
+            sorted = sortingElement(hotel, params)
+            dispatch(setSortedHotel(sorted))
+        }
+        if(sortParams==="vacations"){
+            sorted = sortingElement(vacation, params)
+            dispatch(setSorted(sorted));
+        }
+
+        console.log(sorted,333)
        
-        dispatch(setSorted(sorted));
         dispatch(setSortOption(event.target.value))
 
     };
