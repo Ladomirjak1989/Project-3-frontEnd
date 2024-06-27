@@ -38,12 +38,12 @@ const SortList = () => {
                 return b.randomReviews - a.randomReviews
             }
             if (params[1] === "ASC") {
-                console.log(111)
+                
                 return a[params[0]] - b[params[0]]
 
             }
             if (params[1] === "DESC") {
-                console.log(222)
+               
                 return b[params[0]] - a[params[0]]
             }
 
@@ -63,7 +63,7 @@ const SortList = () => {
             dispatch(setSorted(sorted));
         }
 
-        console.log(sorted,333)
+       
        
         dispatch(setSortOption(event.target.value))
 

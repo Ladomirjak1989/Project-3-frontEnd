@@ -12,7 +12,7 @@ import 'swiper/css';
 const VacationDeals = ({ count }) => {
   const dispatch = useDispatch()
   const deals = useSelector(state => state.vacationDeals.deals)
-  console.log(deals)
+ 
 
   useEffect(() => {
     dispatch(fetchVacationDealsAsync({ count }))

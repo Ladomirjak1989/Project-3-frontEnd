@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { fetchSearchHotelAsync } from './fetchSearchSliceAsync';
 
 const initialState = {
   hotels:{},
@@ -29,7 +30,25 @@ const hotelSearchSlice = createSlice({
     
     setClearSearch(state) {
       return initialState;
-    }
+    },
+  },
+    extraReducers: (builder) => {
+      builder.addCase(fetchSearchHotelAsync.pending, (state) => {
+          state.loading = true
+          state.error = null
+      })
+      builder.addCase(fetchSearchHotelAsync.fulfilled, (state, action) => {
+          state.loading = false
+          const hotels = action.payload.reduce((acc, cur) => {
+              acc[cur._id] = cur
+              return acc
+          }, {})
+          state.hotels = hotels
+      })
+      builder.addCase(fetchSearchHotelAsync.rejected, (state, action) => {
+          state.loading = false
+          state.error = action.payload
+      })
   }
 });
 

@@ -13,7 +13,6 @@ import AttractionPage from "../Pages/AttractionPage/AttractionPage";
 import CityPage from "../Pages/CityPage/CityPage";
 import CityDetailsPage from "../Pages/CityDetailsPage/CityDetailsPage";
 import CruisesPage from "../Pages/CruisesPage/CruisesPage";
-
 import AdminRouter from "./AdminRouter";
 import FlightDetails from "../Pages/FlightDetails/FlightDetails";
 import CreateFlightPage from "../Pages/CreateFlightPage/CreateFlightPage";
@@ -25,6 +24,7 @@ import UpdatedVacationPage from "../Pages/UpDateVacation/UpDateVacation";
 import ShortListPage from "../Pages/ShortListPage/ShortListPage";
 import HotelDetailsPage from "../Pages/HotelDetailsPage/HotelDetailsPage";
 import HotelsPage from "../Pages/HotelsPage/HotelsPage";
+import CruisesDetailsPage from "../Pages/CruisesDetailsPage/CruisesDetailsPage";
 
 
 
@@ -46,14 +46,16 @@ const router = createBrowserRouter([
             { path: "/about", element: <AboutPage /> },
             { path: "/attractions", element: <AttractionPage /> },
             { path: "/cities", element: <CityPage /> },
-            { path: "/city-details", element: <CityDetailsPage /> },
+            { path: "/city-details/:id", element: <CityDetailsPage /> },
             { path: "/cruises", element: <CruisesPage /> },
+            { path: "/cruises/:id", element: <CruisesDetailsPage /> },
             { path: "/hotels", element: <HotelsPage /> },
             { path: "/hotels/:id", element: <HotelDetailsPage /> },
             { path: "/flights/:id", element: <FlightDetails /> },
             { path: "/vacations", element: <VacationPage /> },
             { path: "/vacations/:id", element: <VacationDetails /> },
             { path: "/short-list", element: <ShortListPage /> },
+            { path: "*", element: <NotFoundPage /> },
           
             
             

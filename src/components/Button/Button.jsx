@@ -28,14 +28,19 @@ const Button = ({ id, onClick }) => {
             type: "button",
         },
         searchButton: {
-            className: " bg-blue-500 text-white p-2 rounded",
+            className: " bg-blue-500 text-white p-2 px-6 m-4 rounded",
             text: "Search",
-            type: "button",
+            type: "submit",
         },
         continue: {
             className: "flex justify-end inline-block mt-4 text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-lg",
             text: "Continue",
             type: "button",
+        },
+        send: {
+            className: "px-4 py-2 bg-sky-300 rounded-r-lg hover:bg-sky-400 transition duration-300",
+            text: "Send",
+            type: "submit",
         },
     };
 

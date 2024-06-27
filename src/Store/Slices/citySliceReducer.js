@@ -33,7 +33,7 @@ const citySlice = createSlice({
             
                 
             const city = action.payload.reduce((acc, cur) => {
-                acc[cur.id] = cur
+                acc[cur._id] = cur
                 return acc
             }, {})
             

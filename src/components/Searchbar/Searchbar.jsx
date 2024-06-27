@@ -87,7 +87,7 @@ const Searchbar = () => {
         </li>
 
         <li
-          className={`p-2 cursor-pointer flex items-center ${tab === 'city' ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-700'}`}
+          className={`p-2 cursor-pointer flex items-center ${tab === 'cities' ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-700'}`}
           onClick={() => {
             navigate("/cities")
             setTab("city")
@@ -101,7 +101,7 @@ const Searchbar = () => {
       {tab === "hotels" && <Hotels />}
       {tab === "cruises" && <Cruises />}
       {tab === "attractions" && <Attractions />}
-      {tab === "city" && <City />}
+      {tab === "cities" && <City />}
     </div>
   );
 }

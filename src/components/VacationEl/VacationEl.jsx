@@ -70,13 +70,13 @@ function VacationEl({ _id, destination, images, accommodation, duration, price, 
                         <p>Twin Room with Balcony or Terrace</p>
 
                         <div className="bg-lime-500 text-white text-center rounded-md p-2 mt-4">
-                            <p>SAVE AN EXTRA £100 ON THIS HOLIDAY USING CODE Q423W4GSC</p>
+                            <p>SAVE AN EXTRA €100 ON THIS HOLIDAY USING CODE Q423W4GSC</p>
                         </div>
                         <div className="mt-4 flex items-center">
                             <div className="text-xl font-bold">{price} {currency} (all inclusive)</div>
                             <div className="text-gray-500 ml-2"> per person</div>
                         </div>
-                        <p className="text-red-600">Includes £89pp online discount</p>
+                        <p className="text-red-600">Includes €89pp online discount</p>
                         <div className='flex space-x-5 col-span-5'>
                             <Link className='inline-block mt-4 text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-lg' to={`/vacations/${_id}`}>Continue</Link>
                             {user?.role === "admin" && (

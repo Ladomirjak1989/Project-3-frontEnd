@@ -3,7 +3,6 @@ import { LuPlaneLanding } from 'react-icons/lu';
 import { BsPerson } from 'react-icons/bs';
 import { FaCalendarAlt } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
-// import { useNavigate } from 'react-router-dom';
 import {
   setDestination,
   setCheckInDate,
@@ -25,9 +24,7 @@ const Hotels = () => {
   const [isHotelRoomsShown, setHotelRoomsShown] = useState(false)
   const [hotelRooms, setHotelRooms] = useState([{ adults: 2, children: 0 }]);
   const [result, setResults] = useState("");
-  // const [input, setInput] = useState("");
-
-  // const navigate = useNavigate()
+  
 
   const handleInputChange = (e, index, type) => {
     const { name, value } = e.target;

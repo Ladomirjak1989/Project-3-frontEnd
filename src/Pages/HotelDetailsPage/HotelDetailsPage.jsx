@@ -11,7 +11,7 @@ const HotelDetailsPage = () => {
     const dispatch = useDispatch()
     const loading = useSelector(state => state.hotels.loading)
     const hotel = useSelector(state => state.hotels.hotel)
-    console.log(hotel, 555)
+   
 
     useEffect(() => {
         dispatch(fetchHotelByIdAsync(id))

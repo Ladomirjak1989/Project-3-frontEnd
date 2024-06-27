@@ -2,6 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { FaYoutube, FaFacebook, FaTwitter, FaGoogle, FaGooglePlay, FaLinkedin } from "react-icons/fa";
 import { FaRegEnvelope } from "react-icons/fa6";
 import { Link } from "react-router-dom";
+import Button from '../Button/Button';
+
 
 const Footer = () => {
   const [email, setEmail] = useState('');
@@ -71,9 +73,10 @@ const Footer = () => {
                   placeholder="Send your e-mail"
                   required
                 />
-                <button type="submit" className="px-4 py-2 bg-sky-300 rounded-r-lg hover:bg-sky-400 transition duration-300">
+                <Button id="send"/>
+                {/* <button type="submit" className="px-4 py-2 bg-sky-300 rounded-r-lg hover:bg-sky-400 transition duration-300">
                   Send
-                </button>
+                </button> */}
               </form>
               {submitted && <p className="text-white mt-2">✅Thank you! Your email has been submitted.</p>}
             </li>

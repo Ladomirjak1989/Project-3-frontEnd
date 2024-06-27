@@ -18,7 +18,7 @@ const hotelSlice = createSlice({
                 acc[cur._id] = cur
                 return acc
             }, {})
-            console.log(hotel)
+           
             state.hotels = hotel
         },
         setFavorite: (state, action) => {

@@ -14,6 +14,9 @@ import vacationDealsSliceReducer from "./Slices/vacationDealsSliceReducer";
 import shortListSliceReducer from "./Slices/shortListSliceReducer";
 import citySliceReducer from "./Slices/citySliceReducer";
 import hotelSliceReducer from "./Slices/hotelSliceReducer";
+import cruiseSliceReducer from "./Slices/cruiseSliceReducer";
+import citySearchSlice from "./Slices/citySearchSlice";
+
 
 
 
@@ -33,7 +36,11 @@ const Store = configureStore({
         vacationDeals: vacationDealsSliceReducer,
         shortList: shortListSliceReducer,
         city: citySliceReducer,
-        hotels: hotelSliceReducer
+        hotels: hotelSliceReducer,
+        cruise: cruiseSliceReducer,
+        citySearch: citySearchSlice,
+    
+        
 
        
 

@@ -1,12 +1,18 @@
 import { useSelector} from 'react-redux';
 import { FaHeart } from 'react-icons/fa';
 import VacationEl from '../../components/VacationEl/VacationEl';
+import HotelEl from '../../components/HotelEl/HotelEl';
+import CruiseEl from "../../components/CruiseEl/CruiseEl" 
 
 
 const ShortListPage = () => {
 
     const favorite = useSelector(state => state.vacations.favoriteVacation)
-    console.log(favorite)
+    const favoriteHotel = useSelector(state => state.hotels.favoriteHotel)
+   
+    const favoriteCruise = useSelector(state => state.cruise.favoriteCruise)
+   
+    
     
   
     
@@ -35,7 +41,12 @@ const ShortListPage = () => {
                    {favorite.map(item=>(
                   <VacationEl key={item._id} {...item}/>
                    ))}
-                
+                {favoriteHotel.map(item=>(
+                  <HotelEl key={item._id} {...item}/>
+                   ))}
+                   {favoriteCruise.map(item=>(
+                  <CruiseEl key={item._id} {...item}/>
+                   ))}
                 </ul>
                 
             </div>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LuPlaneTakeoff, LuPlaneLanding } from 'react-icons/lu';
 import { BsPerson } from 'react-icons/bs';
-// import { setDeparture, setDestination, setDepartureDate, setDuration, setReturnDate, setGuests, setClearSearch } from "../../Store/Slices/citySliceReducer"
+import { setDeparture, setDestination, setDepartureDate, setDuration, setReturnDate, setGuests, setClearSearch } from "../../Store/Slices/citySearchSlice"
 import { fetchSearchCityAsync } from '../../Store/Slices/fetchSearchSliceAsync';
 
 

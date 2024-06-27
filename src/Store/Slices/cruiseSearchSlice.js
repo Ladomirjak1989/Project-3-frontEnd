@@ -1,16 +1,18 @@
 import { createSlice } from '@reduxjs/toolkit';
+import { fetchSearchCruiseAsync } from './fetchSearchSliceAsync';
 
 
 const initialState = {
+  cruise: {},
   cruiseType: '',
   departure: '',
   destination: '',
   departureTime: '',
   duration: '',
   guests: {
-    adults: 2,
-    children: 0,
-    cruiseDuration:'',
+    adults: "",
+    children: "",
+  
   },
 };
 
@@ -35,7 +37,7 @@ const cruiseSearchSlice = createSlice({
       },
 
     setGuests(state, action) {
-      state.guests = action.payload;
+      state.guests.adults = action.payload;
     },
     setClearSearch(state) {
       return initialState;
@@ -44,6 +46,29 @@ const cruiseSearchSlice = createSlice({
     setCruiseDuration(state, action) {
       state.duration = action.payload;
     },
+
+  },
+
+
+    extraReducers: (builder) => {
+      builder.addCase(fetchSearchCruiseAsync.pending, (state) => {
+          state.loading = true
+          state.error = null
+      })
+      builder.addCase(fetchSearchCruiseAsync.fulfilled, (state, action) => {
+          state.loading = false
+          const cruise = action.payload.reduce((acc, cur) => {
+            acc[cur._id] = cur
+              return acc
+          }, {})
+      
+          state.cruise = cruise
+      })
+      builder.addCase(fetchSearchCruiseAsync.rejected, (state, action) => {
+          state.loading = false
+          state.error = action.payload
+      })
+    
   },
 });
 

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom';
 import Logo from "../../assets/wanderlust-logo.png";
 import { useSelector, useDispatch } from 'react-redux';
@@ -49,18 +49,24 @@ const Navbar = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const token = useSelector(state => state.session.token)
-  const countFavorite = useSelector(state=> state.vacations.countFavorite)
+  const countFavorite = useSelector(state => state.vacations.countFavorite)
+  const countFavoriteHotel = useSelector(state => state.hotels.countFavorite)
+  const countFavoriteCruise = useSelector(state => state.cruise.countFavorite)
   const user = useSelector(state => state.session.user)
   const [isPopUpOpen, setPopUpOpen] = useState(false)
+  const [count, setCount] = useState(0)
 
 
- 
   const onLogOut = () => {
     localStorage.removeItem("token")
     localStorage.removeItem("user")
     dispatch(logout())
     navigate("/")
   }
+
+  useEffect(() => {
+    setCount(countFavorite + countFavoriteHotel + countFavoriteCruise)
+  }, [countFavorite, countFavoriteHotel, countFavoriteCruise])
 
 
   return (
@@ -90,18 +96,18 @@ const Navbar = () => {
                   <button className='text-[#121111] bg-yellow-100 hover:bg-yellow-200 p-2 font-medium rounded transition duration-300 ease-in-out' onClick={onLogOut}>Log Out</button>
               )}
             </li>
-            
+
           ))}
-           </ul>
-          <div className='bg-yellow-100 p-2 rounded-sm'>
-         
-            <Link to="/short-list" className="flex items-center">
-              <FaHeart className="text-2xl text-red-700" />
-              <span className="ml-2 hover:underline ">Shortlist({countFavorite}) </span>
-            </Link>
-            
-          </div>
-       
+        </ul>
+        <div className='bg-yellow-100 p-2 rounded-sm'>
+
+          <Link to="/short-list" className="flex items-center">
+            <FaHeart className="text-2xl text-red-700" />
+            <span className="ml-2 hover:underline ">Shortlist({count}) </span>
+          </Link>
+
+        </div>
+
       </nav>
     </div>
   );

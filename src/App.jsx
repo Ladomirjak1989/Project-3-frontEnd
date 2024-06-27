@@ -7,6 +7,7 @@ import { fetchFlightAsync } from './Store/Slices/fetchFlightSliceAsync';
 import { fetchVacationAsync } from './Store/Slices/fetchVacationSliceAsync';
 import { fetchCityAsync } from './Store/Slices/fetchCitySliceReducer';
 import { fetchHotelAsync } from './Store/Slices/fetchHotelSliceAsync';
+import { fetchCruiseAsync } from './Store/Slices/fetchCruiseSliceAsync';
 
 
 const App = () => {
@@ -18,6 +19,7 @@ const App = () => {
         dispatch(fetchVacationAsync());
         dispatch(fetchCityAsync());
         dispatch(fetchHotelAsync());
+        dispatch(fetchCruiseAsync())
     }, [dispatch]);
 
     return <RouterProvider router={router} />;

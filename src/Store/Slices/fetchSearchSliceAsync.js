@@ -28,6 +28,7 @@ export const fetchSearchHotelAsync = createAsyncThunk("search/fetchHotel", async
     try {
        
         const response = await axios.get(`${API_URL}/hotels`, {params})
+       
         
         return response.data
     } catch (e) { return rejectWithValue(e.response.data.message); }
@@ -37,9 +38,8 @@ export const fetchSearchHotelAsync = createAsyncThunk("search/fetchHotel", async
 
 export const fetchSearchCruiseAsync = createAsyncThunk("search/fetchCruise", async (params, { rejectWithValue }) => {
     try {
-       
+   
         const response = await axios.get(`${API_URL}/cruises`, {params})
-      
         return response.data
     } catch (e) { return rejectWithValue(e.response.data.message); }
 

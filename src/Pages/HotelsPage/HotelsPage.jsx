@@ -15,7 +15,8 @@ const HotelsPage = () => {
   const isLoading = useSelector(state => state.hotels.loading)
   const hotels = useSelector(state => Object.values(state.hotels.hotels))
   const hotelSearch = useSelector(state => Object.values(state.hotelSearch.hotels))
-  console.log(hotels, 999)
+
+ 
   const user = useSelector(state => state.session.user)
 
   if (isLoading) {
