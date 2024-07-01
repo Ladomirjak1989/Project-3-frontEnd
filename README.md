@@ -311,8 +311,11 @@ To contribute, follow these steps:
 -------------------------------------------------------------------------------------------------------
 
 Log in/Sign up:
+
 ![alt text](https://res.cloudinary.com/dq0fwucoj/image/upload/v1719851555/image_scb35b.png)
+
 ![alt text](https://res.cloudinary.com/dq0fwucoj/image/upload/v1719851599/image-1_tysmss.png)
+
 A user can log in with their login credentials. If a user doesn't have an account, they can create a new one by clicking on the sign up button, or they can log in as a demo user in the log in form.
 
 -------------------------------------------------------------------------------------------------------
@@ -362,8 +365,10 @@ import { BsPerson } from 'react-icons/bs';
 import { setDeparture, setDestination, setDepartureDate, setDuration, setReturnDate, setGuests, setClearSearch } from "../../Store/Slices/vacationSearchSlice"
 import { fetchSearchVacationAsync } from '../../Store/Slices/fetchSearchSliceAsync';
 
-
-const Vacationsbar = () => {
+```
+json
+    {
+      const Vacationsbar = () => {
 
 
   const [vacations, setVacations] = useState([]);
@@ -533,6 +538,10 @@ const handleResultClick = (result) => {
 };
 
 export default Vacationsbar;
+
+    }
+    
+
 -------------------------------------------------------------------------------
 
 Schema.model for vacation:
