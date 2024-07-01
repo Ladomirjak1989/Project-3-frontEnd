@@ -134,6 +134,7 @@ backEnd/
 ├── package-lock.json
 ├── package.json
 └── server.js
+
 ```
 
 Description of Key Directories and Files
@@ -276,6 +277,7 @@ frontEnd/
 ├── README.md
 ├── tailwind.config.js
 └── vite.config.js
+
 ```
 
 Description of Key Directories and Files:
@@ -535,10 +537,9 @@ const handleResultClick = (result) => {
 export default Vacationsbar;
 
     }
-    ```
-    
 
--------------------------------------------------------------------------------
+  ```
+ --------------------------------------------------------------------   
 
 Schema.model for vacation:
 
@@ -600,6 +601,7 @@ const Vacation = model("Vacation", vacationSchema);
 
 module.exports = Vacation;
 }
+
 ```
 
 ------------------------------------------------------------------------------
@@ -652,6 +654,7 @@ Vacation db.json example:
                 }
             ]
         },
+
 ```
 -----------------------------------------------------------------------
 
@@ -686,7 +689,7 @@ Users can view their past and upcoming bookings.
 
 image:
 
----------------------------------------------------------------------------------
+--------------
 
 Stripe Configuration
 Stripe is a powerful and flexible payment processing platform that is widely used for handling online transactions. In Dream Voyage Agency, integrating Stripe ensures secure, reliable, and seamless payment processing for users booking travel packages, flights, hotels, and other services. Ease of Integration: Stripe’s comprehensive API and developer-friendly documentation make it easy to integrate into any application:
@@ -720,9 +723,8 @@ router.post("/create-payment-intent", async (req, res) => {
 })
 module.exports = router;
 }
+
 ```
 
-
-------------------------------------------------------------------------------------------------------
 
 
