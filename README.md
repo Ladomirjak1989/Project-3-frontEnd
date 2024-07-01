@@ -358,16 +358,18 @@ The Cruise Search Bar allows users to search for cruises by destination, departu
 4. Vacation Search Bar
 The Vacation Search Bar enables users to search for vacation deals by destination, dates, price range, and vacation type. Users can also filter results by activities and amenities included in the vacation package.
 ![alt text](image-4.png)
+
+
+```
+
+{
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LuPlaneTakeoff, LuPlaneLanding } from 'react-icons/lu';
 import { BsPerson } from 'react-icons/bs';
 import { setDeparture, setDestination, setDepartureDate, setDuration, setReturnDate, setGuests, setClearSearch } from "../../Store/Slices/vacationSearchSlice"
 import { fetchSearchVacationAsync } from '../../Store/Slices/fetchSearchSliceAsync';
-
-```
-json
-    {
+      
       const Vacationsbar = () => {
 
 
@@ -540,6 +542,7 @@ const handleResultClick = (result) => {
 export default Vacationsbar;
 
     }
+    ```
     
 
 -------------------------------------------------------------------------------
