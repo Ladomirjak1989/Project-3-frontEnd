@@ -1,11 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import Button from '../../components/Button/Button';
 import Loader from '../../components/Loader/Loader';
 import CruiseEl from '../../components/CruiseEl/CruiseEl';
 import Searchbar from '../../components/Searchbar/Searchbar';
 import PromoBanner from '../../components/PromoBanner/PromoBanner';
 import MapWithDestinations from '../../components/MapWithDestinations/MapWithDestinations';
+import CruiseDeal from '../../components/CruiseDeal/CruiseDeal';
+
 
 
 const CruisesPage = () => {
@@ -36,7 +37,7 @@ const CruisesPage = () => {
                 <CruiseEl {...item} key={item._id} />
               ))}
             </ul>
-            {/* <Button id="book" /> */}
+          
           </div>
         </div>
       </>
@@ -66,11 +67,12 @@ const CruisesPage = () => {
               <CruiseEl {...item} key={item._id} />
             ))}
           </ul>
-          {/* <Button id="book" /> */}
+      
         </div>
       </div>
 
       <MapWithDestinations />
+      <CruiseDeal count={3} />
 
     </>
 

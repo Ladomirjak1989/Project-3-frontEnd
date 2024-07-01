@@ -25,6 +25,12 @@ import ShortListPage from "../Pages/ShortListPage/ShortListPage";
 import HotelDetailsPage from "../Pages/HotelDetailsPage/HotelDetailsPage";
 import HotelsPage from "../Pages/HotelsPage/HotelsPage";
 import CruisesDetailsPage from "../Pages/CruisesDetailsPage/CruisesDetailsPage";
+import BookingPage from "../Pages/BookingPage/BookingPage";
+import PaymentPage from "../Pages/PaymentPage/PaymentPage";
+import CompletionPage from "../Pages/CompletionPage/CompletionPage";
+import ContactPage from "../Pages/ContactPage/ContactPage";
+import TermsAndConditionsPage from "../Pages/TermsAndConditionsPage/TermsAndConditionsPage";
+
 
 
 
@@ -56,6 +62,11 @@ const router = createBrowserRouter([
             { path: "/vacations/:id", element: <VacationDetails /> },
             { path: "/short-list", element: <ShortListPage /> },
             { path: "*", element: <NotFoundPage /> },
+            { path: "/booking", element: <BookingPage /> },
+            { path: "/payment", element: <PaymentPage /> },
+            { path: "/completion", element: <CompletionPage /> },
+            { path: "/contact", element: <ContactPage /> },
+            { path: "/terms", element: <TermsAndConditionsPage /> },
           
             
             

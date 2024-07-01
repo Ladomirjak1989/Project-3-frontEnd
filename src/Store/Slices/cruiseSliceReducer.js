@@ -8,6 +8,8 @@ const cruiseSlice = createSlice({
         cruises: {},
         cruise: {},
         favoriteCruise: [],
+        cartCruise: [],
+        countCart: 0,
         countFavorite: 0,
         loading: false,
         error: null
@@ -27,6 +29,21 @@ const cruiseSlice = createSlice({
                     state.favoriteCruise = [...state.favoriteCruise, state.cruises[cruiseIndex]];
                 }
             }
+        },
+
+        setCart: (state, action) => {
+            const cruiseIndex = action.payload;
+            if (state.cruises[cruiseIndex]) {
+                if (state.cruises[cruiseIndex].isCart) {
+                    state.cruises[cruiseIndex].isCart = false;
+                    state.countCart -= 1;
+                    state.cartCruise = state.cartCruise.filter(item => item._id !== state.cruises[cruiseIndex]._id);
+                } else {
+                    state.cruises[cruiseIndex].isCart = true;
+                    state.countCart += 1;
+                    state.cartCruise = [...state.cartCruise, state.cruises[cruiseIndex]];
+                }
+            }
         }
 
     },
@@ -39,11 +56,19 @@ const cruiseSlice = createSlice({
 
             state.loading = false
             let counter = 0
-
+            let countCart = 0
+            const cartStorage = JSON.parse(localStorage.getItem("cart"))
             const storage = JSON.parse(localStorage.getItem("favorite"))
             const data = action.payload.map(item => {
                 const randomReviews = Math.floor(Math.random() * 1000)
 
+                if (cartStorage && cartStorage.includes(item._id)) {
+                    item.isCart = true
+                    countCart += 1
+                } else {
+                    item.isCart = false
+                }
+                
                 if (storage && storage.includes(item._id)) {
                     item.isFavorite = true
                     counter += 1
@@ -58,7 +83,9 @@ const cruiseSlice = createSlice({
                 return acc
             }, {})
             state.favoriteCruise = data.filter(item => item.isFavorite)
+            state.cartCruise = data.filter(item => item.isCart)
             state.countFavorite = counter
+            state.countCart = countCart
             state.cruises = cruise
         })
         builder.addCase(fetchCruiseAsync.rejected, (state, action) => {

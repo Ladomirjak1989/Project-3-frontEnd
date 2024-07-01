@@ -67,8 +67,8 @@ const HotelsPage = () => {
 
           </div>
           <div class="max-w-6xl mx-auto text-center py-12">
-            <div class="border-b border-gray-300 mb-8">
-              <h2 class="text-2xl font-bold text-blue-900 inline-block px-4 bg-white">Reasons to book with Dream Voyage</h2>
+            <div class=" border-gray-300 mb-8">
+              <h2 class="relative text-2xl font-bold text-blue-900 px-4 bg-white before:bg-gray-300 before:content-[''] before:h-[1px] before:w-[27%] before:absolute before:top-[50%] before:left-0  after:bg-gray-300 after:content-[''] after:h-[1px] after:w-[27%] after:absolute after:top-[50%] after:right-0 ">Reasons to book with Dream Voyage</h2>
             </div>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
               <div class="flex flex-col items-center">

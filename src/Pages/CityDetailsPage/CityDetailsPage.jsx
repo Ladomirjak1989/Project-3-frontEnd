@@ -46,7 +46,7 @@ const CityDetailsPage = () => {
           <p><strong className="italic">Population:</strong> {population}</p>
           <p><strong className="italic">Description:</strong> {description}</p>
           <div className="flex justify-center gap-5 mt-5">
-            <Link className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" to={`/cities/${city.name}/flights`}>
+            <Link className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" to={`/flights`}>
               Show flights
             </Link>
           </div>

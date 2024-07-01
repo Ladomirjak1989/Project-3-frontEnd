@@ -8,6 +8,8 @@ const vacationSlice = createSlice({
         vacations: {},
         vacation: {},
         favoriteVacation: [],
+        cartVacation: [],
+        countCart: 0,
         countFavorite: 0,
         loading: false,
         error: null
@@ -33,6 +35,21 @@ const vacationSlice = createSlice({
                     state.favoriteVacation = [...state.favoriteVacation, state.vacations[vacationIndex]];
                 }
             }
+        },
+
+        setCart: (state, action) => {
+            const vacationIndex = action.payload;
+            if (state.vacations[vacationIndex]) {
+                if (state.vacations[vacationIndex].isCart) {
+                    state.vacations[vacationIndex].isCart = false;
+                    state.countCart -= 1;
+                    state.cartVacation = state.cartVacation.filter(item => item._id !== state.vacations[vacationIndex]._id);
+                } else {
+                    state.vacations[vacationIndex].isCart = true;
+                    state.countCart += 1;
+                    state.cartVacation = [...state.cartVacation, state.vacations[vacationIndex]];
+                }
+            }
         }
         
     },
@@ -45,11 +62,20 @@ const vacationSlice = createSlice({
 
             state.loading = false
             let counter = 0
-
+            let countCart = 0
+            const cartStorage = JSON.parse(localStorage.getItem("cart"))
             const storage = JSON.parse(localStorage.getItem("favorite"))
             const data = action.payload.map(item => {
                 const randomReviews = Math.floor(Math.random() * 10000)
                 
+                if (cartStorage && cartStorage.includes(item._id)) {
+                    item.isCart = true
+                    countCart += 1
+                } else {
+                    item.isCart = false
+                }
+               
+               
                 if (storage && storage.includes(item._id)) {
                     item.isFavorite = true
 
@@ -65,7 +91,9 @@ const vacationSlice = createSlice({
                 return acc
             }, {})
             state.favoriteVacation = data.filter(item=>item.isFavorite)
+            state.cartVacation = data.filter(item => item.isCart)
             state.countFavorite = counter
+            state.countCart = countCart
             state.vacations = vacation
         })
         builder.addCase(fetchVacationAsync.rejected, (state, action) => {

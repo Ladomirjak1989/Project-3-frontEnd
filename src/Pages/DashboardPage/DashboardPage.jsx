@@ -86,7 +86,7 @@ const DashboardPage = () => {
 
 
 
-            <div className="mx-auto mt-5 p-10">
+            <div className="mx-auto max-w-[1200px] mt-5 p-10">
                 <h2 className="text-2xl font-bold mb-4">What our customers say ...</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                     <div className="border rounded-lg p-4 shadow">
@@ -126,7 +126,7 @@ const DashboardPage = () => {
 
 
 
-            <div className="mx-auto p-4 border-t">
+            <div className="mx-auto max-w-[1200px] p-4 border-t">
                 <div className="mb-8">
                     <p className="text-gray-700 ">
                         Choosing one of our flight deals couldn’t be easier. Here at Dream Voyage, we know you might already have your hotel in the bag – that’s why we also offer flight-only options to get you there on our award-winning airline. Sorting a Dream Voyage flight out is as easy as pie. Simply take a look at our choice of regional airports, and pick the one closest to you. Then put in where it is you’re setting off to. We’ll do the rest, by finding your perfect flight deal. Flights with Dream Voyage take off from all the major airports, including London Gatwick, London Luton and Manchester. We also fly from regional airports like Bournemouth. The Dream Voyage Airways programme ticks off eye-popping destinations all over the globe, from the golden beaches of Spain, and Portugal to far-off places like Mexico and Thailand. The best thing about flying long haul is the fact that you’ll probably travel in style on one of our Dreamliners. They’re super comfy, extra quiet, and come with more space than other planes. Have a look at our <a href="#" className="text-blue-500 underline">flight and travel options</a>, <a href="#" className="text-blue-500 underline">flight extras</a> and <a href="#" className="text-blue-500 underline">holiday extras</a> pages for essential information. Then, check out all of our flight deals by having a nose around our website, or pop in to one of our high-street stores.

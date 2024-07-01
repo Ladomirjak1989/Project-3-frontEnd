@@ -8,6 +8,8 @@ const hotelSlice = createSlice({
         hotels: {},
         hotel: {},
         favoriteHotel: [],
+        cartHotel: [],
+        countCart: 0,
         countFavorite: 0,
         loading: false,
         error: null
@@ -18,7 +20,7 @@ const hotelSlice = createSlice({
                 acc[cur._id] = cur
                 return acc
             }, {})
-           
+
             state.hotels = hotel
         },
         setFavorite: (state, action) => {
@@ -34,6 +36,21 @@ const hotelSlice = createSlice({
                     state.favoriteHotel = [...state.favoriteHotel, state.hotels[hotelIndex]];
                 }
             }
+        },
+
+        setCart: (state, action) => {
+            const hotelIndex = action.payload;
+            if (state.hotels[hotelIndex]) {
+                if (state.hotels[hotelIndex].isCart) {
+                    state.hotels[hotelIndex].isCart = false;
+                    state.countCart -= 1;
+                    state.cartHotel = state.cartHotel.filter(item => item._id !== state.hotels[hotelIndex]._id);
+                } else {
+                    state.hotels[hotelIndex].isCart = true;
+                    state.countCart += 1;
+                    state.cartHotel = [...state.cartHotel, state.hotels[hotelIndex]];
+                }
+            }
         }
 
     },
@@ -46,10 +63,18 @@ const hotelSlice = createSlice({
 
             state.loading = false
             let counter = 0
-
+            let countCart = 0
+            const cartStorage = JSON.parse(localStorage.getItem("cart")) 
             const storage = JSON.parse(localStorage.getItem("favorite"))
             const data = action.payload.map(item => {
                 const randomReviews = Math.floor(Math.random() * 1000)
+
+                if (cartStorage && cartStorage.includes(item._id)) {
+                    item.isCart = true
+                    countCart += 1
+                } else {
+                    item.isCart = false
+                }
 
                 if (storage && storage.includes(item._id)) {
                     item.isFavorite = true
@@ -65,7 +90,9 @@ const hotelSlice = createSlice({
                 return acc
             }, {})
             state.favoriteHotel = data.filter(item => item.isFavorite)
+            state.cartHotel = data.filter(item => item.isCart)
             state.countFavorite = counter
+            state.countCart = countCart
             state.hotels = hotel
         })
         builder.addCase(fetchHotelAsync.rejected, (state, action) => {

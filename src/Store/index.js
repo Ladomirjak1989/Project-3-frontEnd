@@ -16,6 +16,9 @@ import citySliceReducer from "./Slices/citySliceReducer";
 import hotelSliceReducer from "./Slices/hotelSliceReducer";
 import cruiseSliceReducer from "./Slices/cruiseSliceReducer";
 import citySearchSlice from "./Slices/citySearchSlice";
+import cartSliceReducer from "./Slices/cartSliceReducer";
+import profileSliceReducer from "./Slices/profileSliceReducer";
+import cruiseDealSliceReducer from "./Slices/cruiseDealSliceReducer";
 
 
 
@@ -39,6 +42,9 @@ const Store = configureStore({
         hotels: hotelSliceReducer,
         cruise: cruiseSliceReducer,
         citySearch: citySearchSlice,
+        cart: cartSliceReducer,
+        profile: profileSliceReducer,
+        cruiseDeal: cruiseDealSliceReducer,
     
         
 

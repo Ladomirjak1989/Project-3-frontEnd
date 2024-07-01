@@ -1,8 +1,7 @@
-
 import React, { useEffect } from 'react';
 import { RouterProvider } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import router from './routers/routers'; // Adjust the import path as needed
+import router from './routers/routers';
 import { fetchFlightAsync } from './Store/Slices/fetchFlightSliceAsync';
 import { fetchVacationAsync } from './Store/Slices/fetchVacationSliceAsync';
 import { fetchCityAsync } from './Store/Slices/fetchCitySliceReducer';

@@ -57,11 +57,18 @@ const Footer = () => {
       <div className="bg-blue-700 py-6">
         <div className="container mx-auto">
           <ul className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 text-lg">
-            <li><p className='hover:underline'>About</p></li>
+           
+          <Link to="/about" className="hover:underline">
+            About us
+          </Link>
             <li><p className='hover:underline'>Service</p></li>
             <li><p className='hover:underline'>Activity</p></li>
-            <li><p className='hover:underline'>Terms and conditions</p></li>
-            <li><p className='hover:underline'>Contact us</p></li>
+            <Link to="/terms" className="hover:underline">
+            Terms & Conditions
+          </Link>
+            <Link to="/contact" className="hover:underline">
+            Contact us
+          </Link>
             <li className="flex flex-col items-center sm:items-start">
               <p>Can’t find what you’re looking for?</p>
               <form onSubmit={handleSubmit} className="flex mt-2 text-black">
@@ -74,9 +81,6 @@ const Footer = () => {
                   required
                 />
                 <Button id="send"/>
-                {/* <button type="submit" className="px-4 py-2 bg-sky-300 rounded-r-lg hover:bg-sky-400 transition duration-300">
-                  Send
-                </button> */}
               </form>
               {submitted && <p className="text-white mt-2">✅Thank you! Your email has been submitted.</p>}
             </li>

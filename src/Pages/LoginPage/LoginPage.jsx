@@ -1,10 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { FaLock } from 'react-icons/fa';
 import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { FaLockOpen } from "react-icons/fa";
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchSessionAsync } from '../../Store/Slices/fetchSessionSliceAsync';
 import { MdEmail } from 'react-icons/md';
+import Button from '../../components/Button/Button';
+import { AuthContext } from '../../../context/auth.context';
 
 
 const LoginPage = () => {
@@ -15,7 +17,17 @@ const LoginPage = () => {
     const [isPasswordShow, setPasswordShow] = useState(false)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    
+
+    const handleDemoUser=() =>{
+        setEmail("demouser@gmail.com")
+        setPassword("Demouser12345")
+    }
+
+    const handleDemoAdmin=() =>{
+        setEmail("demoadmin@dreamvoyage.com")
+        setPassword("Demoadmin12345")
+    }
+
 
     const navigate = useNavigate()
 
@@ -24,8 +36,8 @@ const LoginPage = () => {
         const requestBody = { email, password };
         const token = await dispatch(fetchSessionAsync(requestBody))
 
-        if(token.payload.authToken){
-            
+        if (token.payload.authToken) {
+
             navigate('/');
         }
     };
@@ -45,7 +57,7 @@ const LoginPage = () => {
                                 value={email}
                                 onChange={(e) => setEmail(e.target.value)}
                                 className=' w-full h-full border-solid border-2 border-slate-500 rounded-[40px] text-base py-2 pl-2 pr-[45px] ' />
-                         
+
                             <MdEmail className='absolute right-5 top-1/2 text-base translate-y-[-50%]' />
                         </div>
 
@@ -74,11 +86,12 @@ const LoginPage = () => {
 
 
                         <button className=' w-full h-[45px] bg-blue-500 rounded-[40px] shadow-[0_0_10px_rgb(27,25,25)] cursor-pointer text-base text-white font-bold' type='submit'>Login</button>
-
+                        <Button onClick={handleDemoUser} id="demoUser" />
+                        <Button onClick={handleDemoAdmin} id="demoAdmin" />
                         <div className='register-link'>
 
                             {error && <p className="error-message">{error}</p>}
-                           
+
                             <div className='font-bold'>
                                 <p>
                                     Don't have an account? <Link className='text-[#f1e0e0] font-bold hover:underline hover:text-[rgb(247,192,247)]' to={'/signup'}>Sign Up</Link>

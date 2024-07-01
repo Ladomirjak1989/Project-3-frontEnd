@@ -86,12 +86,12 @@ export const deleteCruiseAsync = createAsyncThunk("cruise/deleteCruise", async (
 
 
 
-// export const fetchCruiseDealsAsync = createAsyncThunk("Cruise/fetchCruiseDeals", async (params, { rejectWithValue }) => {
-//   try {
-//     const response = await axios.get(`${API_URL}/Cruises/deals`,{params})
-//     return response.data
-//   } catch (e) { return rejectWithValue(e.response.data.message); }
+export const fetchCruiseDealAsync = createAsyncThunk("cruise/fetchCruiseDeal", async (params, { rejectWithValue }) => {
+  try {
+    const response = await axios.get(`${API_URL}/cruises/deal`,{params})
+    return response.data
+  } catch (e) { return rejectWithValue(e.response.data.message); }
 
 
-// })
+})
 

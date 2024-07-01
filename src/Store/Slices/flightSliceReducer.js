@@ -7,12 +7,30 @@ const flightSlice = createSlice({
     initialState: {
         flights: {},
         flight: null,
+        cartFlight: [],
+        countCart: 0,
         loading: false,
         error: null
     },
     reducers: {
 
     },
+
+    setCart: (state, action) => {
+        const flightIndex = action.payload;
+        if (state.flights[flightIndex]) {
+            if (state.flights[flightIndex].isCart) {
+                state.flights[flightIndex].isCart = false;
+                state.countCart -= 1;
+                state.cartHotel = state.cartHotel.filter(item => item._id !== state.flights[flightIndex]._id);
+            } else {
+                state.flights[flightIndex].isCart = true;
+                state.countCart += 1;
+                state.cartHotel = [...state.cartHotel, state.flights[flightIndex]];
+            }
+        }
+    },
+
     extraReducers: (builder) => {
         builder.addCase(fetchFlightAsync.pending, (state) => {
             state.loading = true
@@ -20,11 +38,28 @@ const flightSlice = createSlice({
         })
         builder.addCase(fetchFlightAsync.fulfilled, (state, action) => {
             state.loading = false
-            const flight = action.payload.reduce((acc, cur) => {
+            let countCart = 0
+            const cartStorage = JSON.parse(localStorage.getItem("cart"))
+            
+            const data = action.payload.map(item => {
+                
+
+                if (cartStorage && cartStorage.includes(item._id)) {
+                    item.isCart = true
+                    countCart += 1
+                } else {
+                    item.isCart = false
+                }
+                return item
+            })
+            const flight = data.reduce((acc, cur) => {
                 acc[cur._id] = cur
-                 return acc
+                return acc
             }, {})
+            state.cartFlight = data.filter(item => item.isCart)
+            state.countCart = countCart
             state.flights = flight
+
         })
         builder.addCase(fetchFlightAsync.rejected, (state, action) => {
             state.loading = false
