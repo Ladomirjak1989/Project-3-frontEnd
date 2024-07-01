@@ -4,6 +4,7 @@ import { createVacationAsync, updatedVacationAsync, fetchVacationByIdAsync } fro
 import Loader from '../Loader/Loader';
 import { useNavigate, useParams } from 'react-router-dom';
 import Button from '../Button/Button';
+import { cleanOne } from '../../Store/Slices/vacationSliceReducer';
 
 const VacationOfferForm = () => {
     const dispatch = useDispatch();
@@ -33,7 +34,13 @@ const VacationOfferForm = () => {
         if (id) {
             dispatch(fetchVacationByIdAsync(id));
         }
-    }, [id, dispatch]);
+ }, [id, dispatch]);
+
+ useEffect(() => {
+            return () => {
+              dispatch(cleanOne({}));
+            };
+          }, [dispatch]);
 
     useEffect(() => {
         if (vacation && vacation.duration) {
@@ -131,6 +138,7 @@ const VacationOfferForm = () => {
             const updatedVacation = dispatch(updatedVacationAsync({ formData: data, id: vacation._id }));
             if (updatedVacation) {
                 clearForm()
+                dispatch(cleanOne({}))
                 navigate(`/vacations/${vacation._id}`);
             }
             // Reset the form

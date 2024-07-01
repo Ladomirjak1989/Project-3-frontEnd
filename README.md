@@ -1,14 +1,3 @@
-# React + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
-
------------------------------------------------------------------------------------------------------
-
 Dream Voyage Agency Project-3
 
 Technologies Used:
@@ -98,6 +87,7 @@ STRIPE_SECRET_KEY="sk_test"
 BackEnd Project Structure
 Here is an overview of the backEnd project structure:
 
+```
 backEnd/
 │
 ├── config/
@@ -144,6 +134,7 @@ backEnd/
 ├── package-lock.json
 ├── package.json
 └── server.js
+```
 
 Description of Key Directories and Files
 . config/: Contains configuration files for the application.
@@ -161,7 +152,7 @@ Description of Key Directories and Files
 
 FrontEnd Project Structure
 Here is an overview of the frontEnd project structure:
-
+```
 frontEnd/
 │
 ├── context/
@@ -285,6 +276,7 @@ frontEnd/
 ├── README.md
 ├── tailwind.config.js
 └── vite.config.js
+```
 
 Description of Key Directories and Files:
 - src/: Contains the source code for the frontend.
@@ -321,7 +313,7 @@ A user can log in with their login credentials. If a user doesn't have an accoun
 -------------------------------------------------------------------------------------------------------
 
 Home Page:
-image:
+![alt text] image:
 This is the Home page where a logged in/out user can navigate to flightPage, vacationPage, hotelPage, CruisePage, CityPage. Only a logged in user can access the 'Book' link.
 
 -------------------------------------------------------------------------------------------------------
@@ -339,8 +331,8 @@ When a user clicks on a button "continue", they are redirected to the vacation d
 -------------------------------------------------------------------------------------------------------
 
 Admin functions:
-![alt text](image-2.png)
- image:
+![alt text](https://res.cloudinary.com/dq0fwucoj/image/upload/v1719858859/image-2_rvzmje.png)
+
 Admin can Create, Read, Update, Delete (CRUD) Operations: Admins can add new flight and vacation packages, update existing ones, or remove outdated or canceled packages.
 
 ---------------------------------------------------------------------------------------------------------
@@ -357,7 +349,8 @@ The Cruise Search Bar allows users to search for cruises by destination, departu
 
 4. Vacation Search Bar
 The Vacation Search Bar enables users to search for vacation deals by destination, dates, price range, and vacation type. Users can also filter results by activities and amenities included in the vacation package.
-![alt text](image-4.png)
+
+![alt text](https://res.cloudinary.com/dq0fwucoj/image/upload/v1719858944/image-4_kchyum.png)
 
 
 ```
@@ -549,6 +542,8 @@ export default Vacationsbar;
 
 Schema.model for vacation:
 
+```
+{
 const { Schema, model } = require("mongoose");
 
 const vacationSchema = new Schema(
@@ -604,9 +599,14 @@ const vacationSchema = new Schema(
 const Vacation = model("Vacation", vacationSchema);
 
 module.exports = Vacation;
+}
+```
+
 ------------------------------------------------------------------------------
 
-Vacation database example:
+Vacation db.json example:
+
+```
  {
             "id": 1,
             "destination": "Santorini, Greece",
@@ -652,7 +652,7 @@ Vacation database example:
                 }
             ]
         },
-
+```
 -----------------------------------------------------------------------
 
 The shortlist functionality in Dream Voyage Agency provides users with the ability to save and organize their preferred travel options, making it easier to compare and decide on their ideal travel packages. This feature enhances user experience by allowing them to keep track of their favorite packages, hotels, flights, cruises or vacation deals without the need to search for them repeatedly.
@@ -669,11 +669,12 @@ Remove from Shortlist.
 Users can easily remove items from their shortlist if they change their mind.
 Provides flexibility in managing their preferred options.
 
-![alt text](image-3.png)
+![alt text](https://res.cloudinary.com/dq0fwucoj/image/upload/v1719858944/image-4_kchyum.png)
 
 -------------------------------------------------------------------------
 
 Profile Functionality.
+
 The profile functionality in Dream Voyage Agency is an essential feature that enhances user experience by allowing users to manage their personal information, booking history, preferences, and more. It provides a centralized location where users can view and update their details, ensuring a personalized and streamlined experience while using the platform.
 
 Personal Information Management.
@@ -690,6 +691,8 @@ image:
 Stripe Configuration
 Stripe is a powerful and flexible payment processing platform that is widely used for handling online transactions. In Dream Voyage Agency, integrating Stripe ensures secure, reliable, and seamless payment processing for users booking travel packages, flights, hotels, and other services. Ease of Integration: Stripe’s comprehensive API and developer-friendly documentation make it easy to integrate into any application:
 
+```
+{
 <!-- index.routes.js -->
 const axios = require("axios")
 const router = require("express").Router();
@@ -716,6 +719,9 @@ router.post("/create-payment-intent", async (req, res) => {
     }
 })
 module.exports = router;
+}
+```
+
 
 ------------------------------------------------------------------------------------------------------
 

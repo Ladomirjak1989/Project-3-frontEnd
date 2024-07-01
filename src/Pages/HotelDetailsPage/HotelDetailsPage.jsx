@@ -16,6 +16,7 @@ const HotelDetailsPage = () => {
 
     useEffect(() => {
         dispatch(fetchHotelByIdAsync(id))
+
     }, [dispatch, id])
 
     if (loading) {
@@ -43,6 +44,9 @@ const HotelDetailsPage = () => {
 
     const bookHotel = ()=>{
         if(!user){
+            const storage = JSON.parse(localStorage.getItem("cart"))
+            storage.push(id)
+            localStorage.setItem("cart", JSON.stringify(storage))
           dispatch(setCartHotel(id))
         }
           }

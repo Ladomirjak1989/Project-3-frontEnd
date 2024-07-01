@@ -101,6 +101,9 @@ const CruiseDetailsPage = () => {
 
   const bookCruise = () => {
     if (!user) {
+      const storage = JSON.parse(localStorage.getItem("cart"))
+            storage.push(id)
+            localStorage.setItem("cart", JSON.stringify(storage))
       dispatch(setCartCruise(id))
     }
   }

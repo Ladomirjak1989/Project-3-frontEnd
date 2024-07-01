@@ -15,6 +15,12 @@ const vacationSlice = createSlice({
         error: null
     },
     reducers: {
+
+        cleanOne: (state, action) => {
+            state.vacation = action.payload
+        },
+
+
         setSorted: (state, action) => {
             const vacation = action.payload.reduce((acc, cur) => {
                 acc[cur._id] = cur
@@ -140,7 +146,7 @@ const vacationSlice = createSlice({
             })
             .addCase(updatedVacationAsync.fulfilled, (state, action) => {
                 state.loading = false;
-                state.vacation = null
+                state.vacation = {}
                 state.vacations[action.payload._id] = action.payload
 
             })
@@ -166,6 +172,6 @@ const vacationSlice = createSlice({
 
     }
 })
-export const { setSorted, setFavorite, setCartVacation } = vacationSlice.actions;
+export const { setSorted, setFavorite, setCartVacation, cleanOne } = vacationSlice.actions;
 
 export default vacationSlice.reducer;
