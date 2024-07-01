@@ -45,6 +45,7 @@ const Store = configureStore({
         cart: cartSliceReducer,
         profile: profileSliceReducer,
         cruiseDeal: cruiseDealSliceReducer,
+        
     
         
 

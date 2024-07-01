@@ -4,12 +4,15 @@ import { useParams } from 'react-router-dom';
 import { fetchCruiseByIdAsync } from '../../Store/Slices/fetchCruiseSliceAsync';
 import Loader from '../../components/Loader/Loader';
 import Button from '../../components/Button/Button';
+import { setCartCruise } from '../../Store/Slices/cruiseSliceReducer';
+
 
 const CruiseDetailsPage = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const loading = useSelector(state => state.cruise.loading);
   const cruise = useSelector(state => state.cruise.cruise);
+  const user = useSelector(state => state.session.user)
 
   const days = [
     {
@@ -96,6 +99,12 @@ const CruiseDetailsPage = () => {
     amenities = [],
   } = cruise;
 
+  const bookCruise = () => {
+    if (!user) {
+      dispatch(setCartCruise(id))
+    }
+  }
+
   return (
     <div className="container mx-auto mt-7 max-w-5xl p-4">
       <div className="border border-dashed border-blue-400 p-4 rounded-lg text-center mb-6">
@@ -118,7 +127,7 @@ const CruiseDetailsPage = () => {
             ))}
           </div>
         )}
-        
+
         <div className="mb-6">
           <p><strong className="italic">Name:</strong> {name}</p>
           <p><strong className="italic">Type:</strong> {type}</p>
@@ -162,47 +171,49 @@ const CruiseDetailsPage = () => {
         </div>
 
         <div className="flex justify-end">
-        <Button id="book" />
+
+          <Button onClick={bookCruise} id="book" />
+
         </div>
       </div>
       <h2 className='text-2xl font-semibold mb-6 underline italic pl-20'>YOUR ITINERARY</h2>
-<div className="container mx-auto p-4">
-  {days.map((day, index) => (
-    <div key={index} className="mb-4">
-      <div
-        className={`flex justify-between items-center p-4 rounded-t-lg ${openDay === index ? 'bg-blue-100' : 'bg-blue-200'} cursor-pointer`}
-        onClick={() => toggleDay(index)}
-      >
-        <div className="flex items-center">
-          <div className="font-bold text-lg">{day.day}</div>
-          <div className="ml-4">
-            <div className="font-semibold">{day.location}</div>
-            {day.departure && <div className="text-sm text-gray-700">🕒 Departs: {day.departure}</div>}
-            {day.portTime && <div className="text-sm text-gray-700">🕒 Time in port: {day.portTime}</div>}
+      <div className="container mx-auto p-4">
+        {days.map((day, index) => (
+          <div key={index} className="mb-4">
+            <div
+              className={`flex justify-between items-center p-4 rounded-t-lg ${openDay === index ? 'bg-blue-100' : 'bg-blue-200'} cursor-pointer`}
+              onClick={() => toggleDay(index)}
+            >
+              <div className="flex items-center">
+                <div className="font-bold text-lg">{day.day}</div>
+                <div className="ml-4">
+                  <div className="font-semibold">{day.location}</div>
+                  {day.departure && <div className="text-sm text-gray-700">🕒 Departs: {day.departure}</div>}
+                  {day.portTime && <div className="text-sm text-gray-700">🕒 Time in port: {day.portTime}</div>}
+                </div>
+              </div>
+              <div className={`transform transition-transform ${openDay === index ? 'rotate-180' : 'rotate-0'}`}>
+                <svg className="w-6 h-6 text-blue-900" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M10 3a1 1 0 01.707.293l5 5a1 1 0 01-1.414 1.414L10 5.414l-4.293 4.293A1 1 0 014.293 8.707l5-5A1 1 0 0110 3z" clipRule="evenodd" />
+                </svg>
+              </div>
+            </div>
+            {openDay === index && (
+              <div className="bg-white p-4 rounded-b-lg shadow-md">
+                <div className="flex">
+                  <div className="w-2/3">
+                    <p className="text-gray-700 mb-4">{day.description}</p>
+                    {/* <a href="#" className="text-blue-500 hover:underline">More details</a> */}
+                  </div>
+                  <div className="w-1/3">
+                    <img src={day.imageUrl} alt={day.location} className="rounded-lg shadow-md object-cover h-full" />
+                  </div>
+                </div>
+              </div>
+            )}
           </div>
-        </div>
-        <div className={`transform transition-transform ${openDay === index ? 'rotate-180' : 'rotate-0'}`}>
-          <svg className="w-6 h-6 text-blue-900" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M10 3a1 1 0 01.707.293l5 5a1 1 0 01-1.414 1.414L10 5.414l-4.293 4.293A1 1 0 014.293 8.707l5-5A1 1 0 0110 3z" clipRule="evenodd" />
-          </svg>
-        </div>
+        ))}
       </div>
-      {openDay === index && (
-        <div className="bg-white p-4 rounded-b-lg shadow-md">
-          <div className="flex">
-            <div className="w-2/3">
-              <p className="text-gray-700 mb-4">{day.description}</p>
-              {/* <a href="#" className="text-blue-500 hover:underline">More details</a> */}
-            </div>
-            <div className="w-1/3">
-              <img src={day.imageUrl} alt={day.location} className="rounded-lg shadow-md object-cover h-full" />
-            </div>
-          </div>
-        </div>
-      )}
-    </div>
-  ))}
-</div>
     </div>
 
 

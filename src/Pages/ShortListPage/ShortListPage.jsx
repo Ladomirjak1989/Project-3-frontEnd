@@ -1,9 +1,10 @@
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { FaHeart } from 'react-icons/fa';
 import VacationEl from '../../components/VacationEl/VacationEl';
 import HotelEl from '../../components/HotelEl/HotelEl';
 import CruiseEl from "../../components/CruiseEl/CruiseEl"
-import { Link } from 'react-router-dom';
+
 
 
 const ShortListPage = () => {

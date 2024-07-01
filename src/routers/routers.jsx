@@ -30,6 +30,7 @@ import PaymentPage from "../Pages/PaymentPage/PaymentPage";
 import CompletionPage from "../Pages/CompletionPage/CompletionPage";
 import ContactPage from "../Pages/ContactPage/ContactPage";
 import TermsAndConditionsPage from "../Pages/TermsAndConditionsPage/TermsAndConditionsPage";
+import CartPage  from "../Pages/CartPage/CartPage";
 
 
 
@@ -61,14 +62,14 @@ const router = createBrowserRouter([
             { path: "/vacations", element: <VacationPage /> },
             { path: "/vacations/:id", element: <VacationDetails /> },
             { path: "/short-list", element: <ShortListPage /> },
-            { path: "*", element: <NotFoundPage /> },
             { path: "/booking", element: <BookingPage /> },
             { path: "/payment", element: <PaymentPage /> },
             { path: "/completion", element: <CompletionPage /> },
             { path: "/contact", element: <ContactPage /> },
             { path: "/terms", element: <TermsAndConditionsPage /> },
+            { path: "/cart", element: <CartPage /> },
           
-            
+            { path: "*", element: <NotFoundPage /> },
             
 
 

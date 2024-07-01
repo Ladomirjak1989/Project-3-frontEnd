@@ -13,22 +13,21 @@ const flightSlice = createSlice({
         error: null
     },
     reducers: {
-
-    },
-
-    setCart: (state, action) => {
-        const flightIndex = action.payload;
-        if (state.flights[flightIndex]) {
-            if (state.flights[flightIndex].isCart) {
-                state.flights[flightIndex].isCart = false;
-                state.countCart -= 1;
-                state.cartHotel = state.cartHotel.filter(item => item._id !== state.flights[flightIndex]._id);
-            } else {
-                state.flights[flightIndex].isCart = true;
-                state.countCart += 1;
-                state.cartHotel = [...state.cartHotel, state.flights[flightIndex]];
+        
+        setCartFlight: (state, action) => {
+            const flightIndex = action.payload;
+            if (state.flights[flightIndex]) {
+                if (state.flights[flightIndex].isCart) {
+                    state.flights[flightIndex].isCart = false;
+                    state.countCart -= 1;
+                    state.cartFlight = state.cartFlight.filter(item => item._id !== state.flights[flightIndex]._id);
+                } else {
+                    state.flights[flightIndex].isCart = true;
+                    state.countCart += 1;
+                    state.cartFlight = [...state.cartFlight, state.flights[flightIndex]];
+                }
             }
-        }
+        },
     },
 
     extraReducers: (builder) => {
@@ -40,9 +39,9 @@ const flightSlice = createSlice({
             state.loading = false
             let countCart = 0
             const cartStorage = JSON.parse(localStorage.getItem("cart"))
-            
+
             const data = action.payload.map(item => {
-                
+
 
                 if (cartStorage && cartStorage.includes(item._id)) {
                     item.isCart = true
@@ -79,7 +78,6 @@ const flightSlice = createSlice({
         builder.addCase(createFlightAsync.rejected, (state, action) => {
             state.loading = false
             state.error = action.payload
-            // state.error = action.error.message;
         })
 
 
@@ -105,10 +103,6 @@ const flightSlice = createSlice({
                 state.loading = false;
                 state.flight = null
                 state.flights[action.payload._id] = action.payload
-                // const index = state.flights.findIndex(flight => flight._id === action.payload._id);
-                // if (index !== -1) {
-                //     state.flights[index] = action.payload;
-                // }
             })
             .addCase(updatedFlightAsync.rejected, (state, action) => {
                 state.loading = false;
@@ -122,8 +116,6 @@ const flightSlice = createSlice({
             .addCase(deleteFlightAsync.fulfilled, (state, action) => {
                 state.loading = false;
                 delete state.flights[action.payload]
-
-                // state.flights = state.flights.filter(flight => flight._id !== action.payload);
             })
             .addCase(deleteFlightAsync.rejected, (state, action) => {
                 state.loading = false;
@@ -132,5 +124,7 @@ const flightSlice = createSlice({
 
     }
 })
+
+export const { setCartFlight } = flightSlice.actions;
 
 export default flightSlice.reducer;

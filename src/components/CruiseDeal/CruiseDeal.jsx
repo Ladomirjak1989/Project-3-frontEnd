@@ -20,7 +20,7 @@ const CruiseDeal = ({ count }) => {
 
   return (
     <>
-      <div className='mx-auto p-4'>
+      <div className='mx-auto p-4'id='seeDeal'> 
         <div className="mx-auto max-w-4xl bg-gray-50 p-6 rounded-lg shadow-lg">
           <h2 className="text-3xl font-bold text-center mb-8">Popular Cruise Deals</h2>
           <Swiper

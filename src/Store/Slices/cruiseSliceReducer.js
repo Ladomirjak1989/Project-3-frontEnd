@@ -31,7 +31,7 @@ const cruiseSlice = createSlice({
             }
         },
 
-        setCart: (state, action) => {
+        setCartCruise: (state, action) => {
             const cruiseIndex = action.payload;
             if (state.cruises[cruiseIndex]) {
                 if (state.cruises[cruiseIndex].isCart) {
@@ -159,6 +159,6 @@ const cruiseSlice = createSlice({
 
     }
 })
-export const { setFavorite } = cruiseSlice.actions;   //setSortedCruise
+export const { setFavorite, setCartCruise } = cruiseSlice.actions;   //setSortedCruise
 
 export default cruiseSlice.reducer;

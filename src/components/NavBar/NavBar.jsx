@@ -23,18 +23,17 @@ const Navbar = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const token = useSelector(state => state.session.token);
-  const countFavorite = useSelector(state => state.vacations.countFavorite);
-  const countFavoriteHotel = useSelector(state => state.hotels.countFavorite);
-  const countFavoriteCruise = useSelector(state => state.cruise.countFavorite);
+  const { countFavorite: countFavoriteVacation, countCart: countVacationCart } = useSelector(state => state.vacations);
+  const { countFavorite: countFavoriteHotel, countCart: countHotelCart } = useSelector(state => state.hotels);
+  const { countFavorite: countFavoriteCruise, countCart: countCruiseCart } = useSelector(state => state.cruise);
+  const { countCart: countFlightCart } = useSelector(state => state.flights);
   const user = useSelector(state => state.session.user);
 
 
   const [isPopUpOpen, setPopUpOpen] = useState(false);
   const [count, setCount] = useState(0);
+  const [cartCount, setCartCount] = useState(0);
   const [isCartOpen, setIsCartOpen] = useState(false);
-  const [cartItems, setCartItems] = useState([]);
-  const [timeMessage, setTimeMessage] = useState(false);
-
 
   const onLogOut = () => {
     localStorage.removeItem("token");
@@ -44,44 +43,21 @@ const Navbar = () => {
   };
 
   useEffect(() => {
-    setCount(countFavorite + countFavoriteHotel + countFavoriteCruise);
-  }, [countFavorite, countFavoriteHotel, countFavoriteCruise]);
+    console.log(countFavoriteVacation, countFavoriteHotel, countFavoriteCruise)
+    setCount(countFavoriteVacation + countFavoriteHotel + countFavoriteCruise);
+  }, [countFavoriteVacation, countFavoriteHotel, countFavoriteCruise]);
+
+  useEffect(() => {
+    setCartCount(countFlightCart + countVacationCart + countCruiseCart + countHotelCart);
+  }, [countFlightCart, countVacationCart, countCruiseCart, countHotelCart]);
 
   const toggleCart = () => {
-    setIsCartOpen(!isCartOpen);
-    setTimeMessage(true);
+    setIsCartOpen(true);
     setTimeout(() => {
-      setTimeMessage(false);
+      setIsCartOpen(false);
     }, 5000);
   };
 
-  const addToCart = (item) => {
-    setCartItems(prevItems => {
-      const existingItem = prevItems.find(cartItem => cartItem.name === item.name);
-      if (existingItem) {
-        return prevItems.map(cartItem =>
-          cartItem.name === item.name
-            ? { ...cartItem, quantity: cartItem.quantity + item.quantity }
-            : cartItem
-        );
-      }
-      return [...prevItems, item];
-    });
-  };
-
-  const removeFromCart = (itemName) => {
-    setCartItems(prevItems => prevItems.filter(item => item.name !== itemName));
-  };
-
-  const updateCartItemQuantity = (itemName, quantity) => {
-    setCartItems(prevItems =>
-      prevItems.map(item =>
-        item.name === itemName
-          ? { ...item, quantity }
-          : item
-      )
-    );
-  };
 
   return (
     <div className="shadow-md">
@@ -127,33 +103,27 @@ const Navbar = () => {
         </div>
 
         <div className="relative">
-          <button onClick={toggleCart} className="relative">
+          <Link to="/cart" onMouseEnter={toggleCart}>
             <div className='bg-yellow-100 p-2 rounded-sm pt-1 mt-1 pb-2'>
               <FaShoppingCart className='size-7' />
             </div>
-            {cartItems && cartItems.length > 0 && (
+            {cartCount > 0 && (
               <span className="absolute top-0 right-0 bg-red-600 text-white rounded-full w-5 h-5 flex items-center justify-center text-xs">
-                {cartItems.length}
+                {cartCount}
               </span>
             )}
-          </button>
+          </Link>
           {isCartOpen && (
             <div className="absolute right-0 w-64 bg-white text-black shadow-lg rounded-lg p-4">
-              {timeMessage ? (
-                <p>😔 Your cart is empty</p>
-              ) : (
-                <ul>
-                  {cartItems.map((item, index) => (
-                    <li key={index} className="flex justify-between items-center border-b py-2">
-                      <span>{item.name}</span>
-                      <span>{item.quantity}</span>
-                      <button onClick={() => removeFromCart(item.name)}>Remove</button>
-                      <button onClick={() => addToCart(item.name)}>Remove</button>
-                      <button onClick={() => updateCartItemQuantity(item.name)}>Remove</button>
-                    </li>
-                  ))}
-                </ul>
+              {!cartCount && (
+                <p className='font-semibold'><span className='text-2xl' >😔</span> Your cart is empty!</p>
               )}
+              {!!cartCount && (
+                <p className='font-semibold '>
+                <span className='text-3xl'>👍</span> You have: {cartCount} product in your cart!
+
+                </p>)
+              }
             </div>
           )}
         </div>

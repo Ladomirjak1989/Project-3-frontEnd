@@ -8,6 +8,11 @@ import { Provider } from "react-redux"
 import App from './App.jsx'
 import { AuthProviderWrapper } from '../context/auth.context.jsx'
 
+const cartStorage = JSON.parse(localStorage.getItem("cart"))
+if (!cartStorage) {
+  localStorage.setItem("cart", JSON.stringify([]))
+}
+
 const storage = JSON.parse(localStorage.getItem("favorite"))
 if (!storage) {
   localStorage.setItem("favorite", JSON.stringify([]))

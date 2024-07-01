@@ -38,7 +38,7 @@ const hotelSlice = createSlice({
             }
         },
 
-        setCart: (state, action) => {
+        setCartHotel: (state, action) => {
             const hotelIndex = action.payload;
             if (state.hotels[hotelIndex]) {
                 if (state.hotels[hotelIndex].isCart) {
@@ -165,6 +165,6 @@ const hotelSlice = createSlice({
 
     }
 })
-export const { setSortedHotel, setFavorite } = hotelSlice.actions;
+export const { setSortedHotel, setFavorite, setCartHotel } = hotelSlice.actions;
 
 export default hotelSlice.reducer;

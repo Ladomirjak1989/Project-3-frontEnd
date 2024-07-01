@@ -1,32 +1,37 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  username: '',
-  email: '',
-  password: '',
-};
+    title: 'Mr.',
+    firstName: '',
+    middleName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    address: {
+      street: '',
+      street2: '',
+      city: '',
+      state: '',
+      zip: ''
+    }
+  };
+
 
 const profileSlice = createSlice({
   name: 'profile',
   initialState,
   reducers: {
     updateProfile: (state, action) => {
-      const { username, email, password } = action.payload;
-      state.username = username;
-      state.email = email;
-      state.password = password;
-    },
-    createAccount: () => {
-      alert('Account created!');
-    },
-    deleteAccount: () => {
-      alert('Account deleted!');
-    },
-    signOut: () => {
-      alert('Signed out!');
-    },
-  },
+      const { field, value } = action.payload;
+      if (field.includes('address.')) {
+        const addressField = field.split('.')[1];
+        state.address[addressField] = value;
+      } else {
+        state[field] = value;
+      }
+    }
+  }
 });
 
-export const { updateProfile, createAccount, deleteAccount, signOut } = profileSlice.actions;
+export const { updateProfile, } = profileSlice.actions;
 export default profileSlice.reducer;

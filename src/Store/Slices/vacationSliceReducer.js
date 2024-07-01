@@ -37,7 +37,7 @@ const vacationSlice = createSlice({
             }
         },
 
-        setCart: (state, action) => {
+        setCartVacation: (state, action) => {
             const vacationIndex = action.payload;
             if (state.vacations[vacationIndex]) {
                 if (state.vacations[vacationIndex].isCart) {
@@ -166,6 +166,6 @@ const vacationSlice = createSlice({
 
     }
 })
-export const { setSorted, setFavorite } = vacationSlice.actions;
+export const { setSorted, setFavorite, setCartVacation } = vacationSlice.actions;
 
 export default vacationSlice.reducer;

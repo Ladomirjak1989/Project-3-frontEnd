@@ -5,13 +5,14 @@ import { fetchHotelByIdAsync } from '../../Store/Slices/fetchHotelSliceAsync'
 import Loader from '../../components/Loader/Loader'
 import RatingStars from '../../components/RatingStars/RatingStars'
 import Button from '../../components/Button/Button'
+import { setCartHotel } from '../../Store/Slices/hotelSliceReducer';
 
 const HotelDetailsPage = () => {
     const { id } = useParams()
     const dispatch = useDispatch()
     const loading = useSelector(state => state.hotels.loading)
     const hotel = useSelector(state => state.hotels.hotel)
-   
+    const user = useSelector(state => state.session.user)
 
     useEffect(() => {
         dispatch(fetchHotelByIdAsync(id))
@@ -39,6 +40,12 @@ const HotelDetailsPage = () => {
         reviews = [],
         contact = {},
     } = hotel
+
+    const bookHotel = ()=>{
+        if(!user){
+          dispatch(setCartHotel(id))
+        }
+          }
 
     return (
         <>
@@ -129,7 +136,7 @@ const HotelDetailsPage = () => {
                         <p><strong className='italic'>Website:</strong> {contact.website}</p>
                     </div>
                     <div className='flex justify-end'>
-                        <Button id="book" />
+                        <Button onClick={bookHotel} id="book" />
                     </div>
                 </div>
             </div>

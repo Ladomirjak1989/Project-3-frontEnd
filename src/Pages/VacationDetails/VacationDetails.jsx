@@ -5,6 +5,8 @@ import { fetchVacationByIdAsync } from '../../Store/Slices/fetchVacationSliceAsy
 import Loader from '../../components/Loader/Loader'
 import RatingStars from '../../components/RatingStars/RatingStars'
 import Button from '../../components/Button/Button'
+import { setCartVacation } from '../../Store/Slices/vacationSliceReducer';
+
 
 
 const VacationDetails = () => {
@@ -13,7 +15,7 @@ const VacationDetails = () => {
     const dispatch = useDispatch()
     const loading = useSelector(state => state.vacations.loading)
     const vacation = useSelector(state => state.vacations.vacation)
-    
+    const user = useSelector(state => state.session.user)
 
     useEffect(() => {
         dispatch(fetchVacationByIdAsync(id))
@@ -35,7 +37,12 @@ const VacationDetails = () => {
 
     } = vacation
 
-
+    const bookVacation = () => {
+        if (!user) {
+            dispatch(setCartVacation(id))
+            return;
+        }
+    }
 
     return (
         <>
@@ -103,7 +110,7 @@ const VacationDetails = () => {
                                 </div>
                             ))}
                             <div className='flex justify-end'>
-                                <Button id="book" />
+                                <Button onClick={bookVacation} id="book" />
                             </div>
                         </div>
 
