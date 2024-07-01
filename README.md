@@ -315,19 +315,25 @@ A user can log in with their login credentials. If a user doesn't have an accoun
 -------------------------------------------------------------------------------------------------------
 
 Home Page:
-![alt text] image:
+
+![alt text](https://res.cloudinary.com/dq0fwucoj/image/upload/v1719860153/image-home_mavrtt.png)
+
 This is the Home page where a logged in/out user can navigate to flightPage, vacationPage, hotelPage, CruisePage, CityPage. Only a logged in user can access the 'Book' link.
 
 -------------------------------------------------------------------------------------------------------
 
 Vacation page:
-image:
+
+![alt text](https://res.cloudinary.com/dq0fwucoj/image/upload/v1719860315/image-7_hefo71.png)
+
 Presented are the list of vacations on Dream Voyage.
 
 --------------------------------------------------------------------------------------------------------
 
 Vacation details page:
-image:
+
+![alt text](https://res.cloudinary.com/dq0fwucoj/image/upload/v1719860640/image-8_doipkj.png)
+
 When a user clicks on a button "continue", they are redirected to the vacation detail page. This page has the all information about the vacation such as name, destination, description, duration, price, accommodation, activities, reviews. If the users has own profiles, they can book chosen by them vacations.
 
 -------------------------------------------------------------------------------------------------------
