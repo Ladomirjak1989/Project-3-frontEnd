@@ -20,8 +20,9 @@ const Profile = () => {
   return (
     <main>
       <div className="flex items-center justify-center">
-        <div className="bg-white p-6 rounded-lg shadow-lg w-80">
+        <div className="bg-white p-6 rounded-lg shadow-lg">
           <div className="flex justify-center mb-4">
+
             <h2 className="text-center text-2xl font-semibold mb-4">⊂◉‿◉つ</h2>
           </div>
 
@@ -153,6 +154,7 @@ const Profile = () => {
             </button>
           </form>
 
+         
           <div className="flex items-center justify-center py-8">
             <div className="bg-blue-100 p-6 rounded-lg shadow-lg w-full max-w-lg">
               <h2 className="text-lg font-bold text-gray-900 mb-4">myDreamVoyage Account benefits</h2>

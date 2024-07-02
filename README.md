@@ -44,25 +44,43 @@ Prerequisites
 
 Steps
 1. Clone the Repository:
+
+```
 https://github.com/Ladomirjak1989/Project-3-backEnd
-https://github.com/Ladomirjak1989/Project-3-frontEnd
 cd backEnd
+
+```
+
+```
+https://github.com/Ladomirjak1989/Project-3-frontEnd
 cd frontEnd
 
+```
+
+```
 2. Install Dependencies:
 npm install
 
+```
+
+```
 3. Set Up Environment Variables:
 Create a .env file in the root directory and add the following variables:
 
+```
 TOKEN_SECRET=«generate_strong_secret_here»
 MONGO_DB="link to MongoDB"
 ORIGIN="http://localhost:"
 STRIPE_PUBLISHABLE_KEY="pk_test"
 STRIPE_SECRET_KEY="sk_test"
 
+```
+
+```
 4. Run the Application:
 npm run dev
+
+```
 
 Accessing the Application
 Frontend: Open your browser and navigate to http://localhost:5173
@@ -79,8 +97,12 @@ export const API_URL = 'http://localhost:4010';
 
 - Stripe Configuration
 To set up Stripe for payment processing, add your Stripe secret key to the .env file:
+
+```
 STRIPE_PUBLISHABLE_KEY="pk_test"
 STRIPE_SECRET_KEY="sk_test"
+
+```
 
 ------------------------------------------------------------------------------------------------------
 
