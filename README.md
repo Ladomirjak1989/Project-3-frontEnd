@@ -57,13 +57,15 @@ cd frontEnd
 
 ```
 
-```
+
 2. Install Dependencies:
+
+```
 npm install
 
 ```
 
-```
+
 3. Set Up Environment Variables:
 Create a .env file in the root directory and add the following variables:
 
@@ -76,8 +78,10 @@ STRIPE_SECRET_KEY="sk_test"
 
 ```
 
-```
+
 4. Run the Application:
+
+```
 npm run dev
 
 ```
