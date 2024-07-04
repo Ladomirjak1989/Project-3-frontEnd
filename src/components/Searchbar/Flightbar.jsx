@@ -65,7 +65,7 @@ const Flightbar = () => {
   return (
     <div className="mx-auto p-6 bg-white shadow-md rounded-md">
       <label className="text-2xl font-bold mb-6 block text-center">Find your Flight</label>
-      <form className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4" onSubmit={handelSubmit}>
+      <form className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-8 gap-4" onSubmit={handelSubmit}>
         <div>
           <label className="flex text-indigo-900 gap-2 items-center mb-2"><LuPlaneTakeoff /> Fly from:</label>
           <input
@@ -109,7 +109,7 @@ const Flightbar = () => {
           />
         </div>
         <div>
-          <label className="flex text-indigo-900 gap-2 items-center mb-2"><BsPerson /> Passengers:</label>
+          
           <div className="flex space-x-2">
             <div className="flex-1">
               <label className="block text-indigo-900 mb-2">Adults:</label>
@@ -145,9 +145,11 @@ const Flightbar = () => {
             <option value="one-way">One way</option>
           </select>
         </div>
-        <div className="flex space-x-2 items-end">
+        <div className="flex space-x-2 items-end p-4">
           <Button id="searchButton" />
+         
           <Button onClick={handleClearSearch} id="clear" />
+          
         </div>
       </form>
       <div className="mt-6">

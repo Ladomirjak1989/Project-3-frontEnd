@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LuPlaneTakeoff, LuPlaneLanding } from 'react-icons/lu';
-import { BsPerson } from 'react-icons/bs';
 import { setDeparture, setDestination, setDepartureDate, setDuration, setReturnDate, setGuests, setClearSearch } from "../../Store/Slices/vacationSearchSlice"
 import { fetchSearchVacationAsync } from '../../Store/Slices/fetchSearchSliceAsync';
 import Button from '../Button/Button';
@@ -66,16 +65,15 @@ const Vacationsbar = () => {
 
 
   return (
-    <>
-
-      <form onSubmit={handelSubmit} className="flex flex-wrap gap-4 justify-between">
+    <main className="p-2">
+      <form onSubmit={handelSubmit} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-8 gap-4">
         <div className="flex flex-col">
-          <label className="flex text-indigo-900 gap-2 items-center">
+          <label className="flex text-indigo-900 gap-2 items-center mb-2">
             <LuPlaneTakeoff /> Departure:
           </label>
           <input
             type="text"
-            placeholder="choose airports"
+            placeholder="Choose airports"
             name="departure"
             value={vacationSearch.departure}
             onChange={handleInputChange}
@@ -83,12 +81,12 @@ const Vacationsbar = () => {
           />
         </div>
         <div className="flex flex-col">
-          <label className="flex text-indigo-900 gap-2 items-center">
+          <label className="flex text-indigo-900 gap-2 items-center mb-2">
             <LuPlaneLanding /> Destination:
           </label>
           <input
             type="text"
-            placeholder="choose airports"
+            placeholder="Choose airports"
             name="destination"
             value={vacationSearch.destination}
             onChange={handleInputChange}
@@ -96,7 +94,7 @@ const Vacationsbar = () => {
           />
         </div>
         <div className="flex flex-col">
-          <label className="block text-indigo-900">Departure Date:</label>
+          <label className="block text-indigo-900 mb-2">Departure Date:</label>
           <input
             type="date"
             name="departureDate"
@@ -106,7 +104,7 @@ const Vacationsbar = () => {
           />
         </div>
         <div className="flex flex-col">
-          <label className="block text-indigo-900">Return Date:</label>
+          <label className="block text-indigo-900 mb-2">Return Date:</label>
           <input
             type="date"
             name="returnDate"
@@ -116,7 +114,7 @@ const Vacationsbar = () => {
           />
         </div>
         <div className="flex flex-col">
-          <label className="block text-indigo-900">Duration:</label>
+          <label className="block text-indigo-900 mb-2">Duration:</label>
           <select
             name="duration"
             value={vacationSearch.duration}
@@ -132,48 +130,46 @@ const Vacationsbar = () => {
           </select>
         </div>
         <div className="flex flex-col">
-          <label className="flex text-indigo-900 gap-2 items-center">
-            <BsPerson /> Guests:
-          </label>
+          
           <div className="flex space-x-2">
-            <input
-              type="number"
-              name="adults"
-              value={vacationSearch.guests.adults}
-              onChange={handleInputChange}
-              className="border border-gray-300 p-2 rounded"
-            />
-            <div className="flex flex-col">
-            <label className="flex text-indigo-900 gap-2 items-center">
-            <BsPerson /> Childrens:
-          </label>
-            <input
-              type="number"
-              name="children"
-              value={vacationSearch.guests.children}
-              onChange={handleInputChange}
-              className="border border-gray-300 p-2 rounded"
-            />
+            <div className="flex-1">
+              <label className="block text-indigo-900 mb-2">Adults:</label>
+              <input
+                type="number"
+                name="adults"
+                value={vacationSearch.guests.adults}
+                onChange={handleInputChange}
+                className="border border-gray-300 p-2 rounded w-full"
+              />
+            </div>
+            <div className="flex-1">
+              <label className="block text-indigo-900 mb-2">Children:</label>
+              <input
+                type="number"
+                name="children"
+                value={vacationSearch.guests.children}
+                onChange={handleInputChange}
+                className="border border-gray-300 p-2 rounded w-full"
+              />
             </div>
           </div>
         </div>
-        <div className="flex space-x-2">
+        <div className="flex space-x-2 p-4">
           <Button id="searchButton" />
           <Button onClick={handleClearSearch} id="clear" />
         </div>
       </form>
-      {/* Render the result content here */}
-      <div>
+      <div className="mt-6">
         {!!result.length && result.map((result) => (
           <div
             onClick={() => handleResultClick(result)}
             key={result.origin}
+            className="p-4 mb-2 bg-gray-100 rounded cursor-pointer hover:bg-gray-200"
           >
-            {/* Render result content here */}
           </div>
         ))}
       </div>
-    </>
+    </main>
   );
 };
 

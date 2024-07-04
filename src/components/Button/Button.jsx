@@ -136,19 +136,19 @@ const Button = ({ id, onClick }) => {
            
         },
         showUpdateProfile: {
-            className: "bg-green-700 text-white p-2 px-6 m-4 rounded",
+            className: "bg-blue-600 text-white p-2 px-6 m-4 rounded hover:bg-blue-700",
             text: "UPDATE PROFILE",
             type: "button",
            
         },
         showUpdatePassword: {
-            className: "bg-green-700 text-white p-2 px-6 m-4 rounded",
+            className: "bg-green-600 text-white p-2 px-6 m-4 rounded hover:bg-green-700",
             text: "UPDATE PASSWORD",
             type: "button",
            
         },
         deleteProfile: {
-            className: "bg-green-700 text-white p-2 px-6 m-4 rounded",
+            className: "bg-red-600 text-white p-2 px-6 m-4 rounded hover:bg-red-700",
             text: "DELETE PROFILE",
             type: "button",
            

@@ -68,7 +68,7 @@ const handleResultClick = (result) => {
   return (
     <>
     
-      <form onSubmit={handelSubmit} className="flex flex-wrap gap-4 justify-between">
+      <form onSubmit={handelSubmit} className="flex flex-wrap p-3 gap-4 justify-between">
         <div className="flex flex-col">
           <label className="flex text-indigo-900 gap-2 items-center">
             <LuPlaneTakeoff /> Departure:

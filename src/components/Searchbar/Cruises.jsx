@@ -56,7 +56,7 @@ const CruiseSearchForm = () => {
     };
 
     return (
-        <div className="container mx-auto p-4 bg-blue-100 rounded-lg shadow-lg">
+        <div className="mx-auto p-4 bg-blue-100 rounded-lg shadow-lg">
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="flex space-x-4 items-center">
                     <label className="block text-indigo-900 font-semibold">Trip type</label>
