@@ -7,6 +7,10 @@ import Logo from "../../assets/wanderlust-logo.png";
 import { logout } from '../../Store/Slices/sessionSliceReducer';
 import PopUp from '../PopUp/PopUp';
 import { CgProfile } from "react-icons/cg";
+import { setCartHotelWithUser } from '../../Store/Slices/hotelSliceReducer';
+import { setCartCruiseWithUser } from '../../Store/Slices/cruiseSliceReducer';
+import { setCartFlightWithUser } from '../../Store/Slices/flightSliceReducer';
+import { setCartVacationWithUser } from '../../Store/Slices/vacationSliceReducer';
 
 const navBarConfig = [
   { link: '/', title: 'Home' },
@@ -38,12 +42,16 @@ const Navbar = () => {
   const onLogOut = () => {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+
     dispatch(logout());
+    dispatch(setCartHotelWithUser([]))
+    dispatch(setCartCruiseWithUser([]))
+    dispatch(setCartFlightWithUser([]))
+    dispatch(setCartVacationWithUser([]))
     navigate("/");
   };
 
   useEffect(() => {
-    console.log(countFavoriteVacation, countFavoriteHotel, countFavoriteCruise)
     setCount(countFavoriteVacation + countFavoriteHotel + countFavoriteCruise);
   }, [countFavoriteVacation, countFavoriteHotel, countFavoriteCruise]);
 

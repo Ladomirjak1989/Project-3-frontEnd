@@ -4,9 +4,12 @@ import { deleteHotelAsync } from '../../Store/Slices/fetchHotelSliceAsync';
 import { setPopUp } from '../../Store/Slices/popUpSliceReducer';
 import RatingStars from '../../components/RatingStars/RatingStars';
 import { Link } from 'react-router-dom';
-import { setFavorite } from '../../Store/Slices/hotelSliceReducer';
+import { setCartHotelWithUser, setFavorite } from '../../Store/Slices/hotelSliceReducer';
+import Button from '../Button/Button';
+import { setRemoveHotelFromCart } from '../../Store/Slices/hotelSliceReducer';
+import { fetchRemoveElementFromCartAsync } from '../../Store/Slices/fetchSessionSliceAsync';
 
-function HotelEl({ _id, name, images, location, rooms, rating, board, randomReviews, isFavorite }) {
+function HotelEl({ _id, name, images, location, rooms, rating, board, randomReviews, isFavorite, isCart, type }) {
     const user = useSelector(state => state.session.user);
     const dispatch = useDispatch();
 
@@ -35,6 +38,24 @@ function HotelEl({ _id, name, images, location, rooms, rating, board, randomRevi
         localStorage.setItem("favorite", JSON.stringify(storage));
         dispatch(setFavorite(_id));
     };
+
+    const handelRemoveFromCart = async () => {
+        if (!user) {
+            const storage = JSON.parse(localStorage.getItem("cart"))
+            const newStorage = storage.filter(item => item !== _id)
+            localStorage.setItem("cart", JSON.stringify(newStorage))
+            dispatch(setRemoveHotelFromCart(_id))
+        }
+
+        const { payload } = await dispatch(fetchRemoveElementFromCartAsync({ userId: user._id, type: type, id:_id }))
+        if (payload.user) {
+            const storage = JSON.parse(localStorage.getItem("user"));
+            const filtered = storage[`${type}s`].filter(item=>item._id!== _id)
+            localStorage.setItem("user",  JSON.stringify({...storage, [storage[`${type}s`]]: filtered}))
+            dispatch(setCartHotelWithUser(payload.user.hotels))
+        }
+
+    }
 
 
     return (
@@ -73,13 +94,14 @@ function HotelEl({ _id, name, images, location, rooms, rating, board, randomRevi
                             </div>
                             <p className="text-red-600 mt-2">Includes €50pp online discount</p>
                             <div className='flex space-x-5 mt-4'>
-                                <Link className='inline-block text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-lg' to={`/hotels/${_id}`}>Continue</Link>
+                                <Link className='bg-blue-600 hover:bg-blue-700 text-white p-2 px-6 m-4 rounded' to={`/hotels/${_id}`}>CONTINUE</Link>
                                 {user?.role === "admin" && (
                                     <>
-                                        <Link to={`/vacations/vacation-updated/${_id}`} className="inline-block text-white bg-yellow-500 hover:bg-yellow-700 px-4 py-2 rounded-lg">Edit</Link>
-                                        <button onClick={() => handleDeleteHotel(_id)} className="inline-block text-white bg-red-500 hover:bg-red-700 px-4 py-2 rounded-lg">Delete</button>
+                                        <Link to={`/vacations/vacation-updated/${_id}`} className="inline-block text-white bg-yellow-500 hover:bg-yellow-700 px-4 py-2 rounded-lg">EDIT</Link>
+                                        <button onClick={() => handleDeleteHotel(_id)} className="inline-block text-white bg-red-500 hover:bg-red-700 px-4 py-2 rounded-lg">DELETE</button>
                                     </>
                                 )}
+                                 {isCart && <Button onClick={handelRemoveFromCart} id="remove" />}
                             </div>
                         </div>
                         <div className="md:col-span-1 flex flex-col justify-start items-center">

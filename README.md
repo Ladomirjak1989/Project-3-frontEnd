@@ -744,7 +744,6 @@ router.post("/create-payment-intent", async (req, res) => {
     try {
         let count = 0
         const paymentIntent = await stripe.paymentIntents.create({ currency: "EUR", amount: 100, automatic_payment_methods: { enabled: true } })
-        console.log(paymentIntent, count)
         count++
         res.send({ clientSecret: paymentIntent.client_secret })
     } catch (e) {

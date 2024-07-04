@@ -4,6 +4,7 @@ import { LuPlaneTakeoff, LuPlaneLanding } from 'react-icons/lu';
 import { BsPerson } from 'react-icons/bs';
 import { setDeparture, setDestination, setDepartureDate, setDuration, setReturnDate, setGuests, setClearSearch } from "../../Store/Slices/citySearchSlice"
 import { fetchSearchCityAsync } from '../../Store/Slices/fetchSearchSliceAsync';
+import Button from '../Button/Button';
 
 
 const City = () => {
@@ -152,12 +153,8 @@ const handleResultClick = (result) => {
           </div>
         </div>
         <div className="flex space-x-2">
-          <button type="submit" className="bg-blue-500 text-white p-3 px-6 m-4 rounded">
-            Search
-          </button>
-          <button type="button" onClick={handleClearSearch} className="bg-gray-700 text-white p-3 px-6 m-4 rounded">
-            Clear
-          </button>
+        <Button id="searchButton" />
+        <Button onClick={handleClearSearch} id="clear" />
         </div>
       </form>
       {/* Render the result content here */}

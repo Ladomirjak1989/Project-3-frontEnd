@@ -38,6 +38,12 @@ const hotelSlice = createSlice({
             }
         },
 
+        setCartHotelWithUser: (state, action) => {
+          state.cartHotel = action.payload 
+          state.countCart = action.payload.length 
+
+        },
+
         setCartHotel: (state, action) => {
             const hotelIndex = action.payload;
             if (state.hotels[hotelIndex]) {
@@ -50,6 +56,33 @@ const hotelSlice = createSlice({
                     state.countCart += 1;
                     state.cartHotel = [...state.cartHotel, state.hotels[hotelIndex]];
                 }
+            }
+        },
+
+        setRemoveCart: (state) => {
+            state.cartHotel = [];
+
+            state.countCart = 0;
+            const hotels = Object.values(state.hotels).map(item => {
+                if (item.isCart) {
+                    item.isCart = false
+                }
+                return item
+            })
+            state.hotels = hotels.reduce((acc, cur) => {
+                acc[cur._id] = cur;
+                return acc;
+            }, {});
+
+
+        },
+
+
+        setRemoveHotelFromCart: (state, action) => {
+            state.cartHotel = state.cartHotel.filter(item => item._id !== action.payload);
+            state.countCart -= 1;
+            if (state.hotels[action.payload]) {
+                state.hotels[action.payload].isCart = false;
             }
         }
 
@@ -64,11 +97,10 @@ const hotelSlice = createSlice({
             state.loading = false
             let counter = 0
             let countCart = 0
-            const cartStorage = JSON.parse(localStorage.getItem("cart")) 
+            const cartStorage = JSON.parse(localStorage.getItem("cart"))
             const storage = JSON.parse(localStorage.getItem("favorite"))
             const data = action.payload.map(item => {
                 const randomReviews = Math.floor(Math.random() * 1000)
-
                 if (cartStorage && cartStorage.includes(item._id)) {
                     item.isCart = true
                     countCart += 1
@@ -89,6 +121,7 @@ const hotelSlice = createSlice({
                 acc[cur._id] = cur
                 return acc
             }, {})
+
             state.favoriteHotel = data.filter(item => item.isFavorite)
             state.cartHotel = data.filter(item => item.isCart)
             state.countFavorite = counter
@@ -165,6 +198,9 @@ const hotelSlice = createSlice({
 
     }
 })
-export const { setSortedHotel, setFavorite, setCartHotel } = hotelSlice.actions;
+export const { setSortedHotel, setFavorite, setCartHotel, setRemoveCart, setRemoveHotelFromCart, setCartHotelWithUser } = hotelSlice.actions;
 
 export default hotelSlice.reducer;
+
+
+

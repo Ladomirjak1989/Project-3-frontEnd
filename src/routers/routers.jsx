@@ -31,6 +31,7 @@ import CompletionPage from "../Pages/CompletionPage/CompletionPage";
 import ContactPage from "../Pages/ContactPage/ContactPage";
 import TermsAndConditionsPage from "../Pages/TermsAndConditionsPage/TermsAndConditionsPage";
 import CartPage  from "../Pages/CartPage/CartPage";
+import OrderPage from "../Pages/OrderPage/OrderPage";
 
 
 
@@ -68,6 +69,7 @@ const router = createBrowserRouter([
             { path: "/contact", element: <ContactPage /> },
             { path: "/terms", element: <TermsAndConditionsPage /> },
             { path: "/cart", element: <CartPage /> },
+            { path: "/order", element: <OrderPage /> },
           
             { path: "*", element: <NotFoundPage /> },
             

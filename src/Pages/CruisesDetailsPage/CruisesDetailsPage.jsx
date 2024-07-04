@@ -4,7 +4,8 @@ import { useParams } from 'react-router-dom';
 import { fetchCruiseByIdAsync } from '../../Store/Slices/fetchCruiseSliceAsync';
 import Loader from '../../components/Loader/Loader';
 import Button from '../../components/Button/Button';
-import { setCartCruise } from '../../Store/Slices/cruiseSliceReducer';
+import { setCartCruise, setCartCruiseWithUser } from '../../Store/Slices/cruiseSliceReducer';
+import { fetchUpdateAsync } from '../../Store/Slices/fetchSessionSliceAsync';
 
 
 const CruiseDetailsPage = () => {
@@ -86,7 +87,7 @@ const CruiseDetailsPage = () => {
   const {
     images = [],
     name,
-    type,
+    cruiseType,
     departure,
     destination,
     description,
@@ -97,15 +98,23 @@ const CruiseDetailsPage = () => {
     totalPrice,
     details = {},
     amenities = [],
+    type,
   } = cruise;
 
-  const bookCruise = () => {
+  const bookCruise = async () => {
     if (!user) {
       const storage = JSON.parse(localStorage.getItem("cart"))
-            storage.push(id)
-            localStorage.setItem("cart", JSON.stringify(storage))
+      storage.push(id)
+      localStorage.setItem("cart", JSON.stringify(storage))
       dispatch(setCartCruise(id))
+      return 
     }
+    const {payload} = await dispatch(fetchUpdateAsync({id,userId: user._id,type }))
+    if(payload.user){
+      console.log(payload.user.cruises)
+      dispatch(setCartCruiseWithUser(payload.user.cruises))
+  
+  }
   }
 
   return (
@@ -133,7 +142,7 @@ const CruiseDetailsPage = () => {
 
         <div className="mb-6">
           <p><strong className="italic">Name:</strong> {name}</p>
-          <p><strong className="italic">Type:</strong> {type}</p>
+          <p><strong className="italic">Type:</strong> {cruiseType}</p>
           <p><strong className="italic">Departure:</strong> {departure}</p>
           <p><strong className="italic">Destination:</strong> {destination}</p>
           <p><strong className="italic">Duration:</strong> {duration}</p>
@@ -206,7 +215,6 @@ const CruiseDetailsPage = () => {
                 <div className="flex">
                   <div className="w-2/3">
                     <p className="text-gray-700 mb-4">{day.description}</p>
-                    {/* <a href="#" className="text-blue-500 hover:underline">More details</a> */}
                   </div>
                   <div className="w-1/3">
                     <img src={day.imageUrl} alt={day.location} className="rounded-lg shadow-md object-cover h-full" />

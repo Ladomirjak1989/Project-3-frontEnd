@@ -7,6 +7,7 @@ const initialState = {
   checkInDate: '',
   checkOutDate: '',
   rooms: [{ adults: 2, children: 0 }]
+  
 };
 
 const hotelSearchSlice = createSlice({

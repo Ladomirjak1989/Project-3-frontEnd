@@ -4,6 +4,7 @@ import { LuPlaneTakeoff, LuPlaneLanding } from 'react-icons/lu';
 import { BsPerson } from 'react-icons/bs';
 import { setDeparture, setDestination, setDepartureDate, setDuration, setReturnDate, setGuests, setClearSearch } from "../../Store/Slices/vacationSearchSlice"
 import { fetchSearchVacationAsync } from '../../Store/Slices/fetchSearchSliceAsync';
+import Button from '../Button/Button';
 
 
 const Vacationsbar = () => {
@@ -15,11 +16,11 @@ const Vacationsbar = () => {
   const dispatch = useDispatch();
   const vacationSearch = useSelector((state) => state.vacationSearch);
 
-  const handelSubmit=(e) =>{
+  const handelSubmit = (e) => {
     e.preventDefault()
     dispatch(fetchSearchVacationAsync(vacationSearch))
-   
-}
+
+  }
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -55,8 +56,8 @@ const Vacationsbar = () => {
 
   };
 
-const handleResultClick = (result) => {
-    
+  const handleResultClick = (result) => {
+
   };
 
   const handleClearSearch = () => {
@@ -66,7 +67,7 @@ const handleResultClick = (result) => {
 
   return (
     <>
-    
+
       <form onSubmit={handelSubmit} className="flex flex-wrap gap-4 justify-between">
         <div className="flex flex-col">
           <label className="flex text-indigo-900 gap-2 items-center">
@@ -142,6 +143,10 @@ const handleResultClick = (result) => {
               onChange={handleInputChange}
               className="border border-gray-300 p-2 rounded"
             />
+            <div className="flex flex-col">
+            <label className="flex text-indigo-900 gap-2 items-center">
+            <BsPerson /> Childrens:
+          </label>
             <input
               type="number"
               name="children"
@@ -149,15 +154,12 @@ const handleResultClick = (result) => {
               onChange={handleInputChange}
               className="border border-gray-300 p-2 rounded"
             />
+            </div>
           </div>
         </div>
         <div className="flex space-x-2">
-          <button type="submit" className="bg-blue-500 text-white p-3 px-6 m-4 rounded">
-            Search
-          </button>
-          <button type="button" onClick={handleClearSearch} className="bg-gray-700 text-white p-3 px-6 m-4 rounded">
-            Clear
-          </button>
+          <Button id="searchButton" />
+          <Button onClick={handleClearSearch} id="clear" />
         </div>
       </form>
       {/* Render the result content here */}

@@ -52,7 +52,7 @@ const VacationDeals = ({ count }) => {
                     <h3 className="text-xl font-semibold mb-2">{deal.destination}</h3>
                     <p className="text-gray-700 mb-4">{deal.description}</p>
                     <Link to={`/vacations/${deal._id}`} className="block text-center text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-sm">
-                      Show more...
+                      SHOW MORE...
                     </Link>
                   </div>
                 </div>

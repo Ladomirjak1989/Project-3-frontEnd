@@ -11,7 +11,7 @@ const CruiseSearchForm = () => {
     const cruiseSearch = useSelector((state) => state.cruiseSearch);
     const [isCruiseDurationShown, setCruiseDurationShown] = useState(false);
 
-   
+
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -46,7 +46,7 @@ const CruiseSearchForm = () => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-       
+
         dispatch(fetchSearchCruiseAsync(cruiseSearch));
     };
 
@@ -130,7 +130,7 @@ const CruiseSearchForm = () => {
                             >
                                 <span>&#x25BC;</span>
                                 {cruiseSearch.duration}
-                                
+
                             </button>
                             {isCruiseDurationShown && (
                                 <div className="absolute z-20 w-[300px] mt-2 bg-white border rounded-lg shadow-lg">
@@ -144,7 +144,18 @@ const CruiseSearchForm = () => {
                                                 onChange={handleDurationChange}
                                                 className="form-radio"
                                             />
-                                            <label>Up to 7 nights cruise, no hotel stay</label>
+                                            <label> 7 nights cruise, no hotel stay</label>
+                                        </div>
+                                        <div className="flex items-center space-x-2 mb-4">
+                                            <input
+                                                type="radio"
+                                                name="cruiseDuration"
+                                                value="10 nights cruise, no hotel stay"
+                                                checked={cruiseSearch.duration === '10 nights cruise, no hotel stay'}
+                                                onChange={handleDurationChange}
+                                                className="form-radio"
+                                            />
+                                            <label> 10 nights cruise, no hotel stay</label>
                                         </div>
                                         <div className="flex items-center space-x-2 mb-4">
                                             <input
@@ -173,26 +184,27 @@ const CruiseSearchForm = () => {
                             )}
                         </div>
                     </div>
-                   
-                        <div className='max-w-[250px] w-full'>
-                            <label className="block text-indigo-900 font-semibold">Who's going?</label>
-                            <input
-                                type="text"
-                                name="guests"
-                                value={cruiseSearch.guests.adults}
-                                onChange={handleChange}
-                                placeholder="2 Adults 0 Children"
-                                className="form-input w-full p-2 rounded-lg"
-                            />
-                        </div>
 
-                        <div className="flex justify-end space-x-4">
-                            <Button id="clear" onClick={handleClearSearch}/>
-                            
-                            <Button id="searchButton"/>
-                           
-                        </div>
-                
+                    <div className='max-w-[250px] w-full'>
+                        <label className="block text-indigo-900 font-semibold">Who's going?</label>
+                        <input
+                            type="text"
+                            name="guests"
+                            value={cruiseSearch.guests.adults}
+                            onChange={handleChange}
+                            placeholder="2 Adults 0 Children"
+                            className="form-input w-full p-2 rounded-lg"
+                        />
+                    </div>
+
+                    <div className="flex justify-end space-x-4">
+                        <Button id="searchButton" />
+                        <Button id="clear" onClick={handleClearSearch} />
+
+
+
+                    </div>
+
                 </div>
 
 

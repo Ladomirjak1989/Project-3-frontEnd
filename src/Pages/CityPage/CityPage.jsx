@@ -63,7 +63,7 @@ const CityPage = () => {
                   <p>{city.country}</p>
                   <div>
                     <Link className='px-3 py-2 bg-blue-500 text-white rounded mb-2 hover:bg-blue-700 inline-block' to={`/city-details/${city._id}`}>
-                      Show more...
+                      SHOW MORE...
                     </Link>
                   </div>
                 </li>

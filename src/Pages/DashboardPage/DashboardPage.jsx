@@ -28,11 +28,6 @@ const DashboardPage = () => {
 
     const dispatch = useDispatch()
 
-    // useEffect(() => {
-    //     dispatch(fetchFlightAsync());
-
-    // }, [dispatch]);
-
     useEffect(() => {
         if (popUp) {
             setTimeout(() => {

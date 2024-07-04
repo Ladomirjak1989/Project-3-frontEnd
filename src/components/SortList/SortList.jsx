@@ -71,7 +71,7 @@ const SortList = () => {
 
     return (
         <div className="relative inline-block text-left">
-            <label className="block text-sm font-medium text-gray-700">Sort by:</label>
+            <label className="block text-sm font-medium text-gray-700">SORT BY:</label>
             <select
                 value={sortOption}
                 onChange={handleSortChange}

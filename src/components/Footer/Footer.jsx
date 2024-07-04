@@ -48,7 +48,7 @@ const Footer = () => {
           <FaRegEnvelope className="text-2xl" />
           <p>Don't miss out!</p>
           <Link to="/signup" className="underline text-yellow-300 font-semibold">
-            Sign up
+            SING UP
           </Link>
           <p>for holiday offers</p>
         </div>

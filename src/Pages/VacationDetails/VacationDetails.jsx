@@ -5,7 +5,8 @@ import { fetchVacationByIdAsync } from '../../Store/Slices/fetchVacationSliceAsy
 import Loader from '../../components/Loader/Loader'
 import RatingStars from '../../components/RatingStars/RatingStars'
 import Button from '../../components/Button/Button'
-import { setCartVacation } from '../../Store/Slices/vacationSliceReducer';
+import { setCartVacation, setCartVacationWithUser } from '../../Store/Slices/vacationSliceReducer';
+import { fetchUpdateAsync } from '../../Store/Slices/fetchSessionSliceAsync'
 
 
 
@@ -34,16 +35,23 @@ const VacationDetails = () => {
         activities,
         images,
         reviews,
+        type,
 
     } = vacation
 
-    const bookVacation = () => {
+    const bookVacation = async () => {
         if (!user) {
-            const storage = JSON.parse(localStorage.getItem("cart"))
+            const storage = JSON.parse(localStorage.getItem("cart")) || []
             storage.push(id)
             localStorage.setItem("cart", JSON.stringify(storage))
             dispatch(setCartVacation(id))
             return;
+        }
+        const { payload } = await dispatch(fetchUpdateAsync({ id, userId: user._id, type }))
+        if (payload.user) {
+console.log(payload,23223)
+            dispatch(setCartVacationWithUser(payload.user.vacations))
+
         }
     }
 

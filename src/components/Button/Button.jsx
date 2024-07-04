@@ -18,7 +18,7 @@ const Button = ({ id, onClick }) => {
             text: "Create",
         },
         clear: {
-            className: "  bg-gray-700 text-white p-2 px-6 m-4 rounded",
+            className: "bg-gray-700 text-white p-2 px-6 m-4 rounded",
             text: "CLEAR",
             type: "button",
         },
@@ -33,7 +33,7 @@ const Button = ({ id, onClick }) => {
             type: "submit",
         },
         continue: {
-            className: "flex justify-end inline-block mt-4 text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-lg",
+            className: "bg-blue-600 hover:bg-blue-700 text-white p-2 px-6 m-4 rounded",
             text: "CONTINUE",
             type: "button",
         },
@@ -109,6 +109,48 @@ const Button = ({ id, onClick }) => {
             className: "p-3 bg-orange-500 text-white font-bold rounded hover:bg-orange-600",
             text: "SEND MESSAGE",
             type: "submit",
+           
+        },
+        clearCart: {
+            className: "bg-gray-700 text-white p-2 px-6 m-4 rounded",
+            text: "CLEAR CART",
+            type: "button",
+           
+        },
+        remove: {
+            className: "bg-gray-700 text-white p-2 px-6 m-4 rounded",
+            text: "REMOVE",
+            type: "button",
+           
+        },
+        profileForm: {
+            className: "bg-gray-700 text-white p-2 px-6 m-4 rounded",
+            text: "UPDATE PROFILE",
+            type: "button",
+           
+        },
+        changePassword: {
+            className: "bg-green-700 text-white p-2 px-6 m-4 rounded",
+            text: "CHANGE PASSWORD",
+            type: "button",
+           
+        },
+        showUpdateProfile: {
+            className: "bg-green-700 text-white p-2 px-6 m-4 rounded",
+            text: "UPDATE PROFILE",
+            type: "button",
+           
+        },
+        showUpdatePassword: {
+            className: "bg-green-700 text-white p-2 px-6 m-4 rounded",
+            text: "UPDATE PASSWORD",
+            type: "button",
+           
+        },
+        deleteProfile: {
+            className: "bg-green-700 text-white p-2 px-6 m-4 rounded",
+            text: "DELETE PROFILE",
+            type: "button",
            
         },
     };

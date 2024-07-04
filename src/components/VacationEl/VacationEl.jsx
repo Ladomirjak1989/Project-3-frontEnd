@@ -4,11 +4,14 @@ import { deleteVacationAsync } from '../../Store/Slices/fetchVacationSliceAsync'
 import { setPopUp } from '../../Store/Slices/popUpSliceReducer';
 import RatingStars from '../../components/RatingStars/RatingStars';
 import { Link } from 'react-router-dom';
-import { setFavorite } from '../../Store/Slices/vacationSliceReducer';
+import { setCartVacationWithUser, setFavorite, setRemoveVacationFromCart } from '../../Store/Slices/vacationSliceReducer';
+import Button from '../Button/Button';
+import { fetchRemoveElementFromCartAsync } from '../../Store/Slices/fetchSessionSliceAsync';
 
 
 
-function VacationEl({ _id, destination, images, accommodation, duration, price, currency, randomReviews, isFavorite }) {
+
+function VacationEl({ _id, destination, images, accommodation, duration, price, currency, randomReviews, isFavorite, isCart, type }) {
     const user = useSelector(state => state.session.user);
     const dispatch = useDispatch();
 
@@ -27,15 +30,33 @@ function VacationEl({ _id, destination, images, accommodation, duration, price, 
         let storage = JSON.parse(localStorage.getItem("favorite"))
 
         const index = storage.findIndex(item => item === _id)
-      
+
         if (index === -1) {
             storage.push(_id)
         } else {
             storage = storage.filter(item => item !== _id)
         }
-      
+
         localStorage.setItem("favorite", JSON.stringify(storage))
         dispatch(setFavorite(_id))
+
+    }
+
+    const handelRemoveFromCart = async () => {
+        if (!user) {
+            const storage = JSON.parse(localStorage.getItem("cart"))
+            const newStorage = storage.filter(item => item !== _id)
+            localStorage.setItem("cart", JSON.stringify(newStorage))
+            dispatch(setRemoveVacationFromCart(_id))
+        }
+
+        const { payload } = await dispatch(fetchRemoveElementFromCartAsync({ userId: user._id, type: type, id:_id }))
+        if (payload.user) {
+            const storage = JSON.parse(localStorage.getItem("user"));
+            const filtered = storage[`${type}s`].filter(item=>item._id!== _id)
+           localStorage.setItem("user",  JSON.stringify({...storage, [storage[`${type}s`]]: filtered}))
+            dispatch(setCartVacationWithUser(payload.user.vacations))
+        }
 
     }
 
@@ -78,14 +99,14 @@ function VacationEl({ _id, destination, images, accommodation, duration, price, 
                         </div>
                         <p className="text-red-600">Includes €89pp online discount</p>
                         <div className='flex space-x-5 col-span-5'>
-                            <Link className='inline-block mt-4 text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-lg' to={`/vacations/${_id}`}>Continue</Link>
+                            <Link className='bg-blue-600 hover:bg-blue-700 text-white p-2 px-6 m-4 rounded' to={`/vacations/${_id}`}>CONTINUE</Link>
                             {user?.role === "admin" && (
                                 <>
-                                    <Link to={`/vacations/vacation-updated/${_id}`} className="inline-block mt-4 text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-lg hover:underline">Edit</Link>
-                                    <button onClick={() => handleDeleteVacation(_id)} className="inline-block mt-4 text-white bg-red-500 hover:bg-red-700 px-4 py-2 rounded-lg hover:underline">Delete</button>
+                                    <Link to={`/vacations/vacation-updated/${_id}`} className="inline-block mt-4 text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-lg hover:underline">EDIT</Link>
+                                    <button onClick={() => handleDeleteVacation(_id)} className="inline-block mt-4 text-white bg-red-500 hover:bg-red-700 px-4 py-2 rounded-lg hover:underline">DELETE</button>
                                 </>
                             )}
-
+                            {isCart && <Button onClick={handelRemoveFromCart} id="remove" />}
                         </div>
                     </div>
                 </div>

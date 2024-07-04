@@ -56,6 +56,35 @@ const vacationSlice = createSlice({
                     state.cartVacation = [...state.cartVacation, state.vacations[vacationIndex]];
                 }
             }
+        },
+
+        setCartVacationWithUser: (state, action) => {
+            state.cartVacation = action.payload 
+            state.countCart = action.payload.length 
+  
+          },
+
+        setRemoveCart: (state) => {
+            state.cartVacation=[];
+            state.countCart= 0; 
+            const vacations = Object.values(state.vacations).map(item=>{
+                if (item.isCart){
+                    item.isCart=false
+                }
+                return item
+            })
+            state.vacations= vacations.reduce((acc, cur) => {
+                acc[cur._id] = cur;
+                return acc;
+            }, {});
+
+         },
+         setRemoveVacationFromCart: (state, action) => {
+            state.cartVacation = state.cartVacation.filter(item => item._id !== action.payload);
+            state.countCart -= 1;
+            if (state.vacations[action.payload]) {
+                state.vacations[action.payload].isCart = false;
+            }
         }
         
     },
@@ -172,6 +201,6 @@ const vacationSlice = createSlice({
 
     }
 })
-export const { setSorted, setFavorite, setCartVacation, cleanOne } = vacationSlice.actions;
+export const { setSorted, setFavorite, setCartVacation, cleanOne, setRemoveCart, setRemoveVacationFromCart, setCartVacationWithUser } = vacationSlice.actions;
 
 export default vacationSlice.reducer;

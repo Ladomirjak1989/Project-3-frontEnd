@@ -20,37 +20,37 @@ const HomePage = () => {
       title: "Flights",
       link: "/flights",
       img: "https://www.hackmath.net/img/1/aircraft-02.jpg",
-      linkText: "Book"
+      linkText: "BOOK"
     },
     {
       title: "Vacations",
       link: "/vacations",
       img: "https://t3.ftcdn.net/jpg/06/70/80/84/360_F_670808419_2qVIxlfo2lT8U0QfWiwX21qidARG7M21.jpg",
-      linkText: "Book"
+      linkText: "BOOK"
     },
     {
       title: "Hotels",
       link: "/hotels",
       img: "https://media.licdn.com/dms/image/D4D12AQGxDdgsNCTOVQ/article-cover_image-shrink_720_1280/0/1698411417716?e=2147483647&v=beta&t=pMFaEPh6CwHETWB-sIIbXYfr_Teum6Kt1A7NJG3jrII",
-      linkText: "Book"
+      linkText: "BOOK"
     },
     {
       title: "Cruises",
       link: "/cruises",
       img: "https://www.carnival.com/-/media/images/ships/carnival-luminosa-open-for-sale-hero-mobile.jpg",
-      linkText: "Book"
+      linkText: "BOOK"
     },
     {
       title: "Cities",
       link: "/cities",
       img: "https://t3.ftcdn.net/jpg/00/99/12/34/360_F_99123407_CDVAXtMFWuayuO9VB8P8S687hZYqq6Js.jpg",
-      linkText: "Show more..."
+      linkText: "SHOW MORE..."
     },
     {
       title: "Attraction",
       link: "/attractions",
       img: "https://media.timeout.com/images/105473116/750/562/image.jpg",
-      linkText: "Book"
+      linkText: "BOOK"
     },
   ];
 

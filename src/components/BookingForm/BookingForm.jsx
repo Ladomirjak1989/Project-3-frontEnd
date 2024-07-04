@@ -220,10 +220,8 @@ const BookingForm = () => {
         )}
       </div>
       <Link className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" to={`/payment`}>
-        Continue To Payment
+        CONTINUE TO PAYMENT
       </Link>
-
-      {/* <Button id="continueToPayment" /> */}
 
     </div>
   );

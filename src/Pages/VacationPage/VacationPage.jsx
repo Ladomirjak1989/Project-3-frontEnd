@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import Button from '../../components/Button/Button';
 import Loader from '../../components/Loader/Loader';
 import VacationEl from '../../components/VacationEl/VacationEl';
 import SortList from '../../components/SortList/SortList';
@@ -41,7 +40,6 @@ const VacationPage = () => {
                 <VacationEl {...item} key={item._id} />
               ))}
             </ul>
-            {/* <Button id="book" /> */}
           </div>
         </div>
       </>
@@ -62,7 +60,6 @@ const VacationPage = () => {
               <VacationEl {...item} key={item._id} />
             ))}
           </ul>
-          {/* <Button id="book" /> */}
         </div>
       </div>
 

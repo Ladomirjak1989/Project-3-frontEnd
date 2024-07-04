@@ -6,7 +6,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { fetchSessionAsync } from '../../Store/Slices/fetchSessionSliceAsync';
 import { MdEmail } from 'react-icons/md';
 import Button from '../../components/Button/Button';
-import { AuthContext } from '../../../context/auth.context';
+import { setCartHotelWithUser } from '../../Store/Slices/hotelSliceReducer';
+import { setCartFlightWithUser } from '../../Store/Slices/flightSliceReducer';
+import { setCartVacationWithUser } from '../../Store/Slices/vacationSliceReducer';
+import { setCartCruiseWithUser } from '../../Store/Slices/cruiseSliceReducer';
 
 
 const LoginPage = () => {
@@ -18,12 +21,12 @@ const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleDemoUser=() =>{
+    const handleDemoUser = () => {
         setEmail("demouser@gmail.com")
         setPassword("Demouser12345")
     }
 
-    const handleDemoAdmin=() =>{
+    const handleDemoAdmin = () => {
         setEmail("demoadmin@dreamvoyage.com")
         setPassword("Demoadmin12345")
     }
@@ -34,10 +37,12 @@ const LoginPage = () => {
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
         const requestBody = { email, password };
-        const token = await dispatch(fetchSessionAsync(requestBody))
-
-        if (token.payload.authToken) {
-
+        const {payload} = await dispatch(fetchSessionAsync(requestBody))
+        if (payload.authToken) {
+            dispatch(setCartHotelWithUser(payload.user.hotels))
+            dispatch(setCartFlightWithUser(payload.user.flights))
+            dispatch(setCartVacationWithUser(payload.user.vacations))
+            dispatch(setCartCruiseWithUser(payload.user.cruises))
             navigate('/');
         }
     };

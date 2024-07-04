@@ -5,7 +5,8 @@ import { fetchHotelByIdAsync } from '../../Store/Slices/fetchHotelSliceAsync'
 import Loader from '../../components/Loader/Loader'
 import RatingStars from '../../components/RatingStars/RatingStars'
 import Button from '../../components/Button/Button'
-import { setCartHotel } from '../../Store/Slices/hotelSliceReducer';
+import { setCartHotel, setCartHotelWithUser } from '../../Store/Slices/hotelSliceReducer';
+import { fetchUpdateAsync } from '../../Store/Slices/fetchSessionSliceAsync'
 
 const HotelDetailsPage = () => {
     const { id } = useParams()
@@ -13,6 +14,7 @@ const HotelDetailsPage = () => {
     const loading = useSelector(state => state.hotels.loading)
     const hotel = useSelector(state => state.hotels.hotel)
     const user = useSelector(state => state.session.user)
+
 
     useEffect(() => {
         dispatch(fetchHotelByIdAsync(id))
@@ -40,16 +42,28 @@ const HotelDetailsPage = () => {
         rooms = [],
         reviews = [],
         contact = {},
+        type,
     } = hotel
 
-    const bookHotel = ()=>{
-        if(!user){
-            const storage = JSON.parse(localStorage.getItem("cart"))
+    const bookHotel = async () => {
+
+        if (!user) {
+            const storage = JSON.parse(localStorage.getItem("cart")) || []
+
             storage.push(id)
             localStorage.setItem("cart", JSON.stringify(storage))
-          dispatch(setCartHotel(id))
+            dispatch(setCartHotel(id))
+            return
         }
-          }
+
+        const { payload } = await dispatch(fetchUpdateAsync({ id, userId: user._id, type }))
+
+        if (payload.user) {
+
+            dispatch(setCartHotelWithUser(payload.user.hotels))
+
+        }
+    }
 
     return (
         <>

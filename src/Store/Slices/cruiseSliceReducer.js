@@ -15,7 +15,7 @@ const cruiseSlice = createSlice({
         error: null
     },
     reducers: {
-        
+
         setFavorite: (state, action) => {
             const cruiseIndex = action.payload;
             if (state.cruises[cruiseIndex]) {
@@ -44,9 +44,43 @@ const cruiseSlice = createSlice({
                     state.cartCruise = [...state.cartCruise, state.cruises[cruiseIndex]];
                 }
             }
-        }
+        },
 
+        setRemoveCart: (state) => {
+            state.cartCruise = [];
+            state.countCart = 0;
+            state.countCart = 0;
+            const cruises = Object.values(state.cruises).map(item => {
+                if (item.isCart) {
+                    item.isCart = false
+                }
+                return item
+            })
+            state.cruises = cruises.reduce((acc, cur) => {
+                acc[cur._id] = cur;
+                return acc;
+            }, {});
+
+
+        },
+        setRemoveCruiseFromCart: (state, action) => {
+            state.cartCruise = state.cartCruise.filter(item => item._id !== action.payload);
+            state.countCart -= 1;
+            if (state.cruises[action.payload]) {
+                state.cruises[action.payload].isCart = false;
+            }
+        },
+
+        setCartCruiseWithUser: (state, action) => {
+            state.cartCruise = action.payload 
+            state.countCart = action.payload.length 
+  
+          },
     },
+
+
+
+
     extraReducers: (builder) => {
         builder.addCase(fetchCruiseAsync.pending, (state) => {
             state.loading = true
@@ -68,7 +102,7 @@ const cruiseSlice = createSlice({
                 } else {
                     item.isCart = false
                 }
-                
+
                 if (storage && storage.includes(item._id)) {
                     item.isFavorite = true
                     counter += 1
@@ -119,7 +153,7 @@ const cruiseSlice = createSlice({
         })
         builder.addCase(fetchCruiseByIdAsync.fulfilled, (state, action) => {
             state.loading = false
-           
+
             state.cruise = action.payload
         })
         builder.addCase(fetchCruiseByIdAsync.rejected, (state, action) => {
@@ -159,6 +193,6 @@ const cruiseSlice = createSlice({
 
     }
 })
-export const { setFavorite, setCartCruise } = cruiseSlice.actions;   //setSortedCruise
+export const { setFavorite, setCartCruise, setRemoveCart, setRemoveCruiseFromCart, setCartCruiseWithUser } = cruiseSlice.actions;   //setSortedCruise
 
 export default cruiseSlice.reducer;

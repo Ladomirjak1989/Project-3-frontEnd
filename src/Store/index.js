@@ -53,7 +53,7 @@ const Store = configureStore({
 
 
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger)
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware()
 })
 
 export default Store

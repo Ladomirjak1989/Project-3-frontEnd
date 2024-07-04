@@ -6,7 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { API_URL } from '../../utils/variables';
 import Button from '../../components/Button/Button';
 import Loader from '../../components/Loader/Loader';
-import { setCartFlight } from '../../Store/Slices/flightSliceReducer';
+import { setCartFlight, setCartFlightWithUser } from '../../Store/Slices/flightSliceReducer';
+import { fetchUpdateAsync } from '../../Store/Slices/fetchSessionSliceAsync';
 
 
 const FlightDetails = () => {
@@ -32,7 +33,7 @@ const FlightDetails = () => {
         })();
     }, [id]);
 
-    const bookFlight = () => {
+    const bookFlight = async () => {
         if (!user) {
             const storage = JSON.parse(localStorage.getItem("cart"))
             storage.push(id)
@@ -40,6 +41,12 @@ const FlightDetails = () => {
             dispatch(setCartFlight(id))
             return;
         }
+       const {payload} = await dispatch(fetchUpdateAsync({ userId: user._id, id, type: flight.type }))
+       if(payload.user){
+      
+        dispatch(setCartFlightWithUser(payload.user.flights))
+    
+    }
     }
 
     if (isLoading) {
@@ -47,6 +54,7 @@ const FlightDetails = () => {
     }
 
     const {
+
         origin,
         city,
         destination,

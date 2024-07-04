@@ -10,7 +10,7 @@ const ContactBanner = () => {
       <div className="absolute inset-0"></div>
       <div className="relative z-10 flex items-center justify-center h-full">
         <div className="p-6 shadow-lg text-center max-w-lg mx-auto">
-          <h1 className="text-4xl font-bold text-white mb-4">Contact us</h1>
+          <h1 className="text-4xl font-bold text-white mb-4">CONTACT US</h1>
           <p className="text-2xl text-white">Here's how you can get in touch before, during or after your holiday.</p>
         </div>
       </div>
