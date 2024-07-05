@@ -4,6 +4,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import PaymentForm from '../../components/PaymentForm/PaymentForm';
 import { API_URL } from '../../utils/variables';
 import { useDispatch, useSelector } from 'react-redux';
+import { setUser } from '../../Store/Slices/sessionSliceReducer';
 
 const PaymentPage = () => {
   const [stripePromise, setStripePromise] = useState(null);
