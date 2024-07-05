@@ -40,7 +40,7 @@ const Footer = () => {
       </div>
 
       <div className="flex flex-col sm:flex-row justify-center items-center space-x-2 text-white py-4 bg-blue-800">
-        <p>Tel: +31618234567</p>
+        <p>Tel: +(31) 618234567</p>
         <span className="hidden sm:inline mx-2">|</span>
         <p className="hidden sm:block font-semibold text-yellow-300">dreamvoyage@gmail.com</p>
         <span className="hidden sm:inline mx-2">|</span>

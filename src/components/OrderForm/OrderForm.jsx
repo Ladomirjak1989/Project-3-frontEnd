@@ -7,9 +7,9 @@ const OrderForm = () => {
     const dispatch = useDispatch();
     const { firstName, lastName, email } = useSelector(state => state.session);
     const user = useSelector(state => state.session.user)
-    console.log(user)
+
     useEffect(() => {
-        console.log(user)
+      
         if (user) {
           
             dispatch(setEmail(user.email))

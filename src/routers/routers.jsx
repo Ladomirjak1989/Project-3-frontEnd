@@ -1,4 +1,5 @@
 import { createBrowserRouter, Outlet } from "react-router-dom";
+import React from 'react';
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import HomePage from "../Pages/HomePage/HomePage";
@@ -30,8 +31,9 @@ import PaymentPage from "../Pages/PaymentPage/PaymentPage";
 import CompletionPage from "../Pages/CompletionPage/CompletionPage";
 import ContactPage from "../Pages/ContactPage/ContactPage";
 import TermsAndConditionsPage from "../Pages/TermsAndConditionsPage/TermsAndConditionsPage";
-import CartPage  from "../Pages/CartPage/CartPage";
+import CartPage from "../Pages/CartPage/CartPage";
 import OrderPage from "../Pages/OrderPage/OrderPage";
+import GoToTop from "../components/GoToTop/GoToTop";
 
 
 
@@ -40,8 +42,9 @@ const router = createBrowserRouter([
 
     {
         element: (
-            <><Header />
-            
+            <>
+                <Header />
+                <GoToTop />
                 <Outlet />
                 <Footer />
             </>
@@ -70,9 +73,9 @@ const router = createBrowserRouter([
             { path: "/terms", element: <TermsAndConditionsPage /> },
             { path: "/cart", element: <CartPage /> },
             { path: "/order", element: <OrderPage /> },
-          
+
             { path: "*", element: <NotFoundPage /> },
-            
+
 
 
             {
@@ -86,10 +89,10 @@ const router = createBrowserRouter([
                 children: [
                     { path: "/flights/flight-new", element: <CreateFlightPage /> },
                     { path: "/flights/flight-updated/:id", element: <UpdatedFlightPage /> },
-                    
+
                     { path: "/vacations/vacation-new", element: <CreateVacationPage /> },
                     { path: "/vacations/vacation-updated/:id", element: <UpdatedVacationPage /> },
-            
+
                 ]
             },
             { path: "*", element: <NotFoundPage /> }

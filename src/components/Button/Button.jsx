@@ -126,13 +126,13 @@ const Button = ({ id, onClick }) => {
         profileForm: {
             className: "bg-gray-700 text-white p-2 px-6 m-4 rounded",
             text: "UPDATE PROFILE",
-            type: "button",
+            type: "submit",
            
         },
         changePassword: {
             className: "bg-green-700 text-white p-2 px-6 m-4 rounded",
             text: "CHANGE PASSWORD",
-            type: "button",
+            type: "submit",
            
         },
         showUpdateProfile: {
@@ -152,6 +152,11 @@ const Button = ({ id, onClick }) => {
             text: "DELETE PROFILE",
             type: "button",
            
+        },
+        showMore: {
+            className: "bg-gray-700 text-white px-3 m-3 rounded",
+            text: "Show more...",
+            type: "button",
         },
     };
 

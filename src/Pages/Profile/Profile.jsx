@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { updateProfile} from '../../Store/Slices/profileSliceReducer';
+import { updateProfile } from '../../Store/Slices/profileSliceReducer';
 import Button from "../../components/Button/Button";
 import { fetchDeleteAsync, fetchUpdatePasswordAsync, fetchUpdateProfileAsync } from '../../Store/Slices/fetchSessionSliceAsync';
 import { setCartHotelWithUser } from '../../Store/Slices/hotelSliceReducer';
@@ -8,34 +8,39 @@ import { setCartCruiseWithUser } from '../../Store/Slices/cruiseSliceReducer';
 import { setCartFlightWithUser } from '../../Store/Slices/flightSliceReducer';
 import { setCartVacationWithUser } from '../../Store/Slices/vacationSliceReducer';
 import PopUpMessage from '../../components/PopUpMessage/PopUpMessage';
+import { setPopUp } from "../../Store/Slices/popUpSliceReducer"
 
 const Profile = () => {
+
   const dispatch = useDispatch();
-  const [isUpdateFormShown, setUpdateFormShown] = useState(false)
-  const [isUpdatePassword, setUpdatePassword] = useState(false)
-  const popUp = useSelector(state => state.popUp.popUp)
-
-
+  const [isUpdateFormShown, setUpdateFormShown] = useState(false);
+  const [isUpdatePassword, setUpdatePassword] = useState(false);
+  const popUp = useSelector(state => state.popUp.popUp);
   const form = useSelector(state => state.profile);
   const user = useSelector(state => state.session.user);
-  console.log(user)
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
+  
 
   useEffect(() => {
     if (popUp) {
       setTimeout(() => {
-        dispatch(setPopUp(null))
-      }, 9000)
+        dispatch(setPopUp(null));
+      }, 9000);
     }
-  }, [popUp])
+  }, [popUp, dispatch]);
+
+  useEffect(() => {
+    if (isUpdateFormShown) {
+      dispatch(updateProfile({ field: "name", value: user.name }));
+      dispatch(updateProfile({ field: "email", value: user.email }));
+    }
+  }, [isUpdateFormShown, user])
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     dispatch(updateProfile({ field: name, value }));
   };
-
-
 
   const handlePasswordChange = (e) => {
     const { name, value } = e.target;
@@ -48,39 +53,60 @@ const Profile = () => {
 
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
-    dispatch(fetchUpdateProfileAsync({ ...form, id: user._id }));
-    dispatch(setPopUp("Profile update."));
+    const { payload } = await dispatch(fetchUpdateProfileAsync({ ...form, id: user._id }));
+    dispatch(setPopUp(payload.message));
+    setUpdateFormShown(false)
   };
-
 
   const handleChangePassword = async (e) => {
     e.preventDefault();
     if (newPassword.trim()) {
-     const {payload} = await dispatch(fetchUpdatePasswordAsync({ password, newPassword }));
- dispatch(setPopUp(payload.message));
+      const { payload } = await dispatch(fetchUpdatePasswordAsync({ currentPassword: password, newPassword, id: user._id }));
+      
+      dispatch(setPopUp(payload.message));
+      setUpdatePassword(false)
     } else {
       dispatch(setPopUp("Please enter a new password."));
     }
-
   };
+
+  const handleDeleteProfile = async (e) => {
+    e.preventDefault()
+
+    const { payload } = await dispatch(fetchDeleteAsync(user._id));
+    if (payload) {
+      dispatch(setPopUp(payload.message));
+      dispatch(setCartHotelWithUser([]));
+      dispatch(setCartCruiseWithUser([]));
+      dispatch(setCartFlightWithUser([]));
+      dispatch(setCartVacationWithUser([]));
+    }
+
+  }
+
 
 
   return (
     <main className="p-4">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start justify-center">
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start justify-center relative">
+        {popUp && <PopUpMessage />}
         <div className="bg-slate-100 p-6 rounded-lg shadow-lg w-full">
           <div className="text-center mb-4">
-            <h2 className="text-2xl font-semibold mb-2">Profile</h2>
-            <p className="text-gray-700 mb-1">Name: {user.name}</p>
-            <p className="text-gray-700 mb-1">Email: {user.email}</p>
+            <h2 className="text-2xl font-semibold mb-2 underline">Profile</h2>
+            <div className='bg-slate-200 rounded-md'>
+              <p className="text-black mb-1 "><span className='italic font-semibold'>Name:</span> {user.name}</p>
+              <p className="text-black  mb-1"><span className='italic font-semibold'>Email:</span> {user.email}</p>
+            </div>
             <div className="mt-4">
               <h3 className="text-lg font-semibold">Order History:</h3>
-              <ul className="list-disc list-inside grid grid-cols-1 md:grid-cols-3 ">
+              <ul className="list-disc list-inside grid grid-cols-1 md:grid-cols-4 gap-4">
                 {user.purchases.map((item) => (
                   <li key={item._id} className="text-gray-700">
-                    <p>Amount: {item.amount}</p>
-                    <p>Item Type: {item.itemType}</p>
-                    <p>Payment Status: {item.paymentStatus}</p>
+                    <p><span className='font-semibold italic'>Amount:</span> €{item.amount}</p>
+                    <p> <span className='font-semibold italic'>Item Type:</span> {item.itemType}</p>
+                    <p><span className='font-semibold italic'>Payment Status:</span> {item.paymentStatus}</p>
+                    <Button onClick={() => alert("Comming soon")} id="showMore" />
                   </li>
                 ))}
               </ul>
@@ -90,19 +116,12 @@ const Profile = () => {
             <Button onClick={() => setUpdateFormShown((prev) => !prev)} id="showUpdateProfile" />
             <Button onClick={() => setUpdatePassword((prev) => !prev)} id="showUpdatePassword" />
             <Button
-              onClick={() => {
-                dispatch(fetchDeleteAsync(user._id));
-                dispatch(setCartHotelWithUser([]));
-                dispatch(setCartCruiseWithUser([]));
-                dispatch(setCartFlightWithUser([]));
-                dispatch(setCartVacationWithUser([]));
-                navigate('/');
-              }}
+              onClick={handleDeleteProfile}
               id="deleteProfile"
             />
           </div>
           {isUpdateFormShown && (
-            <form onSubmit={handleSubmit} className="space-y-4">
+            <form className="space-y-4" onSubmit={handleUpdateProfile}>
               <div>
                 <label htmlFor="name" className="block text-sm font-medium text-gray-700">
                   Name
@@ -129,7 +148,7 @@ const Profile = () => {
                   className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                 />
               </div>
-              <Button onClick={handleUpdateProfile} id="profileForm" />
+              <Button id="profileForm" />
             </form>
           )}
           {isUpdatePassword && (
@@ -161,7 +180,7 @@ const Profile = () => {
                 />
               </div>
               <Button id="changePassword" />
-              {popUp && <PopUpMessage />}
+
             </form>
           )}
         </div>

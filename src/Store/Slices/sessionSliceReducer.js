@@ -187,7 +187,7 @@ const sessionSlice = createSlice({
         builder.addCase(fetchUpdateProfileAsync.fulfilled, (state, action) => {
             state.loading = false
             state.user = action.payload.user
-            state.token = action.payload.authToken
+            state.message = action.payload.message
 
 
         })

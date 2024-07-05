@@ -111,7 +111,7 @@ const CruiseDetailsPage = () => {
     }
     const {payload} = await dispatch(fetchUpdateAsync({id,userId: user._id,type }))
     if(payload.user){
-      console.log(payload.user.cruises)
+    
       dispatch(setCartCruiseWithUser(payload.user.cruises))
   
   }

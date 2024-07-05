@@ -10,7 +10,7 @@ const PaymentPage = () => {
   const [clientSecret, setClientSecret] = useState("");
   const dispatch = useDispatch()
   const { user, totalPrice, order, firstName, lastName, email } = useSelector(state => state.session);
-  console.log(totalPrice)
+ 
   useEffect(() => {
     fetch(`${API_URL}/api/config`).then(async (r) => {
       const { publishableKey } = await r.json();

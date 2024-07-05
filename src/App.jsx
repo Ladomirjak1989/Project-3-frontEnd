@@ -31,9 +31,9 @@ const App = () => {
             const storage = await JSON.parse(localStorage.getItem("user"))
           
             if (storage && token) {
-                console.log
+               
                 const {payload} = await dispatch(fetchGetUserByIdAsync({id:storage._id}))
-                console.log(payload)
+              
                await dispatch(setCartCruiseWithUser(payload.user.cruises))
                await dispatch(setCartFlightWithUser(payload.user.flights))
                 await dispatch(setCartVacationWithUser(payload.user.vacations))

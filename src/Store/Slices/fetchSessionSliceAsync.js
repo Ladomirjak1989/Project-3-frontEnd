@@ -29,7 +29,6 @@ export const fetchGetUserByIdAsync = createAsyncThunk("user/fetchUser", async (f
 export const fetchSignUpAsync = createAsyncThunk("signup/fetchSignup", async (formData, { rejectWithValue }) => {
     try {
         const response = await axios.post(`${API_URL}/auth/signup`, formData)
-        console.log('JWT token', response.data.authToken);
         return response.data
 
     } catch (e) {
@@ -43,13 +42,13 @@ export const fetchUpdateAsync = createAsyncThunk("cart/fetchUpdateCart", async (
     try {
         const state = getState()
         const token = state.session.token;
-        const response = await axios.post(`${API_URL}/users/${formData.userId}/${formData.type}s/${formData.id}`, formData,{
+        const response = await axios.post(`${API_URL}/users/${formData.userId}/${formData.type}s/${formData.id}`, formData, {
             headers: {
-              Authorization: `Bearer ${token}`,
-             
+                Authorization: `Bearer ${token}`,
+
             }
-          })
-      console.log(response.data)
+        })
+     
         return response.data
     } catch (e) { return rejectWithValue(e.response.data.message); }
 
@@ -60,13 +59,13 @@ export const fetchRemoveCartAsync = createAsyncThunk("cart/fetchRemoveCart", asy
     try {
         const state = getState()
         const token = state.session.token;
-        const response = await axios.put(`${API_URL}/users/${formData.userId}/delete-cart`, formData,{
+        const response = await axios.put(`${API_URL}/users/${formData.userId}/delete-cart`, formData, {
             headers: {
-              Authorization: `Bearer ${token}`,
-             
+                Authorization: `Bearer ${token}`,
+
             }
-          })
-     
+        })
+
         return response.data
     } catch (e) { return rejectWithValue(e.response.data.message); }
 
@@ -77,34 +76,47 @@ export const fetchRemoveElementFromCartAsync = createAsyncThunk("cart/fetchRemov
     try {
         const state = getState()
         const token = state.session.token;
-        const response = await axios.put(`${API_URL}/users/${formData.userId}/${formData.type}s/${formData.id}`, formData,{
+        const response = await axios.put(`${API_URL}/users/${formData.userId}/${formData.type}s/${formData.id}`, formData, {
             headers: {
-              Authorization: `Bearer ${token}`,
-             
+                Authorization: `Bearer ${token}`,
+
             }
-          })
-     
+        })
+
         return response.data
     } catch (e) { return rejectWithValue(e.response.data.message); }
 
 
 })
 
-export const fetchDeleteAsync = createAsyncThunk("delete/fetchDelete", async (formData, { rejectWithValue }) => {
+export const fetchDeleteAsync = createAsyncThunk("delete/fetchDelete", async (formData, { rejectWithValue, getState }) => {
     try {
-        const response = await axios.delete(`${API_URL}/users/delete-profile/${formData}`)
-        localStorage.setItem("token","")
-        localStorage.setItem("user", JSON.stringify({}))
+        const state = getState()
+        const token = state.session.token;
+        const response = await axios.delete(`${API_URL}/users/delete-profile/${formData}`, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+
+            } 
+        })
         return response.data
     } catch (e) { return rejectWithValue(e.response.data.message); }
 
 
 })
 
-export const fetchUpdateProfileAsync = createAsyncThunk("update/fetchUpdateProfile", async (formData, { rejectWithValue }) => {
+export const fetchUpdateProfileAsync = createAsyncThunk("update/fetchUpdateProfile", async (formData, { rejectWithValue, getState }) => {
     try {
-        const response = await axios.put(`${API_URL}/users/update-profile/${formData.id}`, formData)
-        localStorage.setItem("token", response.data.authToken)
+        const state = getState()
+        const token = state.session.token;
+        const response = await axios.put(`${API_URL}/users/update-profile/${formData.id}`, formData, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+
+            } 
+
+        })
+       
         localStorage.setItem("user", JSON.stringify(response.data.user))
         return response.data
     } catch (e) { return rejectWithValue(e.response.data.message); }
@@ -112,11 +124,17 @@ export const fetchUpdateProfileAsync = createAsyncThunk("update/fetchUpdateProfi
 
 })
 
-export const fetchUpdatePasswordAsync = createAsyncThunk("update/fetchUpdatePassword", async (formData, { rejectWithValue }) => {
+export const fetchUpdatePasswordAsync = createAsyncThunk("update/fetchUpdatePassword", async (formData, { rejectWithValue, getState }) => {
     try {
-        const response = await axios.put(`${API_URL}/users/update-password/${formData.id}`, formData)
-        localStorage.setItem("token", response.data.authToken)
-        localStorage.setItem("user", JSON.stringify(response.data.user))
+        const state = getState()
+        const token = state.session.token;
+        const response = await axios.put(`${API_URL}/users/change-password/${formData.id}`, formData, {
+            headers: {
+                Authorization: `Bearer ${token}`,
+
+            }   
+        })
+    
         return response.data
     } catch (e) { return rejectWithValue(e.response.data.message); }
 

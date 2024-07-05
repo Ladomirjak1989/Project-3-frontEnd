@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { FaLock } from 'react-icons/fa';
 import { Link, useNavigate, Navigate } from 'react-router-dom';
 import { FaLockOpen } from "react-icons/fa";
@@ -20,6 +20,7 @@ const LoginPage = () => {
     const [isPasswordShow, setPasswordShow] = useState(false)
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const user = useSelector(state => state.session.user)
 
     const handleDemoUser = () => {
         setEmail("demouser@gmail.com")
@@ -31,13 +32,19 @@ const LoginPage = () => {
         setPassword("Demoadmin12345")
     }
 
+    useEffect(() => {
+        if (user) {
+            navigate("/")
+        }
+
+    }, [user])
 
     const navigate = useNavigate()
 
     const handleLoginSubmit = async (e) => {
         e.preventDefault();
         const requestBody = { email, password };
-        const {payload} = await dispatch(fetchSessionAsync(requestBody))
+        const { payload } = await dispatch(fetchSessionAsync(requestBody))
         if (payload.authToken) {
             dispatch(setCartHotelWithUser(payload.user.hotels))
             dispatch(setCartFlightWithUser(payload.user.flights))

@@ -49,7 +49,7 @@ const VacationDetails = () => {
         }
         const { payload } = await dispatch(fetchUpdateAsync({ id, userId: user._id, type }))
         if (payload.user) {
-console.log(payload,23223)
+
             dispatch(setCartVacationWithUser(payload.user.vacations))
 
         }
