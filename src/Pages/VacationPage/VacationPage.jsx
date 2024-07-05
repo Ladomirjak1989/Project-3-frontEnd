@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Loader from '../../components/Loader/Loader';
 import VacationEl from '../../components/VacationEl/VacationEl';
 import SortList from '../../components/SortList/SortList';
@@ -11,7 +11,7 @@ import { IoIosBed } from "react-icons/io";
 
 const VacationPage = () => {
   const [activeFAQ, setActiveFAQ] = useState(null);
-  const dispatch = useDispatch();
+  
   const isLoading = useSelector(state => state.vacations.loading);
   const vacations = useSelector(state => Object.values(state.vacations.vacations));
   const vacationSearch = useSelector(state => Object.values(state.vacationSearch.vacations));

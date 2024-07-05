@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Loader from '../../components/Loader/Loader';
 import CruiseEl from '../../components/CruiseEl/CruiseEl';
 import Searchbar from '../../components/Searchbar/Searchbar';
@@ -11,7 +11,7 @@ import CruiseDeal from '../../components/CruiseDeal/CruiseDeal';
 
 const CruisesPage = () => {
 
-  const dispatch = useDispatch();
+ 
   const isLoading = useSelector(state => state.cruise.loading);
   const cruises = useSelector(state => Object.values(state.cruise.cruises));
   const cruiseSearch = useSelector(state => Object.values(state.cruiseSearch.cruise));

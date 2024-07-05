@@ -1,5 +1,5 @@
 import React from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import Loader from '../../components/Loader/Loader';
 import HotelEl from '../../components/HotelEl/HotelEl';
 import SortList from '../../components/SortList/SortList';
@@ -11,7 +11,7 @@ import { FaMobileScreenButton } from "react-icons/fa6";
 
 const HotelsPage = () => {
 
-  const dispatch = useDispatch()
+  
   const isLoading = useSelector(state => state.hotels.loading)
   const hotels = useSelector(state => Object.values(state.hotels.hotels))
   const hotelSearch = useSelector(state => Object.values(state.hotelSearch.hotels))
