@@ -719,7 +719,7 @@ Ensures that the information is up-to-date for seamless communication and servic
 Booking History.
 Users can view their past and upcoming bookings.
 
-image:
+![alt text](https://res.cloudinary.com/dq0fwucoj/image/upload/v1720176580/image-10_ucjzpx.png)
 
 --------------
 
