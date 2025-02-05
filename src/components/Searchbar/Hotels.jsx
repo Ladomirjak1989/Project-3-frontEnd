@@ -10,23 +10,25 @@ import {
   setGuests,
   setClearSearch
 } from "../../Store/Slices/hotelSearchSlice";
-import { fetchSearchHotelAsync } from '../../Store/Slices/fetchSearchSliceAsync';
+// import { fetchSearchHotelAsync } from '../../Store/Slices/fetchSearchSliceAsync';
 import Button from '../Button/Button';
+import { fetchHotelAsyncApi } from '../../Store/Slices/fetchHotelSliceAsync';
 
 const Hotels = () => {
   const dispatch = useDispatch();
   const hotelSearch = useSelector((state) => state.hotelSearch);
-
-  const handleSubmit = (e) => {
-    e.preventDefault()
-    dispatch(fetchSearchHotelAsync(hotelSearch))
   
-  }
   const [isHotelRoomsShown, setHotelRoomsShown] = useState(false)
   const [hotelRooms, setHotelRooms] = useState([{ adults: 2, children: 0 }]);
   const [result, setResults] = useState("");
-  
 
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    // dispatch(fetchSearchHotelAsync(hotelSearch))
+
+    dispatch(fetchHotelAsyncApi({ hotelTo: hotelSearch.destination }))
+
+  }
   const handleInputChange = (e, index, type) => {
     const { name, value } = e.target;
     if (type === "hotelRoom") {
@@ -77,7 +79,8 @@ const Hotels = () => {
   };
 
   return (
-    <div className="bg-blue-50 p-6 rounded-lg shadow-md">
+    <div className="bg-white p-6 rounded-lg shadow-md">
+       <label className="text-2xl font-bold mb-6 block text-center">Find your hotel</label>
       <form onSubmit={handleSubmit} className="flex flex-wrap gap-4 justify-between items-center">
         <div className="flex-1">
           <label className="block text-indigo-900 font-semibold mb-2">Destination</label>
@@ -167,8 +170,8 @@ const Hotels = () => {
 
         </div>
         <div className="flex space-x-2">
-        <Button id="searchButton" />
-        <Button onClick={handleClearSearch} id="clear" />
+          <Button id="searchButton" />
+          <Button onClick={handleClearSearch} id="clear" />
         </div>
       </form>
       {/* Render the result content here */}

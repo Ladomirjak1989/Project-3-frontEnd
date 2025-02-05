@@ -51,12 +51,12 @@ const CruisesPage = () => {
       <PromoBanner />
       <div className='mx-auto my-0 max-w-5xl'>
         <div className="container mx-auto p-4">
-        <div className="border border-dashed border-blue-400 p-4 rounded-lg text-center mb-6">
+        <div className="border bg-amber-200 border-dashed border-blue-400 p-4 rounded-lg text-center mb-6">
         <p className="text-blue-500 font-bold">
           SAVE 
           <span className="font-semibold text-black">€200</span> 
           ON MARELLA CRUISES USING CODE <span className="font-semibold text-black">OCEAN200</span><br />
-          <span className="text-blue-700 font-semibold">October - December 2024 </span> 
+          <span className="text-blue-700 font-semibold">October - December 2025 </span> 
           <a href="#" className="text-blue-500 underline">T&CS APPLY</a>.
         </p>
        

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LuPlaneTakeoff, LuPlaneLanding } from 'react-icons/lu';
+import { BsPerson } from "react-icons/bs";
 import { setDeparture, setDestination, setDepartureDate, setDuration, setReturnDate, setGuests, setClearSearch } from "../../Store/Slices/vacationSearchSlice"
 import { fetchSearchVacationAsync } from '../../Store/Slices/fetchSearchSliceAsync';
 import Button from '../Button/Button';
@@ -8,8 +9,6 @@ import Button from '../Button/Button';
 
 const Vacationsbar = () => {
 
-
-  const [vacations, setVacations] = useState([]);
   const [result, setResult] = useState([]);
 
   const dispatch = useDispatch();
@@ -65,10 +64,11 @@ const Vacationsbar = () => {
 
 
   return (
-    <main className="p-2">
+    <div className="mx-auto p-6 bg-white shadow-md rounded-md">
+      <label className="text-2xl font-bold mb-6 block text-center">Find your vacation</label>
       <form onSubmit={handelSubmit} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-8 gap-4">
         <div className="flex flex-col">
-          <label className="flex text-indigo-900 gap-2 items-center mb-2">
+          <label className="flex text-indigo-900 gap-2 items-center mb-2 font-semibold">
             <LuPlaneTakeoff /> Departure:
           </label>
           <input
@@ -81,7 +81,7 @@ const Vacationsbar = () => {
           />
         </div>
         <div className="flex flex-col">
-          <label className="flex text-indigo-900 gap-2 items-center mb-2">
+          <label className="flex text-indigo-900 gap-2 items-center mb-2 font-semibold">
             <LuPlaneLanding /> Destination:
           </label>
           <input
@@ -94,7 +94,7 @@ const Vacationsbar = () => {
           />
         </div>
         <div className="flex flex-col">
-          <label className="block text-indigo-900 mb-2">Departure Date:</label>
+          <label className="block text-indigo-900 mb-2 font-semibold">Departure Date:</label>
           <input
             type="date"
             name="departureDate"
@@ -104,7 +104,7 @@ const Vacationsbar = () => {
           />
         </div>
         <div className="flex flex-col">
-          <label className="block text-indigo-900 mb-2">Return Date:</label>
+          <label className="block text-indigo-900 mb-2 font-semibold">Return Date:</label>
           <input
             type="date"
             name="returnDate"
@@ -114,7 +114,7 @@ const Vacationsbar = () => {
           />
         </div>
         <div className="flex flex-col">
-          <label className="block text-indigo-900 mb-2">Duration:</label>
+          <label className="block text-indigo-900 mb-2 font-semibold">Duration:</label>
           <select
             name="duration"
             value={vacationSearch.duration}
@@ -130,10 +130,10 @@ const Vacationsbar = () => {
           </select>
         </div>
         <div className="flex flex-col">
-          
+
           <div className="flex space-x-2">
             <div className="flex-1">
-              <label className="block text-indigo-900 mb-2">Adults:</label>
+              <label  className=" text-indigo-900 mb-2 flex items-center space-x-2 font-semibold"> <BsPerson className="text-indigo-900 text-xl" />Adults:</label>
               <input
                 type="number"
                 name="adults"
@@ -143,7 +143,7 @@ const Vacationsbar = () => {
               />
             </div>
             <div className="flex-1">
-              <label className="block text-indigo-900 mb-2">Children:</label>
+              <label className="block text-indigo-900 mb-2 font-semibold">Children:</label>
               <input
                 type="number"
                 name="children"
@@ -169,7 +169,7 @@ const Vacationsbar = () => {
           </div>
         ))}
       </div>
-    </main>
+    </div>
   );
 };
 

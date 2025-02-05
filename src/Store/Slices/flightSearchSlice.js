@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 import { fetchSearchFlightAsync } from './fetchSearchSliceAsync';
 
 const initialState = {
-  flights:{},
+  flights: {},
   flyFrom: '',
   flyTo: '',
   departing: '',
@@ -36,27 +36,27 @@ const flightSearchSlice = createSlice({
     setTripType(state, action) {
       state.tripType = action.payload;
     },
-    setClearSearch(state) {
-      return initialState;
-    }
+    setClearSearch: () => initialState,
   },
+  
   extraReducers: (builder) => {
-    builder.addCase(fetchSearchFlightAsync.pending, (state) => {
+    builder
+      .addCase(fetchSearchFlightAsync.pending, (state) => {
         state.loading = true
         state.error = null
-    })
-    builder.addCase(fetchSearchFlightAsync.fulfilled, (state, action) => {
+      })
+      .addCase(fetchSearchFlightAsync.fulfilled, (state, action) => {
         state.loading = false
         const flight = action.payload.reduce((acc, cur) => {
-            acc[cur._id] = cur
-            return acc
+          acc[cur._id] = cur
+          return acc
         }, {})
         state.flights = flight
-    })
-    builder.addCase(fetchSearchFlightAsync.rejected, (state, action) => {
+      })
+      .addCase(fetchSearchFlightAsync.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
-    })
+      })
   }
 });
 

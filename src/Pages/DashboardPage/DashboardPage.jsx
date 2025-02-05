@@ -1,7 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import FlightEl from '../../components/FlightEl/FlightEl';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchFlightAsync } from '../../Store/Slices/fetchFlightSliceAsync';
 import Loader from '../../components/Loader/Loader';
 import { setPopUp } from '../../Store/Slices/popUpSliceReducer';
 import PopUpMessage from '../../components/PopUpMessage/PopUpMessage';
@@ -13,20 +12,70 @@ import { FaRegStar } from "react-icons/fa";
 import { LuBaggageClaim } from "react-icons/lu";
 import VacationDeals from '../../components/VacationDeals/VacationDeals';
 import Searchbar from '../../components/Searchbar/Searchbar';
+import FlightBanner from '../../components/FlightBanner/FlightBanner';
+import FlightElAdmin from '../../components/FlightElAdmin/FlightElAdmin';
 
 
 
 
 const DashboardPage = () => {
 
+    const dispatch = useDispatch()
+
     const user = useSelector(state => state.session.user)
     const isLoading = useSelector(state => state.flights.loading)
     const flights = useSelector(state => Object.values(state.flights.flights))
-    const flightSearch = useSelector(state => Object.values(state.flightSearch.flights))
+    const flightApi = useSelector(state => Object.values(state.flights.flightApi))
+    const flightApiReturn = useSelector(state => Object.values(state.flights.flightApiReturn))
     const popUp = useSelector(state => state.popUp.popUp)
-   
 
-    const dispatch = useDispatch()
+    const [visibleCount, setVisibleCount] = useState(5);
+    const [sortOption, setSortOption] = useState("recommended");
+    const [isDirect, setIsDirect] = useState(false);
+
+    const memoizedHelper = (flights) => {
+        flights = flights.filter(flight => flight?.price?.total && flight?.itineraries);
+
+        if (sortOption === "lowToHigh") {
+            flights.sort((a, b) => +a.price.total - +b.price.total);
+        } else if (sortOption === "highToLow") {
+            flights.sort((a, b) => +b.price.total - +a.price.total);
+        }
+
+        if (isDirect) {
+            flights = flights.filter((flight) => flight.itineraries[0]?.segments.length === 1);
+        }
+
+        return flights.slice(0, visibleCount);
+    }
+
+
+    const memoizedVisibleFlights = useMemo(() => {
+        let flights = memoizedHelper(flightApi);
+        return flights
+    }, [flightApi, visibleCount, sortOption, isDirect]);
+
+
+
+    const memoizedVisibleFlightsReturn = useMemo(() => {
+        let flights = memoizedHelper(flightApiReturn);
+        return flights
+    }, [flightApiReturn, visibleCount, sortOption, isDirect]);
+
+
+
+
+
+    const handleShowMore = () => {
+        setVisibleCount(prevCount => prevCount + 5);
+    };
+    const handleSortChange = (e) => {
+        setSortOption(e.target.value);
+    };
+
+    const toggleDirectFlights = () => {
+        setIsDirect((prevState) => !prevState);
+    };
 
     useEffect(() => {
         if (popUp) {
@@ -34,7 +83,7 @@ const DashboardPage = () => {
                 dispatch(setPopUp(null))
             }, 9000)
         }
-    }, [popUp])
+    }, [popUp, dispatch])
 
 
     if (isLoading) {
@@ -45,41 +94,95 @@ const DashboardPage = () => {
     return (
         <>
             {user?.role !== "admin" && <Searchbar />}
+            <FlightBanner />
             <main className='mt-5'>
-                <div className='mx-auto my-0 max-w-5xl'>
+                <div className="flex justify-between items-center max-w-5xl mx-auto px-4 mb-6">
+                    <div>
+                        <label htmlFor="sort" className="block text-gray-700 text-sm font-semibold mb-1">
+                            SORT BY:
+                        </label>
+                        <select
+                            id="sort"
+                            value={sortOption}
+                            onChange={handleSortChange}
+                            className="px-4 py-2 border rounded-md text-gray-700"
+                        >
+                            <option value="recommended">Our recommended</option>
+                            <option value="lowToHigh">Price - low to high</option>
+                            <option value="highToLow">Price - high to low</option>
+                        </select>
+                    </div>
 
+                    {/* Direct Flights Toggle */}
+                    <div className="flex items-center">
+                        <span className="text-gray-800 font-semibold mr-3">Direct Flight</span>
+                        <label className="relative flex items-center cursor-pointer">
+                            <input
+                                type="checkbox"
+                                className="sr-only"
+                                checked={isDirect}
+                                onChange={toggleDirectFlights}
+                            />
+                            <div className={`w-11 h-6 bg-gray-300 rounded-full flex items-center transition ${isDirect ? "bg-green-500" : ""}`}>
+                                <div
+                                    className={`w-5 h-5 bg-white rounded-full shadow-md transform transition ${isDirect ? "translate-x-5" : "translate-x-0 mx-auto"
+                                        }`}
+                                ></div>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+
+
+                <div className='mx-auto my-0 max-w-5xl'>
                     <div className='bg-slate-50'>
-                        <div className="border-dotted bg-white border-2 border-blue-900 p-4  rounded-lg">
+                        <div className="border-dotted bg-amber-200 border-2 border-blue-900 p-4  rounded-lg">
                             <p className="text-center text-blue-800">
                                 <span className="font-bold">10kg hand luggage</span> and <span className="font-bold">underseat bag</span> included in the price <span className="font-bold">on all flights.</span>
                             </p>
                         </div>
                         <div>
-                            <h3 className="text-xl font-semibold mb-2">Alternative Flight</h3>
+                            <h3 className="text-xl font-semibold mb-2">Alternative Flights</h3>
                         </div>
                         <div className='relative'>
+                            {!memoizedVisibleFlights.length &&  (
+                                <p className="text-center text-gray-500">No flights available.</p>
+                            )}
                             <ul className='flex flex-col items-center gap-5'>
 
                                 {user?.role === "admin" && flights.map((flight) => (
-                                    <FlightEl key={flight._id} flight={flight} />
+                                    <FlightElAdmin key={flight._id} flight={flight} />
 
                                 ))}
-                                {flightSearch.map((flight) => (
-                                    <FlightEl key={flight._id} flight={flight} />
 
+                                {memoizedVisibleFlights.map((flight, index) => (
+                                    <FlightEl
+                                        key={flight.id}
+                                        flight={flight}
+                                        flightApiReturn={memoizedVisibleFlightsReturn[index]} // Передаємо відповідний return flight
+                                    />
                                 ))}
                             </ul>
-                            {!flightSearch.length && user?.role !== "admin" && <h2 className='font-semibold'>Search for your flight above🡹</h2>}
+
+                            {!flightApi.length && user?.role !== "admin" && <h2 className='font-semibold'>Search for your flight above🡹</h2>}
                             {popUp && <PopUpMessage />}
                         </div>
                     </div>
+
+                    {visibleCount < flightApi.length + flightApiReturn.length && (
+                        <div className="flex justify-center gap-5">
+                            <button
+                                onClick={handleShowMore}
+                                className="px-4 py-2 bg-blue-600 text-white font-semibold rounded-md hover:bg-blue-800 transition-all duration-300"
+                            >
+                                SHOW MORE
+                            </button>
+                        </div>
+                    )}
                 </div>
 
-
-                <VacationDeals count={10} />
-
-
-
+                <VacationDeals count={10} customKey="a" />
 
                 <div className="mx-auto max-w-[1200px] mt-5 p-10">
                     <h2 className="text-2xl font-bold mb-4">What our customers say ...</h2>
@@ -90,7 +193,7 @@ const DashboardPage = () => {
                                 Trip Verified
                             </h3>
                             <p className="text-gray-700 mb-4">"The service experience was brilliant going to our destination, but coming home was the best flight I have ever experienced. The flight crews were extremely attentive, they turned the heating on, it was fantastic, I never knew that there was heating on a plane. Well done!"</p>
-                            <p classname="text-gray-500 text-sm">3rd April 2024</p>
+                            <p className="text-gray-500 text-sm">3rd April 2024</p>
                         </div>
                         <div className="border rounded-lg p-4 shadow">
                             <h3 className="font-bold text-xl mb-2 flex items-center">
@@ -155,18 +258,21 @@ const DashboardPage = () => {
                         </div>
                         <div className="flex flex-col items-center justify-center">
                             <LuBaggageClaim className='text-6xl mb-2 text-blue-900' />
-                            <h3 className="font-bold text-xl text-blue-900">TUI flights</h3>
+                            <h3 className="font-bold text-xl text-blue-900">DV flights</h3>
                             <p className="text-gray-500">10kg cabin luggage included as standard.</p>
                         </div>
                     </div>
                 </div>
-
-
             </main>
         </>
     );
 };
 
 export default DashboardPage;
+
+
+
+
+
 
 

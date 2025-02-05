@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -18,6 +17,17 @@ a {
 button {
     cursor: pointer;
 }
-#root{
+
+#root {
     position: relative;
+}
+
+.before-icon::before {
+    content: "";
+    position: absolute;
+    width: 2px;
+    height: 48px;
+    top: -12px;
+    left: -12px;
+    background-color: #000;
 }

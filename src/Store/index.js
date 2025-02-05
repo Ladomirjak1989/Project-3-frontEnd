@@ -19,6 +19,10 @@ import citySearchSlice from "./Slices/citySearchSlice";
 import cartSliceReducer from "./Slices/cartSliceReducer";
 import profileSliceReducer from "./Slices/profileSliceReducer";
 import cruiseDealSliceReducer from "./Slices/cruiseDealSliceReducer";
+import languageSliceReducer from "./Slices/languageSliceReducer";
+import cookieSliceReducer from "./Slices/cookieSliceReducer";
+import attractionSearchSlice from "./Slices/attractionSearchSlice";
+import attractionSliceReducer from "./Slices/attractionSliceReducer";
 
 
 
@@ -45,6 +49,12 @@ const Store = configureStore({
         cart: cartSliceReducer,
         profile: profileSliceReducer,
         cruiseDeal: cruiseDealSliceReducer,
+        language: languageSliceReducer,
+        cookie: cookieSliceReducer,
+        attractionSearch: attractionSearchSlice,
+        attraction: attractionSliceReducer,
+        
+
         
     
         
@@ -53,7 +63,9 @@ const Store = configureStore({
 
 
     },
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger)
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware()
+    // middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(logger)
 })
+
 
 export default Store

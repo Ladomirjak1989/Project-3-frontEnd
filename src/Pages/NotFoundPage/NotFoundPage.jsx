@@ -1,13 +1,15 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import Button from '../../components/Button/Button';
+import { useSelector } from 'react-redux';
 
 const NotFoundPage = () => {
 
   const navigate = useNavigate();
-  
+  const currentLang = useSelector(state => state.language.language)
+
   const handleGoHome = () => {
-    navigate("/");
+    navigate(`/${currentLang}/`);
   };
 
   return (

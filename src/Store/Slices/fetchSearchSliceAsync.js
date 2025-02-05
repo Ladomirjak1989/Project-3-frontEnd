@@ -56,3 +56,16 @@ export const fetchSearchCityAsync = createAsyncThunk("search/fetchCity", async (
 
 
 })
+
+
+export const fetchSearchAttractionAsync = createAsyncThunk("search/fetchAttraction", async (params, { rejectWithValue }) => {
+    try {
+       
+        const response = await axios.get(`${import.meta.env.VITE_AMADEUS_API_URL}/attractions`, {params})
+      
+        return response.data
+    } catch (e) { return rejectWithValue(e.response.data.message); }
+
+
+})
+

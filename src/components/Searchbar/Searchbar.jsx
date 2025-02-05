@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useState } from "react";
-import { Attractions } from './Attractions';
+import Attractions from "./Attractions"
 import City from './City';
 import Cruises from './Cruises';
 import Vacationsbar from './Vacationsbar';
@@ -14,6 +14,9 @@ import { MdAttractions } from "react-icons/md";
 import { GiModernCity } from "react-icons/gi";
 import { useNavigate } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
+import { useSelector } from 'react-redux';
+
 
 
 const Searchbar = () => {
@@ -22,13 +25,17 @@ const Searchbar = () => {
   const { pathname } = useLocation()
 
 
+  const { t } = useTranslation();
+  const currentLang = useSelector(state => state.language.language)
+
   const [tab, setTab] = useState("flights")
+ 
 
   useEffect(() => {
     const location = pathname.split("/")
-   
+
     setTab((prev) => {
-      return location[1] || prev
+      return location[2] || prev
     })
   }, [pathname])
 
@@ -38,62 +45,62 @@ const Searchbar = () => {
         <li
           className={`p-2 cursor-pointer flex items-center ${tab === 'flights' ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-700'}`}
           onClick={() => {
-            navigate("/flights")
+            navigate(`/${currentLang}/flights`)
             setTab("flights")
           }}
 
         >
-          <TbPlaneInflight className="mr-2 size-8" /> Flight
+          <TbPlaneInflight className="mr-2 size-8" />{t('searchbar.searchFlight')}
         </li>
 
         <li
           className={`p-2 cursor-pointer flex items-center ${tab === 'vacations' ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-700'}`}
           onClick={() => {
-            navigate("/vacations")
+            navigate(`/${currentLang}/vacations`)
             setTab("vacations")
           }}
         >
-          <TbSunset2 className="mr-2 size-8" /> Vacation
+          <TbSunset2 className="mr-2 size-8" />{t('searchbar.searchVacation')} 
         </li>
 
         <li
           className={`p-2 cursor-pointer flex items-center ${tab === 'hotels' ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-700'}`}
           onClick={() => {
-            navigate("/hotels")
+            navigate(`/${currentLang}/hotels`)
             setTab("hotels")
           }}
         >
-          <FaHotel className="mr-2 size-8" /> Hotel
+          <FaHotel className="mr-2 size-8" />{t('searchbar.searchHotel')}
         </li>
 
         <li
           className={`p-2 cursor-pointer flex items-center ${tab === 'cruises' ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-700'}`}
           onClick={() => {
-            navigate("/cruises")
+            navigate(`/${currentLang}/cruises`)
             setTab("cruises")
           }}
         >
-          <GiCruiser className="mr-2 size-8" /> Cruise
+          <GiCruiser className="mr-2 size-8" />{t('searchbar.searchCruise')}
         </li>
 
         <li
           className={`p-2 cursor-pointer flex items-center ${tab === 'attractions' ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-700'}`}
           onClick={() => {
-            navigate("/attractions")
+            navigate(`/${currentLang}/attractions`)
             setTab("attractions")
           }}
         >
-          <MdAttractions className="mr-2 size-8" /> Attraction
+          <MdAttractions className="mr-2 size-8" />{t('searchbar.searchAttraction')}
         </li>
 
         <li
           className={`p-2 cursor-pointer flex items-center ${tab === 'cities' ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-700'}`}
           onClick={() => {
-            navigate("/cities")
+            navigate(`/${currentLang}/cities`)
             setTab("city")
           }}
         >
-          <GiModernCity className="mr-2 size-8" /> City
+          <GiModernCity className="mr-2 size-8" />{t('searchbar.searchCity')}
         </li>
       </ul>
       {tab === "flights" && <Flightbar />}

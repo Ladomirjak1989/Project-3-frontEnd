@@ -12,7 +12,7 @@ const initialState = {
   guests: {
     adults: "",
     children: "",
-  
+
   },
 };
 
@@ -33,8 +33,8 @@ const cruiseSearchSlice = createSlice({
       state.departureTime = action.payload;
     },
     setDuration(state, action) {
-        state.duration = action.payload;
-      },
+      state.duration = action.payload;
+    },
 
     setGuests(state, action) {
       state.guests.adults = action.payload;
@@ -50,25 +50,26 @@ const cruiseSearchSlice = createSlice({
   },
 
 
-    extraReducers: (builder) => {
-      builder.addCase(fetchSearchCruiseAsync.pending, (state) => {
-          state.loading = true
-          state.error = null
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchSearchCruiseAsync.pending, (state) => {
+        state.loading = true
+        state.error = null
       })
-      builder.addCase(fetchSearchCruiseAsync.fulfilled, (state, action) => {
-          state.loading = false
-          const cruise = action.payload.reduce((acc, cur) => {
-            acc[cur._id] = cur
-              return acc
-          }, {})
-      
-          state.cruise = cruise
+      .addCase(fetchSearchCruiseAsync.fulfilled, (state, action) => {
+        state.loading = false
+        const cruise = action.payload.reduce((acc, cur) => {
+          acc[cur._id] = cur
+          return acc
+        }, {})
+
+        state.cruise = cruise
       })
-      builder.addCase(fetchSearchCruiseAsync.rejected, (state, action) => {
-          state.loading = false
-          state.error = action.payload
+      .addCase(fetchSearchCruiseAsync.rejected, (state, action) => {
+        state.loading = false
+        state.error = action.payload
       })
-    
+
   },
 });
 

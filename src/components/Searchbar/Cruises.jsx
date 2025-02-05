@@ -56,7 +56,8 @@ const CruiseSearchForm = () => {
     };
 
     return (
-        <div className="mx-auto p-4 bg-blue-100 rounded-lg shadow-lg">
+        <div className="mx-auto p-4 bg-blue-50 rounded-lg shadow-lg">
+             <label className="text-2xl font-bold mb-6 block text-center">Find your cruises</label>
             <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="flex space-x-4 items-center">
                     <label className="block text-indigo-900 font-semibold">Trip type</label>
@@ -200,14 +201,8 @@ const CruiseSearchForm = () => {
                     <div className="flex justify-end space-x-4">
                         <Button id="searchButton" />
                         <Button id="clear" onClick={handleClearSearch} />
-
-
-
                     </div>
-
                 </div>
-
-
             </form>
         </div>
     );

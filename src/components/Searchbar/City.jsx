@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { LuPlaneTakeoff, LuPlaneLanding } from 'react-icons/lu';
 import { BsPerson } from 'react-icons/bs';
@@ -9,18 +9,14 @@ import Button from '../Button/Button';
 
 const City = () => {
 
-
-  const [city, setCity] = useState([]);
-  const [result, setResult] = useState([]);
-
   const dispatch = useDispatch();
   const citySearch = useSelector((state) => state.citySearch);
 
-  const handelSubmit=(e) =>{
+  const handelSubmit = (e) => {
     e.preventDefault()
     dispatch(fetchSearchCityAsync(citySearch))
-   
-}
+
+  }
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -56,72 +52,78 @@ const City = () => {
 
   };
 
-const handleResultClick = (result) => {
-    
-  };
-
   const handleClearSearch = () => {
     dispatch(setClearSearch());
   };
 
 
+
   return (
-    <>
-    
-      <form onSubmit={handelSubmit} className="flex flex-wrap p-3 gap-4 justify-between">
-        <div className="flex flex-col">
-          <label className="flex text-indigo-900 gap-2 items-center">
+    <div className="p-10 bg-white shadow-lg rounded-lg max-w-full mx-auto">
+       <label className="text-2xl font-bold mb-4 block text-center">Find your city</label>
+      <form onSubmit={handelSubmit} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-8 gap-4">
+        {/* Departure */}
+        <div className="flex flex-col flex-grow">
+          <label className="flex text-indigo-900 gap-2 items-center mb-1 font-semibold">
             <LuPlaneTakeoff /> Departure:
           </label>
           <input
             type="text"
-            placeholder="choose airports"
+            placeholder="Choose airport"
             name="departure"
             value={citySearch.departure}
             onChange={handleInputChange}
-            className="border border-gray-300 p-2 rounded"
+            className="w-full border border-gray-300 p-2 rounded-md focus:ring focus:ring-indigo-300"
           />
         </div>
-        <div className="flex flex-col">
-          <label className="flex text-indigo-900 gap-2 items-center">
+
+        {/* Destination */}
+        <div className="flex flex-col flex-grow">
+          <label className="flex text-indigo-900 gap-2 items-center mb-1 font-semibold">
             <LuPlaneLanding /> Destination:
           </label>
           <input
             type="text"
-            placeholder="choose airports"
+            placeholder="Choose airport"
             name="destination"
             value={citySearch.destination}
             onChange={handleInputChange}
-            className="border border-gray-300 p-2 rounded"
+            className="w-full border border-gray-300 p-2 rounded-md focus:ring focus:ring-indigo-300"
           />
         </div>
-        <div className="flex flex-col">
-          <label className="block text-indigo-900">Departure Date:</label>
+
+        {/* Departure Date */}
+        <div className="flex flex-col flex-grow">
+          <label className="block text-indigo-900 mb-1 font-semibold">Departure Date:</label>
           <input
             type="date"
             name="departureDate"
             value={citySearch.departureDate}
             onChange={handleInputChange}
-            className="border border-gray-300 p-2 rounded"
+            className="w-full border border-gray-300 p-2 rounded-md focus:ring focus:ring-indigo-300"
           />
         </div>
-        <div className="flex flex-col">
-          <label className="block text-indigo-900">Return Date:</label>
+
+        {/* Return Date */}
+        <div className="flex flex-col flex-grow">
+          <label className="block text-indigo-900 mb-1 font-semibold">Return Date:</label>
           <input
             type="date"
             name="returnDate"
             value={citySearch.returnDate}
             onChange={handleInputChange}
-            className="border border-gray-300 p-2 rounded"
+            className="w-full border border-gray-300 p-2 rounded-md focus:ring focus:ring-indigo-300"
           />
         </div>
-        <div className="flex flex-col">
-          <label className="block text-indigo-900">Duration:</label>
+
+        {/* Duration */}
+        <div className="flex flex-col flex-grow">
+          <label className="block text-indigo-900 mb-1 font-semibold">Duration:</label>
           <select
             name="duration"
             value={citySearch.duration}
             onChange={handleInputChange}
-            className="border border-gray-300 p-2 rounded"
+            className="w-full border border-gray-300 p-2 rounded-md focus:ring focus:ring-indigo-300"
           >
             <option value="">Select duration</option>
             <option value="3">3 nights</option>
@@ -131,45 +133,58 @@ const handleResultClick = (result) => {
             <option value="14">14 nights</option>
           </select>
         </div>
-        <div className="flex flex-col">
-          <label className="flex text-indigo-900 gap-2 items-center">
-            <BsPerson /> Guests:
-          </label>
-          <div className="flex space-x-2">
-            <input
-              type="number"
-              name="adults"
-              value={citySearch.guests.adults}
-              onChange={handleInputChange}
-              className="border border-gray-300 p-2 rounded"
-            />
-            <input
-              type="number"
-              name="children"
-              value={citySearch.guests.children}
-              onChange={handleInputChange}
-              className="border border-gray-300 p-2 rounded"
-            />
+
+        {/* Guests */}
+        <div className="flex flex-col flex-grow">
+          <div className="flex gap-4">
+            {/* Adults Input */}
+            <div className="w-1/2">
+              <label className="flex items-center text-indigo-900 font-semibold mb-1 gap-2">
+                <BsPerson />
+                <span>Adults:</span>
+              </label>
+              <input
+                type="number"
+                name="adults"
+                placeholder="Adults"
+                min="1"
+                value={citySearch.guests.adults}
+                onChange={handleInputChange}
+                className="w-full border border-gray-300 p-2 rounded-md focus:ring focus:ring-indigo-300"
+              />
+            </div>
+
+
+            {/* Children Input */}
+            <div className="w-1/2">
+              <label className="block text-sm text-indigo-900 font-semibold mb-1">Children:</label>
+              <input
+                type="number"
+                name="children"
+                placeholder="Children"
+                min="0"
+                value={citySearch.guests.children}
+                onChange={handleInputChange}
+                className="w-full border border-gray-300 p-2 rounded-md focus:ring focus:ring-indigo-300"
+              />
+            </div>
           </div>
         </div>
-        <div className="flex space-x-2">
-        <Button id="searchButton" />
-        <Button onClick={handleClearSearch} id="clear" />
+
+
+
+        {/* Buttons */}
+        <div className="flex gap-2 items-center mt-2">
+          <Button id="searchButton" />
+          <Button onClick={handleClearSearch} id="clear" />
         </div>
       </form>
-      {/* Render the result content here */}
-      <div>
-        {!!result.length && result.map((result) => (
-          <div
-            onClick={() => handleResultClick(result)}
-            key={result.origin}
-          >
-            {/* Render result content here */}
-          </div>
-        ))}
-      </div>
-    </>
+    </div>
   );
+
+
+
+
 };
 
 export default City;

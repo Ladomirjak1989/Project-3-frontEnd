@@ -12,6 +12,7 @@ function CruiseEl({ _id, images, name, cruiseType, destination, duration, month,
   
   const user = useSelector(state => state.session.user);
   const dispatch = useDispatch();
+  const currentLang = useSelector(state => state.language.language)
 
   const handleDeleteCruise = async (id) => {
     try {
@@ -118,10 +119,10 @@ return (
               <p>Pay only €250pp deposit today</p>
             </div>
             <div className='flex justify-end space-x-5 mt-4'>
-              <Link className='bg-blue-600 hover:bg-blue-700 text-white p-2 px-6 m-4 rounded' to={`/cruises/${_id}`}>CONTINUE</Link>
+              <Link className='bg-blue-600 hover:bg-blue-700 text-white p-2 px-6 m-4 rounded' to={`/${currentLang}/cruises/${_id}`}>CONTINUE</Link>
               {user?.role === "admin" && (
                 <>
-                  <Link to={`/cruises/cruise-updated/${_id}`} className="inline-block text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-lg transition duration-300 ease-in-out">EDIT</Link>
+                  <Link to={`/${currentLang}/cruises/cruise-updated/${_id}`} className="inline-block text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-lg transition duration-300 ease-in-out">EDIT</Link>
                   <button onClick={() => handleDeleteCruise(_id)} className="inline-block text-white bg-red-500 hover:bg-red-700 px-4 py-2 rounded-lg transition duration-300 ease-in-out">DELETE</button>
                 </>
               )}

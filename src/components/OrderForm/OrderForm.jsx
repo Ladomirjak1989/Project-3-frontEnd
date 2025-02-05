@@ -7,7 +7,8 @@ const OrderForm = () => {
     const dispatch = useDispatch();
     const { firstName, lastName, email } = useSelector(state => state.session);
     const user = useSelector(state => state.session.user)
-
+    const currentLang = useSelector(state => state.language.language)
+    
     useEffect(() => {
       
         if (user) {
@@ -61,7 +62,7 @@ const OrderForm = () => {
                     </div>
                     <div className="text-center">
                         <Link
-                            to={"/payment"}
+                            to={`/${currentLang}/payment`}
                             className="inline-block bg-blue-500 text-white font-semibold px-6 py-2 rounded-md shadow-md hover:bg-blue-600 transition-colors"
                         >
                             PAY

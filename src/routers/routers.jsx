@@ -1,9 +1,8 @@
-import { createBrowserRouter, Outlet } from "react-router-dom";
+import { createBrowserRouter, Navigate, Outlet } from "react-router-dom";
 import React from 'react';
 import Header from "../components/Header/Header";
 import Footer from "../components/Footer/Footer";
 import HomePage from "../Pages/HomePage/HomePage";
-import PrivateRouter from "./PrivateRouter";
 import Profile from "../Pages/Profile/Profile";
 import NotFoundPage from "../Pages/NotFoundPage/NotFoundPage";
 import LoginPage from "../Pages/LoginPage/LoginPage";
@@ -34,9 +33,21 @@ import TermsAndConditionsPage from "../Pages/TermsAndConditionsPage/TermsAndCond
 import CartPage from "../Pages/CartPage/CartPage";
 import OrderPage from "../Pages/OrderPage/OrderPage";
 import GoToTop from "../components/GoToTop/GoToTop";
+import PayToWay from "../Pages/PayToWay/PayToWay";
+import CookieNoticePage from "../Pages/CookieNoticePage/CookieNoticePage";
+import AttractionDetailsPage from "../Pages/AttractionDetailsPage/AttractionDetailsPage";
+import HolidayOffersPage from "../Pages/HolidayOffersPage/HolidayOffersPage";
+import Policy from "../Pages/Policy/Policy";
+import Privacy from "../Pages/Privacy/Privacy";
+import DeleteInstructionUser from "../Pages/Delete/DeleteInstructionUser";
+import ConfirmEmailPage from "../Pages/ConfirmEmailPage/ConfirmEmailPage";
+import FlightDetailsAdmin from '../Pages/FlightDetailsAdmin/FlightDetailsAdmin'
+import UpdatedFlightAdmin from "../Pages/UpdatedFlightAdmin/UpdatedFlightAdmin";
+import ForgotPasswordPage from "../Pages/ForgotPasswordPage/ForgotPasswordPage";
+import ResetPassword from "../Pages/ResetPassword/ResetPassword";
 
 
-
+const DEFAULT_LANGUAGE = "en";
 
 const router = createBrowserRouter([
 
@@ -47,58 +58,75 @@ const router = createBrowserRouter([
                 <GoToTop />
                 <Outlet />
                 <Footer />
+
             </>
         ),
         children: [
-            { path: "/", element: <HomePage /> },
-            { path: "/login", element: <LoginPage /> },
-            { path: "/signup", element: <SignupPage /> },
-            { path: "/flights", element: <DashboardPage /> },
-            { path: "/about", element: <AboutPage /> },
-            { path: "/attractions", element: <AttractionPage /> },
-            { path: "/cities", element: <CityPage /> },
-            { path: "/city-details/:id", element: <CityDetailsPage /> },
-            { path: "/cruises", element: <CruisesPage /> },
-            { path: "/cruises/:id", element: <CruisesDetailsPage /> },
-            { path: "/hotels", element: <HotelsPage /> },
-            { path: "/hotels/:id", element: <HotelDetailsPage /> },
-            { path: "/flights/:id", element: <FlightDetails /> },
-            { path: "/vacations", element: <VacationPage /> },
-            { path: "/vacations/:id", element: <VacationDetails /> },
-            { path: "/short-list", element: <ShortListPage /> },
-            { path: "/booking", element: <BookingPage /> },
-            { path: "/payment", element: <PaymentPage /> },
-            { path: "/completion", element: <CompletionPage /> },
-            { path: "/contact", element: <ContactPage /> },
-            { path: "/terms", element: <TermsAndConditionsPage /> },
-            { path: "/cart", element: <CartPage /> },
-            { path: "/order", element: <OrderPage /> },
+            { path: "/", element: <Navigate to={`/${DEFAULT_LANGUAGE}/`} replace /> },
+            { path: "/:lang/", element: <HomePage /> },
+            { path: "/:lang/flights", element: <DashboardPage /> },
+            { path: "/:lang/about", element: <AboutPage /> },
+            { path: "/:lang/attractions", element: <AttractionPage /> },
+            { path: "/:lang/attractions/:id", element: <AttractionDetailsPage /> },
+            { path: "/:lang/cities", element: <CityPage /> },
+            { path: "/:lang/city-details/:id", element: <CityDetailsPage /> },
+            { path: "/:lang/cruises", element: <CruisesPage /> },
+            { path: "/:lang/cruises/:id", element: <CruisesDetailsPage /> },
+            { path: "/:lang/hotels", element: <HotelsPage /> },
+            { path: "/:lang/hotels/:id", element: <HotelDetailsPage /> },
+            { path: "/:lang/flights/:type/:id", element: <FlightDetails /> },
+            { path: "/:lang/flights/:type/:id/:idReturn", element: <FlightDetails /> },
+            { path: "/:lang/vacations", element: <VacationPage /> },
+            { path: "/:lang/vacations/:id", element: <VacationDetails /> },
+            { path: "/:lang/short-list", element: <ShortListPage /> },
+            { path: "/:lang/booking", element: <BookingPage /> },
+            { path: "/:lang/payment", element: <PaymentPage /> },
+            { path: "/:lang/contact", element: <ContactPage /> },
+            { path: "/:lang/terms", element: <TermsAndConditionsPage /> },
+            { path: "/:lang/cart", element: <CartPage /> },
+            { path: "/:lang/order", element: <OrderPage /> },
+            { path: "/:lang/pay", element: <PayToWay /> },
+            { path: "/:lang/cookie", element: <CookieNoticePage /> },
+            { path: "/:lang/holiday", element: <HolidayOffersPage /> },
+            { path: "/:lang/policy", element: <Policy /> },
+            { path: "/:lang/privacy", element: <Privacy /> },
+            { path: "/:lang/profile", element: <Profile /> },
+            { path: "/:lang/delete-user", element: <DeleteInstructionUser /> },
+            { path: "/:lang/confirm-email", element: <ConfirmEmailPage /> },
+            
+        ],
+    },
 
-            { path: "*", element: <NotFoundPage /> },
+    {
+        element: (
+            <>
+                <Outlet /> {/* Тільки контент сторінки */}
+            </>
+        ),
+        children: [
+            { path: "/:lang/login", element: <LoginPage /> },
+            { path: "/:lang/forgot-password", element: <ForgotPasswordPage /> },
+            { path: "/:lang/reset-password/:token", element: <ResetPassword /> },
+            { path: "/:lang/signup", element: <SignupPage /> },
+            { path: "/:lang/completion", element: <CompletionPage /> },
+        ],
+    },
 
+    {
+        element: <AdminRouter />,
+        children: [
+            { path: "/:lang/flights/flight-new", element: <CreateFlightPage /> },
+            { path: "/:lang/flights/flight-updated/:id", element: <UpdatedFlightPage /> },
+            { path: "/:lang/flights/admin-updated/:id", element: <UpdatedFlightAdmin /> },
+            { path: "/:lang/flights-admin/:id", element: <FlightDetailsAdmin /> },
+            { path: "/:lang/vacations/vacation-new", element: <CreateVacationPage /> },
+            { path: "/:lang/vacations/vacation-updated/:id", element: <UpdatedVacationPage /> },
+        ],
+    },
 
+    { path: "*", element: <NotFoundPage /> },
+]);
 
-            {
-                element: <PrivateRouter />,
-                children: [
-                    { path: "/profile", element: <Profile /> }
-                ]
-            },
-            {
-                element: <AdminRouter />,
-                children: [
-                    { path: "/flights/flight-new", element: <CreateFlightPage /> },
-                    { path: "/flights/flight-updated/:id", element: <UpdatedFlightPage /> },
-
-                    { path: "/vacations/vacation-new", element: <CreateVacationPage /> },
-                    { path: "/vacations/vacation-updated/:id", element: <UpdatedVacationPage /> },
-
-                ]
-            },
-            { path: "*", element: <NotFoundPage /> }
-        ]
-    }
-])
 
 export default router
 

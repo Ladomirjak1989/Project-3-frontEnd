@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactStars from 'react-rating-stars-component';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setRating } from '../../Store/Slices/ratingSliceReducer';
 
 
-const RatingStars = ({ vacationId, rating }) => {
+const RatingStars = ({ hotelId, rating, setRating }) => {
   const dispatch = useDispatch();
 
   const handleRatingChange = (newRating) => {
-    dispatch(setRating({ id: vacationId, rating: newRating }));
+    dispatch(setRating({ id: hotelId, rating: newRating }));
   };
 
   return (

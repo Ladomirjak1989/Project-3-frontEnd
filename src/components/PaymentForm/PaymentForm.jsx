@@ -7,11 +7,11 @@ import { useSelector } from 'react-redux';
 const PaymentForm = () => {
     const stripe = useStripe();
     const elements = useElements();
+    const currentLang = useSelector(state => state.language.language)
 
     const [message, setMessage] = useState(null);
-    const [isProcessing, setProcessing] = useState(false);
+    const [isProcessing, setProcessing] = useState(false); // Стан для обробки платежу
     const totalPrice = useSelector(state => state.session.totalPrice);
-
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -20,12 +20,12 @@ const PaymentForm = () => {
             return;
         }
 
-        setProcessing(true);
+        setProcessing(true); // Увімкнути режим обробки платежу
 
         const { error } = await stripe.confirmPayment({
             elements,
             confirmParams: {
-                return_url: `${window.location.origin}/completion`,
+                return_url: `${window.location.origin}/${currentLang}/completion`,
             },
         });
 
@@ -35,9 +35,10 @@ const PaymentForm = () => {
             setMessage("Unexpected error occurred");
         }
 
-        setProcessing(false);
+        setProcessing(false); // Вимкнути режим обробки платежу
     };
 
+   
 
     return (
         <div className='bg-slate-200 min-h-screen flex items-center justify-center'>
@@ -51,15 +52,21 @@ const PaymentForm = () => {
                     </div>
                     <PaymentElement id='payment-element' className="mb-4" />
 
-                    <Button id={(isProcessing || !stripe || !elements) ? "isProcessing" : "submitPayment"} />
-                    {message && <div className="mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                        {message}
-                    </div>}
+                    {/* Передаємо пропс для управління станом кнопки */}
+                    <Button 
+                        id="submitPayment" 
+                        disabled={isProcessing || !stripe || !elements} 
+                        label={isProcessing ? "Processing..." : "Submit Payment"} 
+                    />
+                    {message && (
+                        <div className="mt-4 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
+                            {message}
+                        </div>
+                    )}
                 </form>
             </div>
         </div>
     );
-
 };
 
 export default PaymentForm;

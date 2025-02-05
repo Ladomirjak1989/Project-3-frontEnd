@@ -25,6 +25,10 @@ class AuthService {
     // return axios.post("http://localhost:5005/auth/login");
   };
 
+  logout = () => {
+    return this.api.get("/auth/logout");
+  };
+
   signup = (requestBody) => {
     return this.api.post("/auth/signup", requestBody);
     // same as

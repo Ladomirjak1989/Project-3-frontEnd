@@ -11,7 +11,7 @@ const FlightOfferForm = () => {
     const { id } = useParams(); // Get the id from URL parameters
     const isLoading = useSelector(state => state.flights.loading);
     const flight = useSelector(state => state.flights.flight);
-    
+    const currentLang = useSelector(state => state.language.language);
 
     const [formData, setFormData] = useState({
         type: 'flight',
@@ -67,7 +67,7 @@ const FlightOfferForm = () => {
         });
     };
 
-    const clearForm = ()=>{
+    const clearForm = () => {
         setFormData({
             type: 'flight',
             origin: '',
@@ -109,12 +109,12 @@ const FlightOfferForm = () => {
         try {
             dispatch(createFlightAsync(formData));
             clearForm()
-            navigate(`/flights`);
+            navigate(`/${currentLang}/flights`)
 
 
 
             // Reset the form
-           
+
         } catch (err) {
             console.error('Error creating flight offer:', err);
         }
@@ -130,7 +130,7 @@ const FlightOfferForm = () => {
                 navigate(`/flights/${flight._id}`);
             }
             // Reset the form
-           
+
         } catch (err) {
             console.error('Error updating flight offer:', err);
         }
@@ -207,11 +207,11 @@ const FlightOfferForm = () => {
                     <option value="false">No</option>
                 </select>
             </div>
-            
+
             {!flight && <Button id="create" />}
             {flight && <Button id="updated" />}
-            <Button id="clear" onClick={clearForm}/>
-            
+            <Button id="clear" onClick={clearForm} />
+
         </form>
     );
 };

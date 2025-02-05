@@ -86,13 +86,3 @@ export const deleteCityAsync = createAsyncThunk("city/deleteCity", async (id, { 
 })
 
 
-
-// export const fetchCityDealsAsync = createAsyncThunk("city/fetchCityDeals", async (params, { rejectWithValue }) => {
-//   try {
-//     const response = await axios.get(`${API_URL}/city/deals`,{params})
-//     return response.data
-//   } catch (e) { return rejectWithValue(e.response.data.message); }
-
-
-// })
-

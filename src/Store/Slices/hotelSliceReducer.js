@@ -12,51 +12,14 @@ const hotelSlice = createSlice({
         countCart: 0,
         countFavorite: 0,
         loading: false,
-        error: null
+        error: null,
+
+
     },
     reducers: {
-        setSortedHotel: (state, action) => {
-            const hotel = action.payload.reduce((acc, cur) => {
-                acc[cur._id] = cur
-                return acc
-            }, {})
-
-            state.hotels = hotel
-        },
-        setFavorite: (state, action) => {
-            const hotelIndex = action.payload;
-            if (state.hotels[hotelIndex]) {
-                if (state.hotels[hotelIndex].isFavorite) {
-                    state.hotels[hotelIndex].isFavorite = false;
-                    state.countFavorite -= 1;
-                    state.favoriteHotel = state.favoriteHotel.filter(item => item._id !== state.hotels[hotelIndex]._id);
-                } else {
-                    state.hotels[hotelIndex].isFavorite = true;
-                    state.countFavorite += 1;
-                    state.favoriteHotel = [...state.favoriteHotel, state.hotels[hotelIndex]];
-                }
-            }
-        },
-
         setCartHotelWithUser: (state, action) => {
-          state.cartHotel = action.payload 
-          state.countCart = action.payload.length 
-
-        },
-
-        setCartHotel: (state, action) => {
-            const hotelIndex = action.payload;
-            if (state.hotels[hotelIndex]) {
-                if (state.hotels[hotelIndex].isCart) {
-                    state.hotels[hotelIndex].isCart = false;
-                    state.countCart -= 1;
-                    state.cartHotel = state.cartHotel.filter(item => item._id !== state.hotels[hotelIndex]._id);
-                } else {
-                    state.hotels[hotelIndex].isCart = true;
-                    state.countCart += 1;
-                    state.cartHotel = [...state.cartHotel, state.hotels[hotelIndex]];
-                }
-            }
+            state.cartHotel = action.payload
+            state.countCart = action.payload.length
         },
 
         setRemoveCart: (state) => {
@@ -70,7 +33,7 @@ const hotelSlice = createSlice({
                 return item
             })
             state.hotels = hotels.reduce((acc, cur) => {
-                acc[cur._id] = cur;
+                acc[cur.hotelId] = cur;
                 return acc;
             }, {});
 
@@ -79,7 +42,7 @@ const hotelSlice = createSlice({
 
 
         setRemoveHotelFromCart: (state, action) => {
-            state.cartHotel = state.cartHotel.filter(item => item._id !== action.payload);
+            state.cartHotel = state.cartHotel.filter(item => item.hotelId !== action.payload);
             state.countCart -= 1;
             if (state.hotels[action.payload]) {
                 state.hotels[action.payload].isCart = false;
@@ -88,83 +51,89 @@ const hotelSlice = createSlice({
 
     },
     extraReducers: (builder) => {
-        builder.addCase(fetchHotelAsync.pending, (state) => {
-            state.loading = true
-            state.error = null
-        })
-        builder.addCase(fetchHotelAsync.fulfilled, (state, action) => {
-
-            state.loading = false
-            let counter = 0
-            let countCart = 0
-            const cartStorage = JSON.parse(localStorage.getItem("cart"))
-            const storage = JSON.parse(localStorage.getItem("favorite"))
-            const data = action.payload.map(item => {
-                const randomReviews = Math.floor(Math.random() * 1000)
-                if (cartStorage && cartStorage.includes(item._id)) {
-                    item.isCart = true
-                    countCart += 1
-                } else {
-                    item.isCart = false
-                }
-
-                if (storage && storage.includes(item._id)) {
-                    item.isFavorite = true
-                    counter += 1
-                } else {
-                    item.isFavorite = false
-                }
-                const object = { ...item, randomReviews }
-                return object
+        builder
+            .addCase(fetchHotelAsync.pending, (state) => {
+                state.loading = true
+                state.error = null
             })
-            const hotel = data.reduce((acc, cur) => {
-                acc[cur._id] = cur
-                return acc
-            }, {})
+            .addCase(fetchHotelAsync.fulfilled, (state, action) => {
 
-            state.favoriteHotel = data.filter(item => item.isFavorite)
-            state.cartHotel = data.filter(item => item.isCart)
-            state.countFavorite = counter
-            state.countCart = countCart
-            state.hotels = hotel
-        })
-        builder.addCase(fetchHotelAsync.rejected, (state, action) => {
+                state.loading = false
+                let counter = 0
+                let countCart = 0
+                const cartStorage = JSON.parse(localStorage.getItem("cart"))
+                const storage = JSON.parse(localStorage.getItem("favorite"))
+                const data = action.payload.map(item => {
 
-            state.loading = false
-            state.error = action.payload
-        })
+                    // Generate a random number between 2 and 5
+                    const randomRating = (Math.random() * (5 - 2) + 2).toFixed(1);
+
+                    const randomReviews = Math.floor(Math.random() * 10000)
+                    if (cartStorage && cartStorage.includes(item.hotelId)) {
+                        item.isCart = true
+                        countCart += 1
+                    } else {
+                        item.isCart = false
+                    }
+
+                    if (storage && storage.includes(item.hotelId)) {
+                        item.isFavorite = true
+                        counter += 1
+                    } else {
+                        item.isFavorite = false
+                    }
+                    const object = { ...item, randomReviews, rating: randomRating }
+                    return object
+                })
+                const hotel = data.reduce((acc, cur) => {
+                    acc[cur.hotelId] = cur
+                    return acc
+                }, {})
+
+                state.favoriteHotel = data.filter(item => item.isFavorite)
+                state.cartHotel = data.filter(item => item.isCart)
+                state.countFavorite = counter
+                state.countCart = countCart
+                state.hotels = hotel
+            })
+            .addCase(fetchHotelAsync.rejected, (state, action) => {
+
+                state.loading = false
+                state.error = action.payload
+            })
 
 
 
-        builder.addCase(createHotelAsync.pending, (state) => {
-            state.loading = true
+            .addCase(createHotelAsync.pending, (state) => {
+                state.loading = true
 
-            state.error = null
-        })
-        builder.addCase(createHotelAsync.fulfilled, (state, action) => {
-            state.loading = false
-            state.hotels[action.payload._id] = action.payload
-        })
-        builder.addCase(createHotelAsync.rejected, (state, action) => {
-            state.loading = false
-            state.error = action.payload
+                state.error = null
+            })
+            .addCase(createHotelAsync.fulfilled, (state, action) => {
+                state.loading = false
+                state.hotels[action.payload._id] = action.payload
+            })
+            .addCase(createHotelAsync.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.payload
 
-        })
+            })
 
 
 
-        builder.addCase(fetchHotelByIdAsync.pending, (state) => {
-            state.loading = true
-            state.error = null
-        })
-        builder.addCase(fetchHotelByIdAsync.fulfilled, (state, action) => {
-            state.loading = false
-            state.hotel = action.payload
-        })
-        builder.addCase(fetchHotelByIdAsync.rejected, (state, action) => {
-            state.loading = false
-            state.error = action.payload
-        })
+            .addCase(fetchHotelByIdAsync.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(fetchHotelByIdAsync.fulfilled, (state, action) => {
+                state.loading = false
+                state.hotel = action.payload
+            })
+            .addCase(fetchHotelByIdAsync.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.payload
+            })
+
 
 
             .addCase(updatedHotelAsync.pending, (state) => {
@@ -194,13 +163,18 @@ const hotelSlice = createSlice({
             .addCase(deleteHotelAsync.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message;
-            });
+            })
+
+
 
     }
 })
 export const { setSortedHotel, setFavorite, setCartHotel, setRemoveCart, setRemoveHotelFromCart, setCartHotelWithUser } = hotelSlice.actions;
 
 export default hotelSlice.reducer;
+
+
+
 
 
 

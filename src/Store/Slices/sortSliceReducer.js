@@ -1,4 +1,3 @@
-// src/Store/Slices/sortSlice.js
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {params: "Our recommended"};

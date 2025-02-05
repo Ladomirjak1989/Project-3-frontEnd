@@ -119,7 +119,7 @@ const CruiseDetailsPage = () => {
 
   return (
     <div className="container mx-auto mt-7 max-w-5xl p-4">
-      <div className="border border-dashed border-blue-400 p-4 rounded-lg text-center mb-6">
+      <div className="border bg-amber-200 border-dashed border-blue-400 p-4 rounded-lg text-center mb-6">
         <p className="text-blue-500 font-bold">
           USE OUR APP <span className="text-black">DreamVoyage</span> TO SAVE AN EXTRA <span className="text-black">€70</span> ON Cruise
         </p>
@@ -188,7 +188,10 @@ const CruiseDetailsPage = () => {
 
         </div>
       </div>
-      <h2 className='text-2xl font-semibold mb-6 underline italic pl-20'>YOUR ITINERARY</h2>
+
+
+
+      <h2 className='text-2xl font-semibold mb-6 underline italic p-5 pl-20'>YOUR ITINERARY</h2>
       <div className="container mx-auto p-4">
         {days.map((day, index) => (
           <div key={index} className="mb-4">

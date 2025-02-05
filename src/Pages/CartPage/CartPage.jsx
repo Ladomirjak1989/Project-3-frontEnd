@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import VacationEl from '../../components/VacationEl/VacationEl';
 import HotelEl from '../../components/HotelEl/HotelEl';
 import CruiseEl from "../../components/CruiseEl/CruiseEl"
-import FlightEl from "../../components/FlightEl/FlightEl"
 import { setOrder } from '../../Store/Slices/sessionSliceReducer';
 import Button from '../../components/Button/Button';
 import { setCartCruiseWithUser, setRemoveCart } from '../../Store/Slices/cruiseSliceReducer'
@@ -13,6 +12,7 @@ import { setRemoveCart as setCruiseRemoveCart } from '../../Store/Slices/cruiseS
 import { setCartFlightWithUser, setRemoveCart as setFlightRemoveCart } from '../../Store/Slices/flightSliceReducer'
 import { setCartHotelWithUser, setRemoveCart as setHotelRemoveCart } from '../../Store/Slices/hotelSliceReducer'
 import { fetchRemoveCartAsync } from '../../Store/Slices/fetchSessionSliceAsync';
+import FlightElCart from '../../components/FlightElCart/FlightElCart';
 
 
 const CartPage = () => {
@@ -25,7 +25,7 @@ const CartPage = () => {
     const cartCruise = useSelector(state => state.cruise.cartCruise)
     const cartVacation = useSelector(state => state.vacations.cartVacation)
     const cartFlight = useSelector(state => state.flights.cartFlight)
-
+    const currentLang = useSelector(state => state.language.language)
 
     useEffect(() => {
         const hotelSum = cartHotel.reduce((acc, cur) => {
@@ -64,11 +64,12 @@ const CartPage = () => {
             dispatch(setHotelRemoveCart())
             return
         }
-        const { payload } = await dispatch(fetchRemoveCartAsync({ userId: user.id }))
+       
+        const { payload } = await dispatch(fetchRemoveCartAsync({ userId: user._id }))
 
         if (payload.user) {
             const storage = JSON.parse(localStorage.getItem("user"))
-            JSON.stringify(localStorage.setItem("user", { ...storage, flights: [], hotels: [], vacations: [], cruises: [] }))
+            // JSON.stringify(localStorage.setItem("user", { ...storage, flights: [], hotels: [], vacations: [], cruises: [] }))
             dispatch(setCartCruiseWithUser([]))
             dispatch(setCartFlightWithUser([]))
             dispatch(setCartVacationWithUser([]))
@@ -76,10 +77,7 @@ const CartPage = () => {
         }
     }
 
-
-
-
-    return (
+return (
         <div className="container mx-auto my-6 p-4 border rounded shadow-lg bg-white">
             <div className="flex justify-between items-center mb-4">
             </div>
@@ -93,7 +91,7 @@ const CartPage = () => {
 
                     </div>
                     <div >
-                        <Link className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition" to={`/order`}>
+                        <Link className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition" to={`/${currentLang}/order`}>
                             PAY YOUR ORDER
                         </Link>
                         <Button onClick={handleRemoveAll} id="clearCart" />
@@ -131,7 +129,7 @@ const CartPage = () => {
                     <h4 className="text-xl font-semibold mb-2">Flight Packages</h4>
                     <ul className="space-y-2">
                         {cartFlight.map(item => (
-                            <FlightEl key={item._id} flight={item} isCart={true} />
+                            <FlightElCart key={item.id} flight={item} isCart={true}/>
                         ))}
                     </ul>
                 </div>

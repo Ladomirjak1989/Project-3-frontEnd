@@ -1,71 +1,76 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSorted } from '../../Store/Slices/vacationSliceReducer';
-import { setSortOption } from '../../Store/Slices/sortSliceReducer';
 import { useLocation } from 'react-router-dom';
-import { setSortedHotel } from '../../Store/Slices/hotelSliceReducer';
+import { setSortedHotel } from '../../Store/Slices/hotelSearchSlice';
+import { setSortedVacation } from '../../Store/Slices/vacationSearchSlice';
 
-
+import { setSortOption } from '../../Store/Slices/sortSliceReducer';
+import { setSortedAttraction } from '../../Store/Slices/attractionSliceReducer';
 
 
 const SortList = () => {
     const dispatch = useDispatch();
     const vacation = useSelector(state => Object.values(state.vacations.vacations))
-    const hotel = useSelector(state => Object.values(state.hotels.hotels))
+    const hotel = useSelector(state => Object.values(state.hotelSearch.hotels))
+    const attraction = useSelector(state => Object.values(state.attraction.attractions))
+    
     const { pathname } = useLocation()
     const sortOption = useSelector(state => state.sort.params);
 
     const [sortParams, setSortParams] = useState("")
+    const [selectedSort, setSelectedSort] = useState("Our recommended");
 
     useEffect(() => {
         const location = pathname.split("/")
-
         setSortParams((prev) => {
-            return location[1] || prev
+            return location[2] || prev
         })
     }, [pathname])
 
+
     const sortingElement = (elementForSort, params) => {
-        return elementForSort.toSorted((a, b) => {
-            if (params[0] === "rating") {
-               
-                return b.accommodation[params[0]] - a.accommodation[params[0]]
-            }
-           
+        const [field, order] = params;
 
-            if (params[0] === "reviews") {
-                
-                return b.randomReviews - a.randomReviews
-            }
-            if (params[1] === "ASC") {
-                
-                return a[params[0]] - b[params[0]]
+        return [...elementForSort].sort((a, b) => {
+            let comparison = 0;
+            // Sorting logic based on field
 
+            if (field === "price") {
+                if (a.price && a.price.amount) {
+                    comparison = a.price.amount - b.price.amount;
+                } else if (a.price) {
+                    comparison = a.price - b.price
+                } else {
+                    comparison = a.randomPrice - b.randomPrice
+                }
+            } else if (field === "rating") {
+                comparison = a.rating - b.rating; // Sort by rating
+            } else if (field === "reviews") {
+                comparison = a.randomReviews - b.randomReviews; // Sort by reviews
             }
-            if (params[1] === "DESC") {
-               
-                return b[params[0]] - a[params[0]]
-            }
-
-
+            // Reverse order if descending
+            return order === "DESC" ? -comparison : comparison;
         })
     }
 
     const handleSortChange = (event) => {
         const params = event.target.value.split("-")
         let sorted = []
+        setSelectedSort(event.target.options[event.target.selectedIndex].text); // Змінює текст вибраного сортування
+
         if (sortParams === "hotels") {
             sorted = sortingElement(hotel, params)
             dispatch(setSortedHotel(sorted))
         }
-        if(sortParams==="vacations"){
+        if (sortParams === "vacations") {
             sorted = sortingElement(vacation, params)
-            dispatch(setSorted(sorted));
+            dispatch(setSortedVacation(sorted));
         }
-
-       
-       
-        dispatch(setSortOption(event.target.value))
+        if (sortParams === "attractions") {
+            sorted = sortingElement(attraction, params)
+            dispatch(setSortedAttraction(sorted));
+        }
+        dispatch(setSortOption(event.target.value));
 
     };
 
@@ -80,8 +85,8 @@ const SortList = () => {
                 <option>Our recommended</option>
                 <option value="price-ASC">Price - low to high</option>
                 <option value="price-DESC">Price - high to low</option>
-                <option value="rating-DESC">Rating</option>
-                <option value="reviews-DESC">Reviews</option>
+                <option value="rating-DESC">Rating - high to low</option>
+                <option value="reviews-DESC">Reviews - high to low</option>
             </select>
         </div>
     );

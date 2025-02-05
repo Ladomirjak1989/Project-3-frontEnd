@@ -72,94 +72,95 @@ const cruiseSlice = createSlice({
         },
 
         setCartCruiseWithUser: (state, action) => {
-            state.cartCruise = action.payload 
-            state.countCart = action.payload.length 
-  
-          },
+            state.cartCruise = action.payload
+            state.countCart = action.payload.length
+
+        },
     },
 
 
 
 
     extraReducers: (builder) => {
-        builder.addCase(fetchCruiseAsync.pending, (state) => {
-            state.loading = true
-            state.error = null
-        })
-        builder.addCase(fetchCruiseAsync.fulfilled, (state, action) => {
-
-            state.loading = false
-            let counter = 0
-            let countCart = 0
-            const cartStorage = JSON.parse(localStorage.getItem("cart"))
-            const storage = JSON.parse(localStorage.getItem("favorite"))
-            const data = action.payload.map(item => {
-                const randomReviews = Math.floor(Math.random() * 1000)
-
-                if (cartStorage && cartStorage.includes(item._id)) {
-                    item.isCart = true
-                    countCart += 1
-                } else {
-                    item.isCart = false
-                }
-
-                if (storage && storage.includes(item._id)) {
-                    item.isFavorite = true
-                    counter += 1
-                } else {
-                    item.isFavorite = false
-                }
-                const object = { ...item, randomReviews }
-                return object
+        builder
+            .addCase(fetchCruiseAsync.pending, (state) => {
+                state.loading = true
+                state.error = null
             })
-            const cruise = data.reduce((acc, cur) => {
-                acc[cur._id] = cur
-                return acc
-            }, {})
-            state.favoriteCruise = data.filter(item => item.isFavorite)
-            state.cartCruise = data.filter(item => item.isCart)
-            state.countFavorite = counter
-            state.countCart = countCart
-            state.cruises = cruise
-        })
-        builder.addCase(fetchCruiseAsync.rejected, (state, action) => {
+            .addCase(fetchCruiseAsync.fulfilled, (state, action) => {
 
-            state.loading = false
-            state.error = action.payload
-        })
+                state.loading = false
+                let counter = 0
+                let countCart = 0
+                const cartStorage = JSON.parse(localStorage.getItem("cart"))
+                const storage = JSON.parse(localStorage.getItem("favorite"))
+                const data = action.payload.map(item => {
+                    const randomReviews = Math.floor(Math.random() * 1000)
+
+                    if (cartStorage && cartStorage.includes(item._id)) {
+                        item.isCart = true
+                        countCart += 1
+                    } else {
+                        item.isCart = false
+                    }
+
+                    if (storage && storage.includes(item._id)) {
+                        item.isFavorite = true
+                        counter += 1
+                    } else {
+                        item.isFavorite = false
+                    }
+                    const object = { ...item, randomReviews }
+                    return object
+                })
+                const cruise = data.reduce((acc, cur) => {
+                    acc[cur._id] = cur
+                    return acc
+                }, {})
+                state.favoriteCruise = data.filter(item => item.isFavorite)
+                state.cartCruise = data.filter(item => item.isCart)
+                state.countFavorite = counter
+                state.countCart = countCart
+                state.cruises = cruise
+            })
+            .addCase(fetchCruiseAsync.rejected, (state, action) => {
+
+                state.loading = false
+                state.error = action.payload
+            })
 
 
 
-        builder.addCase(createCruiseAsync.pending, (state) => {
-            state.loading = true
+            .addCase(createCruiseAsync.pending, (state) => {
+                state.loading = true
 
-            state.error = null
-        })
-        builder.addCase(createCruiseAsync.fulfilled, (state, action) => {
-            state.loading = false
-            state.cruises[action.payload._id] = action.payload
-        })
-        builder.addCase(createCruiseAsync.rejected, (state, action) => {
-            state.loading = false
-            state.error = action.payload
+                state.error = null
+            })
+            .addCase(createCruiseAsync.fulfilled, (state, action) => {
+                state.loading = false
+                state.cruises[action.payload._id] = action.payload
+            })
+            .addCase(createCruiseAsync.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.payload
 
-        })
+            })
 
 
 
-        builder.addCase(fetchCruiseByIdAsync.pending, (state) => {
-            state.loading = true
-            state.error = null
-        })
-        builder.addCase(fetchCruiseByIdAsync.fulfilled, (state, action) => {
-            state.loading = false
+            .addCase(fetchCruiseByIdAsync.pending, (state) => {
+                state.loading = true
+                state.error = null
+            })
+            .addCase(fetchCruiseByIdAsync.fulfilled, (state, action) => {
+                state.loading = false
 
-            state.cruise = action.payload
-        })
-        builder.addCase(fetchCruiseByIdAsync.rejected, (state, action) => {
-            state.loading = false
-            state.error = action.payload
-        })
+                state.cruise = action.payload
+            })
+            .addCase(fetchCruiseByIdAsync.rejected, (state, action) => {
+                state.loading = false
+                state.error = action.payload
+            })
 
 
             .addCase(updatedCruiseAsync.pending, (state) => {

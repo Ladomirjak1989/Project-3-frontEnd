@@ -49,8 +49,8 @@ const VacationDetails = () => {
         }
         const { payload } = await dispatch(fetchUpdateAsync({ id, userId: user._id, type }))
         if (payload.user) {
-
             dispatch(setCartVacationWithUser(payload.user.vacations))
+
 
         }
     }
@@ -59,7 +59,7 @@ const VacationDetails = () => {
         <>
             <div className='mx-auto mt-7 my-0 max-w-5xl'>
 
-                <div className="border border-dashed border-blue-400 p-4 rounded-lg text-center">
+                <div className="border bg-amber-200 border-dashed border-blue-400 p-4 rounded-lg text-center">
                     <p className="text-blue-500 font-bold">
                         USE CODE <span className="text-black">Q423W4GSC</span> TO SAVE AN EXTRA <span className="text-black">€100</span> ON THIS HOLIDAY.
                     </p>
@@ -131,7 +131,7 @@ const VacationDetails = () => {
 
 
 
-                <div className="bg-gray-200 p-4 mt-4 rounded-lg text-center ">
+                <div className="bg-amber-200 p-4 mt-4 rounded-lg text-center ">
                     <span className="text-sm text-gray-700">
                         <a href="https://www.gov.uk/foreign-travel-advice" target="_blank" rel="noopener noreferrer" className="text-blue-700 font-bold underline">
                             TRAVEL AWARE

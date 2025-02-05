@@ -12,22 +12,23 @@ const cruiseDealSlice = createSlice({
   name: 'cruiseDeal',
   initialState,
   reducers: {
-    
+
   },
   extraReducers: (builder) => {
-    builder.addCase(fetchCruiseDealAsync.pending, (state) => {
+    builder
+      .addCase(fetchCruiseDealAsync.pending, (state) => {
         state.loading = true
         state.error = null
-    })
-    builder.addCase(fetchCruiseDealAsync.fulfilled, (state, action) => {
+      })
+      .addCase(fetchCruiseDealAsync.fulfilled, (state, action) => {
         state.loading = false
-        
+
         state.deals = action.payload
-    })
-    builder.addCase(fetchCruiseDealAsync.rejected, (state, action) => {
+      })
+      .addCase(fetchCruiseDealAsync.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
-    })
+      })
   }
 });
 

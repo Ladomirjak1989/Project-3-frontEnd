@@ -1,68 +1,161 @@
 import React, { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useSearchParams } from 'react-router-dom'
 import VacationDeals from '../../components/VacationDeals/VacationDeals';
-import Searchbar from '../../components/Searchbar/Searchbar';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import Weather from '../../components/Weather/Weather';
+import { useTranslation } from 'react-i18next';
+import Cookie from '../../components/Cookie/Cookie';
+import { FaEnvelope } from 'react-icons/fa';
+import HomeBanner from '../../components/HomeBanner/HomeBanner';
+import { fetchUser } from '../../Store/Slices/fetchSessionSliceAsync';
+import useToken from '../../Hooks/UseToken';
+import { setCookiePopUp } from '../../Store/Slices/cookieSliceReducer';
+import welkomHomeImg from '../../assets/flags/welkom-home.jpg'
 
-// here users can see what trips are there, add them to the cart (in redux)
+
 const HomePage = () => {
 
+
   const user = useSelector(state => state.session.user);
+  const { t } = useTranslation();
+  const currentLang = useSelector(state => state.language.language)
+  const dispatch = useDispatch()
+  const [searchParams] = useSearchParams();
+  const [showMessage, setShowMessage] = useState(false); // Стейт для показу повідомлення
+  const cookiePopUp = useSelector(state => state.cookie.cookiePopUp);
 
   const budgetDeals = [
-    { amount: '€300', description: 'Deals up to €300pp', link: '/deals/300' },
-    { amount: '€500', description: 'Deals up to €500pp', link: '/deals/500' },
-    { amount: '€1000', description: 'Deals up to €1000pp', link: '/deals/1000' },
+    { amount: '€300', description: t('homeDeals.homeDealsSubTitle1'), link: '/deals/300' },
+    { amount: '€500', description: t('homeDeals.homeDealsSubTitle2'), link: '/deals/500' },
+    { amount: '€1000', description: t('homeDeals.homeDealsSubTitle3'), link: '/deals/1000' },
   ];
 
   const config = [
     {
-      title: "Flights",
-      link: "/flights",
+      title: t('homeMain.homeMainFlights'),
+      link: `/${currentLang}/flights`, // Corrected template string
       img: "https://www.hackmath.net/img/1/aircraft-02.jpg",
-      linkText: "BOOK"
+      linkText: t('button.homeMainBookButton')
     },
     {
-      title: "Vacations",
-      link: "/vacations",
+      title: t('homeMain.homeMainVacations'),
+      link: `/${currentLang}/vacations`,
       img: "https://t3.ftcdn.net/jpg/06/70/80/84/360_F_670808419_2qVIxlfo2lT8U0QfWiwX21qidARG7M21.jpg",
-      linkText: "BOOK"
+      linkText: t('button.homeMainBookButton')
     },
     {
-      title: "Hotels",
-      link: "/hotels",
+      title: t('homeMain.homeMainHotels'),
+      link: `/${currentLang}/hotels`,
       img: "https://media.licdn.com/dms/image/D4D12AQGxDdgsNCTOVQ/article-cover_image-shrink_720_1280/0/1698411417716?e=2147483647&v=beta&t=pMFaEPh6CwHETWB-sIIbXYfr_Teum6Kt1A7NJG3jrII",
-      linkText: "BOOK"
+      linkText: t('button.homeMainBookButton')
     },
     {
-      title: "Cruises",
-      link: "/cruises",
+      title: t('homeMain.homeMainCruises'),
+      link: `/${currentLang}/cruises`,
       img: "https://www.carnival.com/-/media/images/ships/carnival-luminosa-open-for-sale-hero-mobile.jpg",
-      linkText: "BOOK"
+      linkText: t('button.homeMainBookButton')
     },
     {
-      title: "Cities",
-      link: "/cities",
+      title: t('homeMain.homeMainCities'),
+      link: `/${currentLang}/cities`,
       img: "https://t3.ftcdn.net/jpg/00/99/12/34/360_F_99123407_CDVAXtMFWuayuO9VB8P8S687hZYqq6Js.jpg",
-      linkText: "SHOW MORE..."
+      linkText: t('button.homeMainShowMore')
     },
     {
-      title: "Attraction",
-      link: "/attractions",
+      title: t('homeMain.homeMainAttractions'),
+      link: `/${currentLang}/attractions`,
       img: "https://media.timeout.com/images/105473116/750/562/image.jpg",
-      linkText: "BOOK"
+      linkText: t('button.homeMainBookButton')
     },
   ];
+  useToken()
 
+  useEffect(() => {
+
+    const token = localStorage.getItem('token')
+    if (!token) {
+      dispatch(fetchUser());
+    }
+  }, [dispatch]);
+
+
+  useEffect(() => {
+    if (searchParams.get('login') === 'success') {
+      setShowMessage(true);
+
+      // Таймер для ховання повідомлення через 5 секунд
+      const timer = setTimeout(() => {
+        setShowMessage(false);
+      }, 5000);
+
+      // Очищення таймера під час демонтування компонента
+      return () => clearTimeout(timer);
+    }
+  }, [searchParams]);
+
+
+
+  useEffect(() => {
+    const cookiesAccepted = document.cookie
+      .split('; ')
+      .find(row => row.startsWith('cookiesAccepted='));
+
+    if (!cookiesAccepted) {
+      dispatch(setCookiePopUp(true)) // Показуємо банер, якщо cookie не встановлено
+    } else {
+      dispatch(setCookiePopUp(false))
+    }
+  }, []);
 
   return (
     <>
-      {user?.role !== "admin" && <Searchbar />}
-      <div className='mx-auto my-0 max-w-5xl'>
+      {/* {user?.role !== "admin" && <Searchbar />} */}
+
+      {showMessage && (
+        <div className="fixed top-16 left-1/3 transform -translate-x-1/2 bg-green-100 text-blsck px-6 py-4 rounded-lg shadow-lg">
+          <p className="text-lg font-semibold text-center">
+            ✅ Login successful! Welcome to our website!
+          </p>
+        </div>
+      )}
+
+      {/* {cookiePopUp && <Cookie />} */}
+
+      <div className="relative bg-gray-100">
+        {/* Верхній Gradient */}
+        <div className="h-1 p-2 bg-gradient-to-r from-yellow-400 to-orange-400 animate-pulse"></div>
+
+        <div className="flex justify-center py-4">
+          <img
+            src={welkomHomeImg}
+            alt="Welcome Home"
+            className="w-56 h-20 object-cover rounded-sm shadow-md"
+          />
+        </div>
+
+
+        {/* Текст Welcome */}
+        <div className="bg-gray-100 py-4 text-center shadow-md">
+          <h2 className="text-2xl font-bold text-black animate-bounce">
+            Welcome to Your Next Adventure!
+          </h2>
+          <p className="text-sm text-gray-600 font font-semibold mt-2">
+            Discover amazing destinations, unique experiences, and unforgettable memories.
+          </p>
+        </div>
+
+        {/* Нижній Gradient */}
+        <div className="h-1 p-2 bg-gradient-to-r from-orange-400 to-yellow-400 animate-pulse"></div>
+      </div>
+
+
+      <HomeBanner />
+
+      <div className='mx-auto my-0 max-w-7xl bg-gray-50 '>
         <div className="container mx-auto py-8">
           <div className="py-4 sm:px-8 lg:px-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Find the holiday that suits you...</h2>
-            <p className="text-lg text-gray-700">Our huge range of holidays includes everything from globetrotting tours and adventures at sea to beach-based getaways in Europe and beyond.</p>
+            <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('homeMain.homeMainTitle')}</h2>
+            <p className="text-lg text-gray-700">{t('homeMain.homeMainSubTitle')}</p>
           </div>
           <div>
             <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -81,19 +174,21 @@ const HomePage = () => {
             </ul>
           </div>
         </div>
+        {cookiePopUp && <Cookie />}
 
+        <VacationDeals count={10} customKey="b" />
 
-        <VacationDeals count={10} />
+        <Weather />
 
 
         <div className="mx-auto p-4 max-w-4xl">
-          <h2 className="text-3xl font-bold text-center mb-8">Travelling on a budget</h2>
+          <h2 className="text-3xl font-bold text-center mb-8">{t('homeDeals.homeDealsTitle')}</h2>
           <div className="flex flex-col sm:flex-row justify-between gap-4">
             {budgetDeals.map((deal, index) => (
               <div key={index} className="bg-blue-100 rounded-lg shadow-lg p-6 flex flex-col justify-between">
                 <div className="text-center">
-                  <h3 className="text-2xl font-bold mb-2">Up to</h3>
-                  <p className="text-4xl font-bold mb-4">{deal.amount}pp</p>
+                  <h3 className="text-2xl font-bold mb-2">{t('homeDeals.homeDealsUp')}</h3>
+                  <p className="text-4xl font-bold mb-4">{deal.amount}{t('homeDeals.homeDealsPP')}</p>
                 </div>
                 <div className="flex justify-between items-center">
                   <p className="text-gray-700">{deal.description}</p>
@@ -105,6 +200,15 @@ const HomePage = () => {
             ))}
           </div>
         </div>
+      </div>
+
+
+      {/* Holiday Offers Section */}
+      <div className="flex p-32 py-8">
+        <FaEnvelope className="text-blue-900 text-2xl mr-2" />
+        <p className="text-blue-500 font-semibold">
+          Don't miss out!  <Link to={`/${currentLang}/holiday`} className="underline text-indigo-900 hover:text-yellow-500">Sign up for holiday offers</Link>
+        </p>
       </div>
     </>
   );

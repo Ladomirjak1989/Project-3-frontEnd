@@ -4,20 +4,20 @@ import { useParams, } from 'react-router-dom'
 import { fetchVacationByIdAsync } from '../../Store/Slices/fetchVacationSliceAsync'
 import VacationOfferForm from '../../components/VacationOfferForm/VactionOfferForm'
 
- 
+
 
 const UpdatedVacationPage = () => {
 
-    const dispatch = useDispatch()
+  const dispatch = useDispatch()
 
-    const {id} = useParams()
-    useEffect(()=>{
-    
-dispatch(fetchVacationByIdAsync(id))
-    },[id])
+  const { id } = useParams()
+  useEffect(() => {
+
+    dispatch(fetchVacationByIdAsync(id))
+  }, [id])
 
   return (
-    <div><VacationOfferForm/></div>
+    <div><VacationOfferForm /></div>
   )
 }
 

@@ -8,10 +8,11 @@ import { CiSun } from "react-icons/ci";
 import { FaUmbrellaBeach } from "react-icons/fa";
 import { PiVolleyballLight } from "react-icons/pi";
 import { IoIosBed } from "react-icons/io";
+import VacationBanner from '../../components/VacationBanner/VacationBanner';
 
 const VacationPage = () => {
   const [activeFAQ, setActiveFAQ] = useState(null);
-  
+
   const isLoading = useSelector(state => state.vacations.loading);
   const vacations = useSelector(state => Object.values(state.vacations.vacations));
   const vacationSearch = useSelector(state => Object.values(state.vacationSearch.vacations));
@@ -29,6 +30,7 @@ const VacationPage = () => {
     return (
       <>
         {user?.role !== "admin" && <Searchbar />}
+        <VacationBanner />
         <div className='mx-auto my-0 max-w-5xl'>
           <div className="container mx-auto p-4">
             <div className="flex justify-between mb-4 items-center">
@@ -49,6 +51,7 @@ const VacationPage = () => {
   return (
     <>
       {user?.role !== "admin" && <Searchbar />}
+      <VacationBanner />
       <div className='mx-auto my-0 max-w-5xl'>
         <div className="container mx-auto p-4">
           <div className="flex justify-between mb-4 items-center">
@@ -63,8 +66,8 @@ const VacationPage = () => {
         </div>
       </div>
 
-     
-     
+
+
       <main className="bg-gray-100">
         <div className="mx-auto p-4 border-t">
           <div className="text-center mb-8">
@@ -96,8 +99,8 @@ const VacationPage = () => {
         </div>
       </main>
 
-      
-      
+
+
       <div className="bg-gray-100 p-4 border-t">
         <div className="max-w-3xl mx-auto">
           <div className="text-center mb-8">

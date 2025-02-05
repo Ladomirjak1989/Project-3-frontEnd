@@ -1,13 +1,16 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 const TermsAndConditionsPage = () => {
+  const currentLang = useSelector(state => state.language.language)
 
-  
+
   return (
     <div className="container mx-auto px-4 py-16">
-      <h1 className="text-4xl font-bold mb-6">Website Terms and Conditions</h1>
+      <h1 className="text-4xl font-bold mb-6">Terms and Conditions</h1>
       <p className="text-gray-700 mb-4">
-        These Website Terms and Conditions will apply to: (A) Your Use Of Our Website; (B) Our Supply Of Products And Services; and (C) Our Contact With You.
+        Terms and Conditions will apply to: (A) Your Use Of Our Website; (B) Our Supply Of Products And Services; and (C) Our Contact With You.
       </p>
       <p className="text-gray-700 mb-4">
         This Dream Voyage website ("Website") is owned and operated by Dream Voyage Limited, a company registered in the Netherlands. We are fully bonded by the Civil Aviation Authority under the Air Travel Organisers Licence (ATOL) with ATOL number 2524. We are also members of ABTA The Travel Association and our membership number is V5126.
@@ -64,7 +67,6 @@ const TermsAndConditionsPage = () => {
         We have made available various services, tools and functionality on this Website for your use. The information set out by us on these pages tells you how you can use these services, tools and functionality to find out about and book our products (as well as those provided by our selected partners), view content provided by us, interact with us and submit and share views with other customers. Your use of this Website in these ways is subject to these Website Terms and Conditions that incorporate:
       </p>
 
-      <h3 className="text-xl font-semibold mb-2">Customer Account</h3>
       <h4 className="text-lg font-semibold mb-2">Account Set-up</h4>
       <p className="text-gray-700 mb-4">
         When you make a booking with us an account will be created for you. You will receive an email after you make your booking asking you to activate your account. If you do not have a booking with us you can register for an account by providing your name and email address and creating a password. If you make a booking with us after you have registered for an account you will be able to view that booking in your account as long as you use the same email address you registered with when you make your booking. You are responsible for keeping your password safe and secure and for all activities that take place on your account.
@@ -78,6 +80,27 @@ const TermsAndConditionsPage = () => {
       <h4 className="text-lg font-semibold mb-2">Shortlists</h4>
       <p className="text-gray-700 mb-4">
         You can use the shortlist feature to store up to 10 holidays. These will stay in your shortlist until you remove them. This allows you to view the saved holidays whenever you are logged in to your account. The prices of the holidays may go up or down and you will be shown the most up to date price each time you view the holiday.
+      </p>
+
+
+      <h1 className="text-lg font-semibold mb-2">
+        User Agreement
+      </h1>
+      <p>
+        <li>For more information visit our <Link to={`/${currentLang}/privacy`} className="text-blue-600 underline">User Agreement Policy</Link>.</li>
+      </p>
+      <h1 className="text-lg font-semibold mb-2">
+        Privacy Policy
+      </h1>
+      <p>
+        <li>For more information visit our <Link to={`/${currentLang}/policy`} className="text-blue-600 underline">Privacy Policy</Link>.</li>
+      </p>
+      <h1 className="text-lg font-semibold mb-2">
+        User Data Deletion Policy
+      </h1>
+      <p>
+        <li>Email: <a href="mailto:support@example.com" className="text-blue-600 underline">dreamvoyaged@gmail.com</a></li>
+        <li>For more information visit our <Link to={`/${currentLang}/delete-user`} className="text-blue-600 underline">Delete User Policy</Link>.</li>
       </p>
     </div>
   );

@@ -5,16 +5,18 @@ import { FaHeart } from 'react-icons/fa';
 import VacationEl from '../../components/VacationEl/VacationEl';
 import HotelEl from '../../components/HotelEl/HotelEl';
 import CruiseEl from "../../components/CruiseEl/CruiseEl"
+import HotelSearchApi from '../../components/HotelSearchApi/HotelSearchApi';
+import AttractionEl from '../../components/AttractionEl/AttractionEl';
 
 
 
 const ShortListPage = () => {
 
     const favorite = useSelector(state => state.vacations.favoriteVacation)
-    const favoriteHotel = useSelector(state => state.hotels.favoriteHotel)
-
+    const favoriteHotel = useSelector(state => state.hotelSearch.favoriteHotel)
     const favoriteCruise = useSelector(state => state.cruise.favoriteCruise)
-
+    const favoriteAttraction = useSelector(state => state.attraction.favoriteAttraction)
+    const currentLang = useSelector(state => state.language.language)
 
     return (
         <div className="container mx-auto my-6 p-4 border rounded shadow-lg">
@@ -31,11 +33,9 @@ const ShortListPage = () => {
                     <p>Save your shortlist to your account to view and update it any time, from any device.</p>
                 </div>
                 <div className="flex space-x-2">
-                    <Link className="px-4 py-2 bg-blue-500 text-white rounded" to={`/profile`}>
-                        SAVE TO ACCOUNT
-                    </Link>
-                    <Link className="px-4 py-2 bg-yellow-500 text-white rounded" to={`/profile`}>
-                        CREATE AN ACCOUNT
+
+                    <Link className="px-4 py-2 bg-yellow-500 text-white rounded" to={`/${currentLang}/profile`}>
+                        GO TO PROFILE
                     </Link>
                 </div>
             </div>
@@ -46,10 +46,13 @@ const ShortListPage = () => {
                         <VacationEl key={item._id} {...item} />
                     ))}
                     {favoriteHotel.map(item => (
-                        <HotelEl key={item._id} {...item} />
+                        <HotelSearchApi key={item.hotelId} {...item} />
                     ))}
                     {favoriteCruise.map(item => (
                         <CruiseEl key={item._id} {...item} />
+                    ))}
+                    {favoriteAttraction.map(item => (
+                        <AttractionEl key={item.id} {...item} />
                     ))}
                 </ul>
 

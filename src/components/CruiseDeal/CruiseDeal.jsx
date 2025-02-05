@@ -12,7 +12,7 @@ import 'swiper/css';
 const CruiseDeal = ({ count }) => {
   const dispatch = useDispatch()
   const deal = useSelector(state => state.cruiseDeal.deals)
- 
+  const currentLang = useSelector(state => state.language.language)
 
   useEffect(() => {
     dispatch(fetchCruiseDealAsync({ count }))
@@ -51,7 +51,7 @@ const CruiseDeal = ({ count }) => {
                   <div className="p-4">
                     <h3 className="text-xl font-semibold mb-2">{deal.destination}</h3>
                     <p className="text-gray-700 mb-4">{deal.description}</p>
-                    <Link to={`/cruises/${deal._id}`} className="block text-center text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-sm">
+                    <Link to={`/${currentLang}/cruises/${deal._id}`} className="block text-center text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-sm">
                       SHOW MORE...
                     </Link>
                   </div>

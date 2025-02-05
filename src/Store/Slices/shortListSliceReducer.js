@@ -15,7 +15,7 @@ const shortlistSlice = createSlice({
       }
     },
     removeItem: (state, action) => {
-      state.items = state.items.filter(item => item.id !== action.payload);
+      state.items = state.items.filter(item => item.hotelId !== action.payload);
     },
     clearShortlist: (state) => {
       state.items = [];

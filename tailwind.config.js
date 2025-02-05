@@ -5,10 +5,13 @@ module.exports = {
   ],
   theme: {
     extend: {
+      backgroundColor: ['hover'], // Додайте hover для кольору фону
       backgroundImage: {
         'hero-pattern': "url('./assets/signuploginbackground.jpg')",
         'navbar': "url('./assets/navbarbg.png')",
-      }
+      },
+      important: true, // Пріоритет Tailwind стилів
+      
     },
     
   },

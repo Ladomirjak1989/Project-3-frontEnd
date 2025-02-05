@@ -14,7 +14,8 @@ import { fetchRemoveElementFromCartAsync } from '../../Store/Slices/fetchSession
 function VacationEl({ _id, destination, images, accommodation, duration, price, currency, randomReviews, isFavorite, isCart, type }) {
     const user = useSelector(state => state.session.user);
     const dispatch = useDispatch();
-
+    const currentLang = useSelector(state => state.language.language)
+    
     const handleDeleteVacation = async (id) => {
         try {
             const deleted = dispatch(deleteVacationAsync(id));
@@ -99,11 +100,11 @@ function VacationEl({ _id, destination, images, accommodation, duration, price, 
                         </div>
                         <p className="text-red-600">Includes €89pp online discount</p>
                         <div className='flex space-x-5 col-span-5'>
-                            <Link className='bg-blue-600 hover:bg-blue-700 text-white p-2 px-6 m-4 rounded' to={`/vacations/${_id}`}>CONTINUE</Link>
+                            <Link className='bg-blue-600 hover:bg-blue-700 text-white p-2 px-6 m-4 rounded' to={`/${currentLang}/vacations/${_id}`}>CONTINUE</Link>
                             {user?.role === "admin" && (
                                 <>
-                                    <Link to={`/vacations/vacation-updated/${_id}`} className="inline-block mt-4 text-white bg-blue-500 hover:bg-blue-700 px-4 py-2 rounded-lg hover:underline">EDIT</Link>
-                                    <button onClick={() => handleDeleteVacation(_id)} className="inline-block mt-4 text-white bg-red-500 hover:bg-red-700 px-4 py-2 rounded-lg hover:underline">DELETE</button>
+                                    <Link to={`/${currentLang}/vacations/vacation-updated/${_id}`} className=" bg-lime-600 hover:bg-lime-700 text-white p-2 px-6 m-4 rounded">EDIT</Link>
+                                    <button onClick={() => handleDeleteVacation(_id)} className="bg-red-600 hover:bg-red-700 text-white p-2 px-6 m-4 rounded">DELETE</button>
                                 </>
                             )}
                             {isCart && <Button onClick={handelRemoveFromCart} id="remove" />}

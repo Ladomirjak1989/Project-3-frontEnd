@@ -4,9 +4,15 @@ import React from 'react';
 
 const ContactBanner = () => {
 
-    const backgroundImageUrl = "https://img.freepik.com/premium-photo/beautifiul-underwater-panoramic-view-with-tropical-fish-coral-reefs_143092-1348.jpg"
+  const backgroundImageUrl = "https://img.freepik.com/premium-photo/beautifiul-underwater-panoramic-view-with-tropical-fish-coral-reefs_143092-1348.jpg"
+
   return (
-    <div className="relative bg-cover bg-center h-96" style={{ backgroundImage: `url(${backgroundImageUrl})` }}>
+    <div className="relative bg-cover bg-center h-96"
+      style={{
+        backgroundImage: `url(${backgroundImageUrl})`,
+        borderBottomLeftRadius: '200px',
+        borderBottomRightRadius: '200px',
+      }}>
       <div className="absolute inset-0"></div>
       <div className="relative z-10 flex items-center justify-center h-full">
         <div className="p-6 shadow-lg text-center max-w-lg mx-auto">

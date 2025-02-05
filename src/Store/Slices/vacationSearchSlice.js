@@ -3,7 +3,7 @@ import { fetchSearchVacationAsync } from './fetchSearchSliceAsync';
 
 
 const initialState = {
-  vacations:{},
+  vacations: {},
   departure: '',
   destination: '',
   departureDate: '',
@@ -32,39 +32,50 @@ const vacationSearchSlice = createSlice({
       state.returnDate = action.payload;
     },
     setDuration(state, action) {
-        state.duration = action.payload;
-      },
+      state.duration = action.payload;
+    },
 
     setGuests(state, action) {
       state.guests = action.payload;
     },
     setClearSearch(state) {
       return initialState;
-    }
+    },
+
+    setSortedVacation: (state, action) => {
+      const vacation = action.payload.reduce((acc, cur) => {
+        acc[cur._id] = cur
+        return acc
+      }, {})
+      state.vacations = vacation
+    },
   },
+
   extraReducers: (builder) => {
-    builder.addCase(fetchSearchVacationAsync.pending, (state) => {
+    builder
+      .addCase(fetchSearchVacationAsync.pending, (state) => {
         state.loading = true
         state.error = null
-    })
-    builder.addCase(fetchSearchVacationAsync.fulfilled, (state, action) => {
+      })
+      .addCase(fetchSearchVacationAsync.fulfilled, (state, action) => {
         state.loading = false
         const vacations = action.payload.reduce((acc, cur) => {
           const randomReviews = Math.floor(Math.random() * 10000)
-          const object = { ...cur, randomReviews }
+          const object = { ...cur, randomReviews, }
           acc[cur._id] = object
-            return acc
+          return acc
         }, {})
         state.vacations = vacations
-    })
-    builder.addCase(fetchSearchVacationAsync.rejected, (state, action) => {
+      })
+
+      .addCase(fetchSearchVacationAsync.rejected, (state, action) => {
         state.loading = false
         state.error = action.payload
-    })
+      })
   }
 });
 
 
-export const { setDeparture, setDestination, setDepartureDate, setDuration, setReturnDate, setGuests, setClearSearch } = vacationSearchSlice.actions;
+export const { setDeparture, setDestination, setDepartureDate, setDuration, setReturnDate, setGuests, setClearSearch, setSortedVacation } = vacationSearchSlice.actions;
 
 export default vacationSearchSlice.reducer;

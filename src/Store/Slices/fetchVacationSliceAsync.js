@@ -11,6 +11,27 @@ export const fetchVacationAsync = createAsyncThunk("vacation/fetchVacation", asy
 
 })
 
+// export const fetchVacationAsync = createAsyncThunk(
+//   "vacation/fetchVacation",
+//   async (_, { rejectWithValue }) => {
+//     try {
+//       const response = await axios.get(`${API_URL}/vacations`);
+      
+//       console.log("API Response:", response.data); // Лог API-відповіді
+
+//       if (!Array.isArray(response.data)) {
+//         console.error("❌ API повернув НЕ масив:", response.data);
+//         return rejectWithValue("API response is not an array");
+//       }
+
+//       return response.data;
+//     } catch (error) {
+//       return rejectWithValue(error.response?.data?.message || "Unknown error");
+//     }
+//   }
+// );
+
+
 
 export const fetchVacationByIdAsync = createAsyncThunk("vacation/fetchVacationById", async (id, { rejectWithValue }) => {
   try {
@@ -37,7 +58,11 @@ export const createVacationAsync = createAsyncThunk("vacation/createVacation", a
       })
 
     return response.data
-  } catch (e) { return rejectWithValue(e.response.data.message); }
+  } catch (e) {
+    console.error("Помилка створення відпочинку:", e.response?.data || e.message);
+    return rejectWithValue(e.response?.data?.message || "Помилка під час створення відпочинку");
+  }
+
 
 
 })
@@ -94,4 +119,5 @@ export const fetchVacationDealsAsync = createAsyncThunk("vacation/fetchVacationD
 
 
 })
+
 

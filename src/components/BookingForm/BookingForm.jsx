@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Button from '../Button/Button';
 import { Link } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 
 
@@ -8,6 +9,7 @@ const BookingForm = () => {
 
   const [confirmationChecked, setConfirmationChecked] = useState(false);
   const [showValidationMessage, setShowValidationMessage] = useState(false);
+  const currentLang = useSelector(state => state.language.language)
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -219,7 +221,7 @@ const BookingForm = () => {
           </p>
         )}
       </div>
-      <Link className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" to={`/payment`}>
+      <Link className="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600" to={`/${currentLang}/payment`}>
         CONTINUE TO PAYMENT
       </Link>
 

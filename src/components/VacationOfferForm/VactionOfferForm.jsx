@@ -12,7 +12,7 @@ const VacationOfferForm = () => {
     const { id } = useParams(); // Get the id from URL parameters
     const isLoading = useSelector(state => state.vacations.loading);
     const vacation = useSelector(state => state.vacations.vacation);
-
+    const currentLang = useSelector(state => state.language.language)
 
     const [formData, setFormData] = useState({
 
@@ -34,13 +34,13 @@ const VacationOfferForm = () => {
         if (id) {
             dispatch(fetchVacationByIdAsync(id));
         }
- }, [id, dispatch]);
+    }, [id, dispatch]);
 
- useEffect(() => {
-            return () => {
-              dispatch(cleanOne({}));
-            };
-          }, [dispatch]);
+    useEffect(() => {
+        return () => {
+            dispatch(cleanOne({}));
+        };
+    }, [dispatch]);
 
     useEffect(() => {
         if (vacation && vacation.duration) {
@@ -62,30 +62,28 @@ const VacationOfferForm = () => {
         }
     }, [vacation]);
 
+
     const formatData = (formData) => {
         return ({
-
-            destination: formData.destination,
-            duration: `${formData.duration} nights`,
-            price: formData.price,
-            currency: formData.currency,
-            description: formData.description,
+            
+            destination: formData.destination || "Невідомо",
+            duration: `${formData.duration || 0} nights`,
+            price: formData.price || 0,
+            currency: formData.currency || "EUR",
+            description: formData.description || "Опис відсутній",
             accommodation: {
-                name: formData.name,
-                type: formData.type,
-                rating: vacation ? vacation.accommodation.rating : 0.00,
-                address: formData.address,
-                amenities: formData.amenities.split(", ")
+                name: formData.name || "Невідомо",
+                type: formData.type || "Стандарт",
+                rating: vacation && vacation.accommodation ? vacation.accommodation.rating : 0.00,
+                address: formData.address || "Невідома адреса",
+                amenities: formData.amenities ? formData.amenities.split(", ") : []
             },
-            activities:
-                formData.activities.split(", "),
-
-
-            images:
-                formData.images.split(", "),
+            activities: formData.activities ? formData.activities.split(", ") : [],
+            images: formData.images ? formData.images.split(", ") : [],
             reviews: vacation ? vacation.reviews : []
-        })
-    }
+        });
+    };
+    
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -119,7 +117,7 @@ const VacationOfferForm = () => {
         try {
             dispatch(createVacationAsync(data));
             clearForm()
-            navigate(`/vacations`);
+            navigate(`/${currentLang}/vacations`);
 
 
 
@@ -139,7 +137,7 @@ const VacationOfferForm = () => {
             if (updatedVacation) {
                 clearForm()
                 dispatch(cleanOne({}))
-                navigate(`/vacations/${vacation._id}`);
+                navigate(`/${currentLang}/vacations`);
             }
             // Reset the form
 
@@ -192,9 +190,21 @@ const VacationOfferForm = () => {
                 <textarea className="w-full p-2 border border-gray-300 rounded" type=" text" id="activities" name="activities" placeholder=" Activities" value={formData.activities} onChange={handleChange} required />
             </div>
 
-            <div className="mb-4">
+            {/* <div className="mb-4">
                 <label className="block text-gray-700 mb-2" htmlFor=" images">Images</label>
                 <textarea className="w-full p-2 border border-gray-300 rounded" type=" text" id="images" name="images" placeholder="images" value={formData.images} onChange={handleChange} required />
+            </div> */}
+            <div className="mb-4">
+                <label className="block text-gray-700 mb-2" htmlFor="images">Image</label>
+                <textarea
+                    className="w-full p-2 border border-gray-300 rounded"
+                    type="text"
+                    id="images"
+                    name="images"
+                    placeholder="Link to the image"
+                    value={formData.images}
+                    onChange={handleChange}
+                />
             </div>
 
 
