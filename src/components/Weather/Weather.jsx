@@ -25,14 +25,14 @@ const Weather = () => {
 
 
 
-  const VITE_WEATHER_KEY = import.meta.env.VITE_WEATHER_KEY;
+  const WEATHER_KEY = import.meta.env.WEATHER_KEY;
 
   // Функція для отримання підказок міст (autocomplete)
   const fetchCitySuggestions = async (query) => {
     if (query.length >= 2) {
       try {
         const response = await axios.get(
-          `http://api.weatherapi.com/v1/search.json?key=${VITE_WEATHER_KEY}&q=${query}`
+          `http://api.weatherapi.com/v1/search.json?key=${WEATHER_KEY}&q=${query}`
         );
         setSuggestions(response.data);
       } catch (err) {
@@ -48,7 +48,7 @@ const Weather = () => {
     try {
 
       const response = await axios.get(
-        `http://api.weatherapi.com/v1/forecast.json?key=${VITE_WEATHER_KEY}&q=${city}&days=14`
+        `http://api.weatherapi.com/v1/forecast.json?key=${WEATHER_KEY}&q=${city}&days=14`
       );
       setCity(city)
       setWeatherData(response.data);
