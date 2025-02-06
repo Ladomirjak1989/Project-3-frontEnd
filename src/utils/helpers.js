@@ -1,8 +1,8 @@
 import axios from "axios";
 
 
-const apiKey = import.meta.env.CHAT_KEY; // API-ключ із змінних оточення
-const apiUrl = import.meta.env.API_URL; // URL до API
+const apiKey = import.meta.env.VITE_CHAT_KEY; // API-ключ із змінних оточення
+const apiUrl = import.meta.env.VITE_API_URL; // URL до API
 
 const translateChatGPT = async (formData, lang) => {
     const headers = {

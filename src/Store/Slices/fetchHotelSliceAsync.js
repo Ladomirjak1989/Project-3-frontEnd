@@ -19,7 +19,7 @@ export const fetchHotelAsyncApi = createAsyncThunk("hotel/fetchHotelApi", async 
     const responseCityHotelTo = await axios.get(
       `${AMADEUS_URL}/v1/reference-data/locations?subType=CITY&keyword=${hotelTo}`,
       //flight-offers?originLocationCode=SYD&destinationLocationCode=BKK&departureDate=2023-05-02&adults=1&nonStop=false&max=250
-      // `${import.meta.env.AMADEUS_API_URL}/v1/reference-data/locations?subType=CITY&keyword=${flyTo}`,
+      // `${import.meta.env.VITE_AMADEUS_API_URL}/v1/reference-data/locations?subType=CITY&keyword=${flyTo}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,
@@ -56,7 +56,7 @@ export const fetchHotelAsyncApiId = createAsyncThunk("hotel/fetchHotelApiId", as
       // `${AMADEUS_URL}/v3/reference-data/locations/hotels/by-hotels?hotelIds=${hotelId}`,
       `${AMADEUS_URL}/v3/shopping/hotel-offers/${hotelId}`,
       //flight-offers?originLocationCode=SYD&destinationLocationCode=BKK&departureDate=2023-05-02&adults=1&nonStop=false&max=250
-      // `${import.meta.env.AMADEUS_API_URL}/v1/reference-data/locations?subType=CITY&keyword=${flyTo}`,
+      // `${import.meta.env.VITE_AMADEUS_API_URL}/v1/reference-data/locations?subType=CITY&keyword=${flyTo}`,
       {
         headers: {
           Authorization: `Bearer ${accessToken}`,

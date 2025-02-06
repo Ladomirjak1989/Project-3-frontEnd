@@ -28,13 +28,13 @@ export const fetchGetUserByIdAsync = createAsyncThunk("user/fetchUser", async (f
 
 export const fetchTokenAmadeus = createAsyncThunk("user/fetchToken", async (_, { rejectWithValue }) => {
     try {
-        // const tokenResponse = await axios.post(`${import.meta.env.AMADEUS_API_URL}/v1/${import.meta.env.AMADEUS_API_GET_TOKEN_URL}`,
+        // const tokenResponse = await axios.post(`${import.meta.env.VITE_AMADEUS_API_URL}/v1/${import.meta.env.VITE_AMADEUS_API_GET_TOKEN_URL}`,
         const tokenResponse = await axios.post(`${AMADEUS_URL}/v1/security/oauth2/token`,
 
             new URLSearchParams({
                 'grant_type': 'client_credentials',
-                // 'client_id': import.meta.env.AMADEUS_API_KEY,
-                // 'client_secret': import.meta.env.AMADEUS_API_SECRET,
+                // 'client_id': import.meta.env.VITE_AMADEUS_API_KEY,
+                // 'client_secret': import.meta.env.VITE_AMADEUS_API_SECRET,
                 'client_id': AMADEUS_KEY,
 
                 'client_secret': AMADEUS_SECRET_KEY,

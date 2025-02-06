@@ -17,7 +17,7 @@ import welkomImage from '../../assets/flags/welkom2.avif'
 import CryptoJS from "crypto-js";
 
 
-const SECRET_KEY = import.meta.env.LOGIN_SECRET_KEY;
+const SECRET_KEY = import.meta.env.VITE_LOGIN_SECRET_KEY;
 
 
 const LoginPage = () => {

@@ -160,7 +160,7 @@ const ResetPassword = () => {
                         {/* Google reCAPTCHA */}
                         <div className="flex justify-center">
                             <ReCAPTCHA
-                                sitekey={import.meta.env.RECAPTCHA_SITE_KEY}
+                                sitekey={import.meta.env.VITE_RECAPTCHA_SITE_KEY}
                                 onChange={(token) => {
                                     console.log("reCAPTCHA Token:", token);
                                     setCaptchaToken(token);
