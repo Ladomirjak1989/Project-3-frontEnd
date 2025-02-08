@@ -64,7 +64,7 @@ const CartPage = () => {
             dispatch(setHotelRemoveCart())
             return
         }
-       
+
         const { payload } = await dispatch(fetchRemoveCartAsync({ userId: user._id }))
 
         if (payload.user) {
@@ -77,59 +77,73 @@ const CartPage = () => {
         }
     }
 
-return (
-        <div className="container mx-auto my-6 p-4 border rounded shadow-lg bg-white">
-            <div className="flex justify-between items-center mb-4">
-            </div>
-            <div className="p-4 bg-gray-100 rounded-md flex justify-between items-center">
-                <div>
-                    <h3 className="text-2xl font-semibold">ORDER YOUR VACATION</h3>
-                </div>
-                <div className="flex space-x-2">
-                    <div className="flex justify-end items-center">
-                        <h4 className="text-xl font-semibold mr-4">Total: €{sum.toFixed(2)} </h4>
 
-                    </div>
-                    <div >
-                        <Link className="px-4 py-2 bg-yellow-500 text-white rounded hover:bg-yellow-600 transition" to={`/${currentLang}/order`}>
+    return (
+        <div className="container mx-auto my-6 p-4 border rounded shadow-lg bg-white">
+
+            {/* Order Section */}
+            <div className="p-4 bg-gray-100 rounded-md flex flex-col sm:flex-row justify-between items-center">
+                <h3 className="text-xl sm:text-2xl font-semibold text-center sm:text-left">ORDER YOUR VACATION</h3>
+
+                <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-4 mt-4 sm:mt-0">
+
+                    {/* Total Price */}
+                    <h4 className="text-lg sm:text-xl font-semibold text-center sm:text-left">Total: €{sum.toFixed(2)}</h4>
+
+                    {/* Buttons Section */}
+                    <div className="flex flex-col sm:flex-row sm:space-x-2 w-full sm:w-auto mt-2 sm:mt-0">
+                        <Link
+                            className="bg-orange-500 hover:bg-orange-700 text-white p-2 px-6 m-4 rounded"
+                            to={`/${currentLang}/order`}
+                        >
                             PAY YOUR ORDER
                         </Link>
-                        <Button onClick={handleRemoveAll} id="clearCart" />
+                        <Button onClick={handleRemoveAll} id="clearCart" className="w-full sm:w-auto" />
                     </div>
 
                 </div>
             </div>
+
+            {/* Cart Items */}
             <div className="mt-6">
-                <h3 className="text-2xl font-bold mb-4">Cart Package Holidays</h3>
+                <h3 className="text-xl sm:text-2xl font-bold mb-4 text-center sm:text-left">Cart Package Holidays</h3>
+
+                {/* Vacation Packages */}
                 <div className="mb-4">
-                    <h4 className="text-xl font-semibold mb-2">Vacation Packages</h4>
+                    <h4 className="text-lg sm:text-xl font-semibold mb-2">Vacation Packages</h4>
                     <ul className="space-y-2">
                         {cartVacation.map(item => (
                             <VacationEl key={item._id} {...item} isCart={true} />
                         ))}
                     </ul>
                 </div>
+
+                {/* Hotel Packages */}
                 <div className="mb-4">
-                    <h4 className="text-xl font-semibold mb-2">Hotel Packages</h4>
+                    <h4 className="text-lg sm:text-xl font-semibold mb-2">Hotel Packages</h4>
                     <ul className="space-y-2">
                         {cartHotel.map(item => (
                             <HotelEl key={item._id} {...item} isCart={true} />
                         ))}
                     </ul>
                 </div>
+
+                {/* Cruise Packages */}
                 <div className="mb-4">
-                    <h4 className="text-xl font-semibold mb-2">Cruise Packages</h4>
+                    <h4 className="text-lg sm:text-xl font-semibold mb-2">Cruise Packages</h4>
                     <ul className="space-y-2">
                         {cartCruise.map(item => (
                             <CruiseEl key={item._id} {...item} isCart={true} />
                         ))}
                     </ul>
                 </div>
+
+                {/* Flight Packages */}
                 <div className="mb-4">
-                    <h4 className="text-xl font-semibold mb-2">Flight Packages</h4>
+                    <h4 className="text-lg sm:text-xl font-semibold mb-2">Flight Packages</h4>
                     <ul className="space-y-2">
                         {cartFlight.map(item => (
-                            <FlightElCart key={item.id} flight={item} isCart={true}/>
+                            <FlightElCart key={item.id} flight={item} isCart={true} />
                         ))}
                     </ul>
                 </div>
@@ -137,6 +151,7 @@ return (
             </div>
         </div>
     );
+
 };
 
 

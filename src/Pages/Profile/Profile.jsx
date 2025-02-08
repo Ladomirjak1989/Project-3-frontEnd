@@ -20,7 +20,7 @@ const Profile = () => {
   const user = useSelector(state => state.session.user);
   const [password, setPassword] = useState('');
   const [newPassword, setNewPassword] = useState('');
-  
+
 
   useEffect(() => {
     if (popUp) {
@@ -62,7 +62,7 @@ const Profile = () => {
     e.preventDefault();
     if (newPassword.trim()) {
       const { payload } = await dispatch(fetchUpdatePasswordAsync({ currentPassword: password, newPassword, id: user._id }));
-      
+
       dispatch(setPopUp(payload.message));
       setUpdatePassword(false)
     } else {
@@ -85,129 +85,161 @@ const Profile = () => {
   }
 
 
-
   return (
     <main className="p-4">
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start justify-center relative">
+      <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 items-start justify-center relative">
         {popUp && <PopUpMessage />}
-        <div className="bg-slate-100 p-6 rounded-lg shadow-lg w-full">
-          <div className="text-center mb-4">
-            <h2 className="text-2xl font-semibold mb-2 underline">Profile</h2>
-            <div className='bg-slate-200 rounded-md'>
-              <p className="text-black mb-1 "><span className='italic font-semibold'>Name:</span> {user.name}</p>
-              <p className="text-black  mb-1"><span className='italic font-semibold'>Email:</span> {user.email}</p>
-            </div>
+
+        {/* Профіль користувача */}
+        <div className="bg-slate-100 p-6 rounded-lg shadow-lg w-full sm:max-w-lg">
+          <div className="text-center sm:text-left mb-4">
+            <h2 className="text-xl sm:text-2xl font-semibold mb-2 underline">Profile</h2>
+
+
+            {/* Перевірка наявності user */}
+            {!user ? (
+              <p className="text-red-500 text-center">Loading user data...</p>
+            ) : (
+              <div className='bg-slate-200 p-2 rounded-md'>
+                <p className="text-black mb-1"><span className='italic font-semibold'>Name:</span> {user.name || "Guest"}</p>
+                <p className="text-black mb-1"><span className='italic font-semibold'>Email:</span> {user.email || "N/A"}</p>
+              </div>
+            )}
+
+            {/* Order History */}
             <div className="mt-4">
               <h3 className="text-lg font-semibold">Order History:</h3>
-              <ul className="list-disc list-inside grid grid-cols-1 md:grid-cols-4 gap-4">
-                {user.purchases.map((item) => (
-                  <li key={item._id} className="text-gray-700">
-                    <p><span className='font-semibold italic'>Amount:</span> €{item.amount}</p>
-                    <p> <span className='font-semibold italic'>Item Type:</span> {item.itemType}</p>
-                    <p><span className='font-semibold italic'>Payment Status:</span> {item.paymentStatus}</p>
-                    <Button onClick={() => alert("Comming soon")} id="showMore" />
-                  </li>
-                ))}
-              </ul>
+              {user && user.purchases ? (
+                <ul className="list-disc list-inside grid grid-cols-1 md:grid-cols-4 gap-4">
+                  {user.purchases.map((item) => (
+                    <li key={item._id} className="text-gray-700">
+                      <p><span className='font-semibold italic'>Amount:</span> €{item.amount}</p>
+                      <p> <span className='font-semibold italic'>Item Type:</span> {item.itemType}</p>
+                      <p><span className='font-semibold italic'>Payment Status:</span> {item.paymentStatus}</p>
+                      <Button onClick={() => alert("Comming soon")} id="showMore" />
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="text-gray-500 italic">No purchase history available</p>
+              )}
             </div>
           </div>
-          <div className="flex justify-around mb-4">
-            <Button onClick={() => setUpdateFormShown((prev) => !prev)} id="showUpdateProfile" />
-            <Button onClick={() => setUpdatePassword((prev) => !prev)} id="showUpdatePassword" />
-            <Button
+
+          {/* Кнопки дій
+          <div className="flex flex-col sm:flex-row justify-center sm:justify-around space-y-2 sm:space-y-0 mb-4">
+            <Button onClick={() => setUpdateFormShown(prev => !prev)} id="showUpdateProfile" />
+            <Button onClick={() => setUpdatePassword(prev => !prev)} id="showUpdatePassword" />
+            <Button onClick={handleDeleteProfile} id="deleteProfile" />
+          </div> */}
+
+          <div className="flex flex-col sm:flex-row justify-center sm:justify-around space-y-2 sm:space-y-0 sm:space-x-2 mb-4">
+            <button
+              onClick={() => setUpdateFormShown(prev => !prev)}
+              className="w-full sm:w-40 py-2 px-3 text-center bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg text-sm transition duration-300"
+            >
+              UPDATE PROFILE
+            </button>
+
+            <button
+              onClick={() => setUpdatePassword(prev => !prev)}
+              className="w-full sm:w-40 py-2 px-3 text-center bg-green-600 hover:bg-green-700 text-white font-semibold rounded-lg text-sm transition duration-300"
+            >
+              UPDATE PASSWORD
+            </button>
+
+            <button
               onClick={handleDeleteProfile}
-              id="deleteProfile"
-            />
+              className="w-full sm:w-40 py-2 px-3 text-center bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg text-sm transition duration-300"
+            >
+              DELETE PROFILE
+            </button>
           </div>
+
+          {/* Форма оновлення профілю */}
           {isUpdateFormShown && (
             <form className="space-y-4" onSubmit={handleUpdateProfile}>
               <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700">
-                  Name
-                </label>
+                <label htmlFor="name" className="block text-sm font-medium text-gray-700">Name</label>
                 <input
                   type="text"
                   name="name"
                   id="name"
                   value={form.name}
                   onChange={handleChange}
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 sm:text-sm"
                 />
               </div>
               <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700">
-                  Email
-                </label>
+                <label htmlFor="email" className="block text-sm font-medium text-gray-700">Email</label>
                 <input
                   type="email"
                   name="email"
                   id="email"
                   value={form.email}
                   onChange={handleChange}
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 sm:text-sm"
                 />
               </div>
               <Button id="profileForm" />
             </form>
           )}
+
+          {/* Форма зміни пароля */}
           {isUpdatePassword && (
             <form onSubmit={handleChangePassword} className="space-y-4 mt-6">
               <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700">
-                  Current Password
-                </label>
+                <label htmlFor="password" className="block text-sm font-medium text-gray-700">Current Password</label>
                 <input
                   type="password"
                   name="password"
                   id="password"
                   value={password}
                   onChange={handlePasswordChange}
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 sm:text-sm"
                 />
               </div>
               <div>
-                <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700">
-                  New Password
-                </label>
+                <label htmlFor="newPassword" className="block text-sm font-medium text-gray-700">New Password</label>
                 <input
                   type="password"
                   name="newPassword"
                   id="newPassword"
                   value={newPassword}
                   onChange={handlePasswordChange}
-                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                  className="mt-1 block w-full border border-gray-300 rounded-md shadow-sm p-2 sm:text-sm"
                 />
               </div>
               <Button id="changePassword" />
-
             </form>
           )}
         </div>
-        <div className="bg-blue-100 p-6 rounded-lg shadow-lg w-full max-w-lg">
+
+        {/* Блок з перевагами */}
+        <div className="bg-blue-100 p-6 rounded-lg shadow-lg w-full sm:max-w-lg text-center sm:text-left">
           <h2 className="text-lg font-bold text-gray-900 mb-4">myDreamVoyage Account benefits</h2>
           <ul className="space-y-2 text-gray-700">
-            <li className="flex items-start">
+            <li className="flex flex-col sm:flex-row items-center sm:items-start">
               <span className="mr-2">🕑</span>
               <span>Early Access and Browse Offers, including selected myDreamVoyage secret deals</span>
             </li>
-            <li className="flex items-start">
+            <li className="flex flex-col sm:flex-row items-center sm:items-start">
               <span className="mr-2">❤</span>
               <span>Save and view your shortlisted holidays on any device</span>
             </li>
-            <li className="flex items-start">
+            <li className="flex flex-col sm:flex-row items-center sm:items-start">
               <span className="mr-2">⚙️</span>
               <span>Manage your bookings wherever and whenever you want</span>
             </li>
-            <li className="flex items-start">
+            <li className="flex flex-col sm:flex-row items-center sm:items-start">
               <span className="mr-2">☑</span>
               <span>Add extras like excursions, flight upgrades, car hire and much more</span>
             </li>
-            <li className="flex items-start">
+            <li className="flex flex-col sm:flex-row items-center sm:items-start">
               <span className="mr-2">🚘</span>
               <span>Check in online and select your seats</span>
             </li>
-            <li className="flex items-start">
+            <li className="flex flex-col sm:flex-row items-center sm:items-start">
               <span className="mr-2">☑</span>
               <span>Access your myDreamVoyage Account via the DreamVoyage App</span>
             </li>
@@ -216,6 +248,7 @@ const Profile = () => {
       </div>
     </main>
   );
+
 };
 
 export default Profile;

@@ -14,6 +14,7 @@ import { setCartFlightWithUser } from '../../Store/Slices/flightSliceReducer';
 import { setCartVacationWithUser } from '../../Store/Slices/vacationSliceReducer';
 import { useTranslation } from 'react-i18next';
 import LanguageChange from '../LanguageChange/LanguageChange';
+import BurgerMenu from './BurgerMenu';
 
 const Navbar = () => {
 
@@ -113,25 +114,22 @@ const Navbar = () => {
 
   return (
     <div className="shadow-md">
-      <nav className='flex flex-col items-center bg-navbar bg-cover py-10 px-4'>
+      <nav className='flex flex-col items-center bg-navbar bg-cover py-8 px-4'>
         <div className="flex items-center justify-between w-full">
           {/* Logo */}
           <Link to='/'>
             <img className='w-[150px] transition-transform duration-300 hover:scale-105' src={Logo} alt="logo" />
           </Link>
 
-          {/* Гамбургер для мобільних */}
-          <button className="md:hidden text-white text-2xl" onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}>
-            {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
-          </button>
+
 
           {/* Title */}
-          <h1 className='text-4xl font-bold text-yellow-500 tracking-wide drop-shadow-lg'>
+          <h1 className='text-xl ml-2 lg:text-4xl font-bold text-yellow-500 tracking-wide drop-shadow-lg'>
             {t("navbar.navTitle")}
           </h1>
 
           {/* Navigation Links */}
-          <ul className='flex items-center gap-6 text-lg font-medium'>
+          <ul className='items-center gap-2 text-base lg:gap-6 lg:text-lg font-medium hidden md:flex '>
             {user?.role === "admin" && (
               <li className='relative' onClick={() => setPopUpOpen(prev => !prev)}>
                 <div className="flex items-center justify-center h-12 w-12 bg-blue-500 rounded-full shadow-lg hover:scale-110 transition-transform duration-200">
@@ -164,10 +162,17 @@ const Navbar = () => {
               </li>
             }
           </ul>
+
+          {/* Гамбургер для мобільних */}
+          <button className="md:hidden text-white text-2xl" onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}>
+            {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
+          </button>
         </div>
 
+
+
         {/* new line container */}
-        <div className="flex justify-end items-center py-4 w-full gap-6">
+        <div className="hidden sm:flex justify-end items-center py-4 w-full gap-6">
           {/* Shortlist */}
           <div className='bg-yellow-100 p-2 rounded-lg shadow-md hover:scale-105 transition-transform duration-200'>
             <Link to={`/${currentLang}/short-list`} className="flex items-center">
@@ -213,99 +218,12 @@ const Navbar = () => {
           <LanguageChange />
         </div>
       </nav>
+      {isMobileMenuOpen &&
+        <BurgerMenu navBarConfig={navBarConfig} currentLang={currentLang} cartCount={cartCount} count={count} activeLink={activeLink} t={t} user={user} onClick={setMobileMenuOpen} />
+      }
     </div>
   );
 
- 
-
-    // return (
-    //   <div className="shadow-md fixed top-0 left-0 w-full bg-navbar bg-cover z-50">
-    //     <nav className='flex flex-col items-center py-6 px-4 w-full'>
-    //       <div className="flex justify-between items-center w-full max-w-[1200px] mx-auto">
-    //         {/* Логотип */}
-    //         <Link to='/'>
-    //           <img className='w-[150px] transition-transform duration-300 hover:scale-105' src={Logo} alt="logo" />
-    //         </Link>
-  
-    //         {/* Гамбургер для мобільних */}
-    //         <button className="md:hidden text-white text-2xl" onClick={() => setMobileMenuOpen(!isMobileMenuOpen)}>
-    //           {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
-    //         </button>
-  
-    //         {/* Меню для великих екранів */}
-    //         <ul className='hidden md:flex items-center gap-6 text-lg font-medium'>
-    //           {navBarConfig.map(item => (
-    //             <li key={item.title} className={`transition-colors duration-200 ${activeLink === item.link ? 'text-yellow-400 underline font-bold' : 'text-black hover:underline hover:text-yellow-400'}`}>
-    //               <Link to={item.link}>{item.title}</Link>
-    //             </li>
-    //           ))}
-    //           {token && (
-    //             <li>
-    //               <button className='text-gray-900 bg-green-200 hover:bg-green-400 p-2 font-semibold rounded transition-all duration-300 ease-in-out' onClick={onLogOut}>
-    //                 {t("navbar.navLogOut")}
-    //               </button>
-    //             </li>
-    //           )}
-    //         </ul>
-    //       </div>
-  
-    //       {/* Мобільне меню */}
-    //       {isMobileMenuOpen && (
-    //         <div className="md:hidden absolute top-16 left-0 w-full bg-white shadow-lg py-4">
-    //           <ul className="flex flex-col items-center gap-4">
-    //             {navBarConfig.map(item => (
-    //               <li key={item.title} className="text-lg font-medium">
-    //                 <Link to={item.link} onClick={() => setMobileMenuOpen(false)}>{item.title}</Link>
-    //               </li>
-    //             ))}
-    //             {token && (
-    //               <li>
-    //                 <button className='text-gray-900 bg-green-200 hover:bg-green-400 p-2 font-semibold rounded transition-all duration-300 ease-in-out' onClick={onLogOut}>
-    //                   {t("navbar.navLogOut")}
-    //                 </button>
-    //               </li>
-    //             )}
-    //           </ul>
-    //         </div>
-    //       )}
-  
-    //       {/* Нижній ряд (Shortlist, Profile, Cart) */}
-    //       <div className="flex justify-end items-center py-4 w-full gap-6">
-    //         {/* Shortlist */}
-    //         <div className='bg-yellow-100 p-2 rounded-lg shadow-md hover:scale-105 transition-transform duration-200'>
-    //           <Link to={`/${currentLang}/short-list`} className="flex items-center">
-    //             <FaHeart className="text-2xl text-red-600" />
-    //             <span className="ml-2 hover:underline">{t("navbar.navShortlist")}</span>
-    //           </Link>
-    //         </div>
-  
-    //         {/* Profile */}
-    //         {user && (
-    //           <div className='bg-yellow-100 p-2 rounded-lg shadow-md hover:scale-105 transition-transform duration-200'>
-    //             <Link to={`/${currentLang}/profile`} className="flex items-center">
-    //               <CgProfile className="text-2xl" />
-    //               <span className="ml-2 hover:underline text-md">{t("navbar.navProfile")}</span>
-    //             </Link>
-    //           </div>
-    //         )}
-  
-    //         {/* Cart */}
-    //         <div className="relative">
-    //           <Link to={`/${currentLang}/cart`}>
-    //             <div className='bg-yellow-100 p-2 rounded-lg shadow-md hover:scale-105 transition-transform duration-200'>
-    //               <FaShoppingCart className='text-2xl' />
-    //             </div>
-    //           </Link>
-    //         </div>
-    //         <LanguageChange />
-    //       </div>
-    //     </nav>
-    //   </div>
-    // );
-  
-  
-
-  
 
 
 };

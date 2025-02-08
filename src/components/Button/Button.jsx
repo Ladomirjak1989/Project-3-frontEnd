@@ -38,7 +38,7 @@ const Button = ({ id, onClick }) => {
             type: "button",
         },
         searchButton: {
-            className: " bg-blue-500 hover:bg-blue-700 text-white p-2 px-6 m-4 rounded",
+            className: "bg-blue-500 hover:bg-blue-700 text-white p-2 px-6 m-4 rounded",
             text: "SEARCH",
             type: `${t('button.searchButton')}`,
         },
@@ -122,25 +122,25 @@ const Button = ({ id, onClick }) => {
 
         },
         clearCart: {
-            className: "bg-gray-700 text-white p-2 px-6 m-4 rounded",
+            className: "bg-gray-500 hover:bg-gray-700 text-white p-2 px-6 m-4 rounded",
             text: "CLEAR CART",
             type: "button",
 
         },
         remove: {
-            className: "bg-gray-700 text-white p-2 px-6 m-4 rounded",
+            className: "bg-gray-500 hover:bg-gray-700 text-white p-2 px-6 m-4 rounded",
             text: "REMOVE",
             type: "button",
 
         },
         profileForm: {
-            className: "bg-gray-700 text-white p-2 px-6 m-4 rounded",
+            className: "bg-gray-500 text-white p-2 px-6 m-4 rounded hover:bg-gray-700",
             text: "UPDATE PROFILE",
             type: "submit",
 
         },
         changePassword: {
-            className: "bg-green-700 text-white p-2 px-6 m-4 rounded",
+            className: "bg-gray-500 text-white p-2 px-6 m-4 rounded hover:bg-gray-700",
             text: "CHANGE PASSWORD",
             type: "submit",
 

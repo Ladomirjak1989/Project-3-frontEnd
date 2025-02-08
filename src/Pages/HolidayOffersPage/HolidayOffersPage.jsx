@@ -51,7 +51,7 @@ const HolidayOffersPage = () => {
             isGiveawayAgreed: false,
         });
     };
-    
+
 
     // Handle input change
     const handleChange = (e) => {
@@ -140,18 +140,19 @@ const HolidayOffersPage = () => {
                 backgroundSize: 'cover',
             }}
         >
-            <div className="flex items-center justify-between p-4 w-full max-w-6xl mx-auto">
-                <h1 className="underline text-3xl font-bold text-blue-800"><span className='text-yellow-500 underline'>Dream Voyage</span> Monthly Giveaway</h1>
+            <div className="flex flex-col lg:flex-row items-center justify-between p-4 w-full max-w-6xl mx-auto text-center lg:text-left">
+                <h1 className="underline text-2xl sm:text-3xl font-bold text-blue-800"><span className='text-yellow-500 underline'>Dream Voyage</span> Monthly Giveaway</h1>
 
-                <div className="flex flex-col items-end space-y-2">
+                <div className="flex flex-col items-center lg:items-end space-y-2 mt-4 lg:mt-0">
                     <div className="flex items-center space-x-2">
-                        <FcAlarmClock className="text-blue-900 text-4xl" />
+                        <FcAlarmClock className="text-blue-900 text-3xl sm:text-4xl" />
                         <span className="text-xs font-semibold text-blue-900">Countdown to draw</span>
                     </div>
 
-                    <div className="flex space-x-4 mt-2">
+                    <div className="flex space-x-2 sm:space-x-4 mt-2">
                         {Object.entries(timeRemaining).map(([unit, value], index) => (
-                            <div key={index} className="flex flex-col items-center bg-gray-300 p-4 rounded-lg shadow-sm">
+                            <div key={index}
+                                className="flex flex-col items-center bg-gray-300 p-2 sm:p-4 rounded-lg shadow-sm">
                                 <span className="text-xs font-medium text-gray-500">{unit.toUpperCase()}</span>
                                 <span className="text-3xl font-semibold text-blue-800">{value.toString().padStart(2, '0')}</span>
                             </div>
@@ -163,7 +164,7 @@ const HolidayOffersPage = () => {
             <div className="flex flex-col lg:flex-row bg-gray-100 rounded-lg shadow-lg p-6 w-full max-w-7xl mt-8">
                 {/* Left Side: Form Content */}
                 <div className="flex-1">
-                    <h2 className="text-2xl font-semibold text-blue-800 mb-2">Sign up to our emails</h2>
+                    <h2 className="text-xl sm:text-2xl font-semibold text-blue-800 mb-2">Sign up to our emails</h2>
                     <p className="text-gray-600 mb-6">
                         ...to be in with a chance of winning €500* off your next <span className='text-yellow-600'>Dream Voyage</span> holiday. Plus, you’ll be the first to know about our exclusive offers and holiday information.
                     </p>
@@ -215,14 +216,16 @@ const HolidayOffersPage = () => {
                             </label>
                         </div>
 
-                        <button
-                            type="submit"
-                            className={`bg-blue-600 text-white font-semibold rounded-3xl px-4 py-2 hover:bg-blue-700 ${!formData.isTermsAgreed || !formData.isGiveawayAgreed ? 'opacity-50 cursor-not-allowed' : ''
-                                }`}
-                            disabled={!formData.isTermsAgreed || !formData.isGiveawayAgreed}
-                        >
-                            Enter giveaway draw
-                        </button>
+                        <div className="flex flex-col items-center space-y-4 p-4">
+                            <button
+                                type="submit"
+                                className={`bg-blue-600 text-white font-semibold rounded-3xl px-4 py-2 hover:bg-blue-700 w-full sm:w-auto ${!formData.isTermsAgreed || !formData.isGiveawayAgreed ? 'opacity-50 cursor-not-allowed' : ''
+                                    }`}
+                                disabled={!formData.isTermsAgreed || !formData.isGiveawayAgreed}
+                            >
+                                Enter giveaway draw
+                            </button>
+                        </div>
                     </form>
 
                     {/* Success message */}
@@ -251,16 +254,15 @@ const HolidayOffersPage = () => {
                         </div>
                     )}
                 </div>
-
-
-                {/* Right Side: Image */}
-                <div className="flex-1 lg:mt-0 flex justify-center items-center">
+               
+                <div className="flex justify-center">
                     <img
                         src={bottleImg}
                         alt="Beautiful nature destination with people kayaking"
-                        className="w-[600px] h-[600px] rounded-2xl shadow-lg"
+                        className="w-full max-w-xs sm:max-w-md md:max-w-lg lg:w-[600px] lg:h-[600px] rounded-2xl shadow-lg"
                     />
                 </div>
+
             </div>
 
 
@@ -273,7 +275,7 @@ const HolidayOffersPage = () => {
                     </h2>
 
                     {/* Icon Grid */}
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 text-center">
                         {/* Benefit 1 */}
                         <div className="flex flex-col items-center">
                             <BsAirplane className="text-4xl text-blue-900 mb-4" />
@@ -388,6 +390,7 @@ const HolidayOffersPage = () => {
 
         </div>
     );
+
 };
 
 export default HolidayOffersPage;

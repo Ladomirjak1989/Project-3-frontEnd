@@ -146,7 +146,7 @@ const DashboardPage = () => {
                             <h3 className="text-xl font-semibold mb-2">Alternative Flights</h3>
                         </div>
                         <div className='relative'>
-                            {!memoizedVisibleFlights.length &&  (
+                            {!memoizedVisibleFlights.length && (
                                 <p className="text-center text-gray-500">No flights available.</p>
                             )}
                             <ul className='flex flex-col items-center gap-5'>
@@ -223,46 +223,74 @@ const DashboardPage = () => {
                 </div>
 
 
-
                 <div className="mx-auto max-w-[1200px] p-4 border-t">
                     <div className="mb-8">
-                        <p className="text-gray-700 ">
-                            Choosing one of our flight deals couldn’t be easier. Here at Dream Voyage, we know you might already have your hotel in the bag – that’s why we also offer flight-only options to get you there on our award-winning airline. Sorting a Dream Voyage flight out is as easy as pie. Simply take a look at our choice of regional airports, and pick the one closest to you. Then put in where it is you’re setting off to. We’ll do the rest, by finding your perfect flight deal. Flights with Dream Voyage take off from all the major airports, including London Gatwick, London Luton and Manchester. We also fly from regional airports like Bournemouth. The Dream Voyage Airways programme ticks off eye-popping destinations all over the globe, from the golden beaches of Spain, and Portugal to far-off places like Mexico and Thailand. The best thing about flying long haul is the fact that you’ll probably travel in style on one of our Dreamliners. They’re super comfy, extra quiet, and come with more space than other planes. Have a look at our <a href="#" className="text-blue-500 underline">flight and travel options</a>, <a href="#" className="text-blue-500 underline">flight extras</a> and <a href="#" className="text-blue-500 underline">holiday extras</a> pages for essential information. Then, check out all of our flight deals by having a nose around our website, or pop in to one of our high-street stores.
+                        <p className="text-gray-700 text-sm sm:text-base">
+                            Choosing one of our flight deals couldn’t be easier. Here at Dream Voyage, we know you might already have your hotel in the bag – that’s why we also offer flight-only options to get you there on our award-winning airline. Sorting a Dream Voyage flight out is as easy as pie. Simply take a look at our choice of regional airports, and pick the one closest to you. Then put in where it is you’re setting off to. We’ll do the rest, by finding your perfect flight deal. Flights with Dream Voyage take off from all the major airports, including London Gatwick, London Luton, and Manchester. We also fly from regional airports like Bournemouth. The Dream Voyage Airways programme ticks off eye-popping destinations all over the globe, from the golden beaches of Spain and Portugal to far-off places like Mexico and Thailand. The best thing about flying long haul is the fact that you’ll probably travel in style on one of our Dreamliners. They’re super comfy, extra quiet, and come with more space than other planes. Have a look at our
+                            <a href="#" className="text-blue-500 underline"> flight and travel options</a>,
+                            <a href="#" className="text-blue-500 underline"> flight extras</a>, and
+                            <a href="#" className="text-blue-500 underline"> holiday extras</a> pages for essential information. Then, check out all of our flight deals by having a nose around our website, or pop into one of our high-street stores.
                         </p>
                     </div>
 
+                    {/* Заголовок */}
                     <div className="text-center mb-8">
-                        <h2 className=" text-xl font-bold border-t text-blue-900">Why choose <p className='underline text-yellow-500'>Dream Voyage</p> flights</h2>
+                        <h2 className="text-lg sm:text-xl font-bold border-t text-blue-900">
+                            Why choose <p className="underline text-yellow-500 inline">Dream Voyage</p> flights
+                        </h2>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-8 text-center">
-                        <div className="flex flex-col items-center justify-center">
-                            <MdFlightTakeoff className='text-6xl mb-2 text-blue-900' />
-                            <h3 className="font-bold text-xl text-blue-900">Fly local</h3>
-                            <p className="text-gray-500">Flights from over 20 airports, so it's easy to find one that takes off near you.</p>
-                        </div>
-                        <div className="flex flex-col items-center justify-center">
-                            <SiGlobus className='text-6xl mb-2 text-blue-900' />
-                            <h3 className="font-bold text-xl text-blue-900">20 + destinations</h3>
-                            <p className="text-gray-500">We've most popular flight destinations to suit you.</p>
 
+                    {/* Контейнер сітки з адаптивністю */}
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 text-center">
+
+                        {/* Картка 1 */}
+                        <div className="flex flex-col items-center justify-center px-4">
+                            <MdFlightTakeoff className="text-5xl sm:text-6xl mb-2 text-blue-900" />
+                            <h3 className="font-bold text-lg sm:text-xl text-blue-900">Fly local</h3>
+                            <p className="text-gray-500 text-sm sm:text-base">
+                                Flights from over 20 airports, so it's easy to find one that takes off near you.
+                            </p>
                         </div>
-                        <div className="flex flex-col items-center justify-center">
-                            <FaRegClock className='text-6xl mb-2 text-blue-900' />
-                            <h3 className="font-bold text-xl text-blue-900">Flexible flight times</h3>
-                            <p className="text-gray-500">We've got times and durations to suit you.</p>
+
+                        {/* Картка 2 */}
+                        <div className="flex flex-col items-center justify-center px-4">
+                            <SiGlobus className="text-5xl sm:text-6xl mb-2 text-blue-900" />
+                            <h3 className="font-bold text-lg sm:text-xl text-blue-900">20+ destinations</h3>
+                            <p className="text-gray-500 text-sm sm:text-base">
+                                We've most popular flight destinations to suit you.
+                            </p>
                         </div>
-                        <div className="flex flex-col items-center justify-center">
-                            <FaRegStar className='text-6xl mb-2 text-blue-900' />
-                            <h3 className="font-bold text-xl text-blue-900">Premium Club extras</h3>
-                            <p className="text-gray-500">Get perks like bigger seats and priority check-in.</p>
+
+                        {/* Картка 3 */}
+                        <div className="flex flex-col items-center justify-center px-4">
+                            <FaRegClock className="text-5xl sm:text-6xl mb-2 text-blue-900" />
+                            <h3 className="font-bold text-lg sm:text-xl text-blue-900">Flexible flight times</h3>
+                            <p className="text-gray-500 text-sm sm:text-base">
+                                We've got times and durations to suit you.
+                            </p>
                         </div>
-                        <div className="flex flex-col items-center justify-center">
-                            <LuBaggageClaim className='text-6xl mb-2 text-blue-900' />
-                            <h3 className="font-bold text-xl text-blue-900">DV flights</h3>
-                            <p className="text-gray-500">10kg cabin luggage included as standard.</p>
+
+                        {/* Картка 4 */}
+                        <div className="flex flex-col items-center justify-center px-4">
+                            <FaRegStar className="text-5xl sm:text-6xl mb-2 text-blue-900" />
+                            <h3 className="font-bold text-lg sm:text-xl text-blue-900">Premium Club extras</h3>
+                            <p className="text-gray-500 text-sm sm:text-base">
+                                Get perks like bigger seats and priority check-in.
+                            </p>
                         </div>
+
+                        {/* Картка 5 */}
+                        <div className="flex flex-col items-center justify-center px-4">
+                            <LuBaggageClaim className="text-5xl sm:text-6xl mb-2 text-blue-900" />
+                            <h3 className="font-bold text-lg sm:text-xl text-blue-900">DV flights</h3>
+                            <p className="text-gray-500 text-sm sm:text-base">
+                                10kg cabin luggage included as standard.
+                            </p>
+                        </div>
+
                     </div>
                 </div>
+
             </main>
         </>
     );

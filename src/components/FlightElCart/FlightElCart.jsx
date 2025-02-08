@@ -39,18 +39,24 @@ function FlightElCart({ flight }) {
         }
     };
 
+
     return (
         <div className="space-y-8">
             {/* Outbound Flight Card */}
-            <li className="mb-6 p-8 bg-gradient-to-br from-indigo-100 via-white to-gray-50 rounded-2xl shadow-lg hover:shadow-xl transition-transform transform hover:-translate-y-2 duration-300 ease-in-out">
-                <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-6 items-start">
-                    <div className="col-span-full mb-4">
-                        <h3 className="text-2xl font-bold text-indigo-700 uppercase tracking-wider border-b-4 border-indigo-300 pb-2">
+            <li className="mb-6 p-6 sm:p-8 bg-gradient-to-br from-indigo-100 via-white to-gray-50 rounded-2xl shadow-lg hover:shadow-xl transition-transform transform hover:-translate-y-2 duration-300 ease-in-out">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6 items-start">
+                    <div className="col-span-full text-center sm:text-left">
+                        <h3 className="text-xl sm:text-2xl font-bold text-indigo-700 uppercase tracking-wider border-b-4 border-indigo-300 pb-2">
                             Outbound Flight
                         </h3>
                     </div>
-                    <div className="col-span-2">
-                        <h4 className="text-lg font-bold text-gray-800"><LuPlaneTakeoff className="text-3xl text-sky-700 mr-2" />{flight.flyFrom || "N/A"}</h4>
+
+                    {/* Виліт */}
+                    <div className="col-span-2 text-center sm:text-left">
+                        <h4 className="text-lg font-bold text-gray-800 flex justify-center sm:justify-start items-center">
+                            <LuPlaneTakeoff className="text-2xl sm:text-3xl text-sky-700 mr-2" />
+                            {flight.flyFrom || "N/A"}
+                        </h4>
                         <p className="text-sm text-gray-600 mt-2">
                             <span className="font-semibold text-indigo-700">Carrier Code:</span> {flight.carrierCode || "N/A"}
                         </p>
@@ -58,20 +64,29 @@ function FlightElCart({ flight }) {
                             <span className="font-semibold text-indigo-700">Departure:</span> {flight.departure || "N/A"}
                         </p>
                     </div>
-                    <div className="col-span-2 text-center">
+
+                    {/* Тривалість */}
+                    <div className="col-span-2 text-center sm:text-left">
                         <h4 className="text-lg font-bold text-gray-800">Duration</h4>
                         <p className="text-sm text-gray-600 mt-2">{flight.duration || "N/A"}</p>
                         <h4 className="text-lg font-bold text-gray-800 mt-4">Type</h4>
                         <p className="text-sm text-gray-600">{flight.specificType || "N/A"}</p>
                     </div>
-                    <div className="col-span-2">
-                        <h4 className="text-lg font-bold text-gray-800"><LuPlaneLanding className="text-3xl text-sky-700 mr-2" />{flight.flyTo || "N/A"}</h4>
+
+                    {/* Приземлення */}
+                    <div className="col-span-2 text-center sm:text-left">
+                        <h4 className="text-lg font-bold text-gray-800 flex justify-center sm:justify-start items-center">
+                            <LuPlaneLanding className="text-2xl sm:text-3xl text-sky-700 mr-2" />
+                            {flight.flyTo || "N/A"}
+                        </h4>
                         <p className="text-sm text-gray-600 mt-2">
                             <span className="font-semibold text-indigo-700">Arrival:</span> {flight.arrival || "N/A"}
                         </p>
                     </div>
                 </div>
-                <div className="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-6">
+
+                {/* Додаткові деталі */}
+                <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                     <div>
                         <p className="text-sm font-semibold text-gray-600">Price</p>
                         <p className="text-2xl font-bold text-indigo-700">{flight.price || "N/A"} {flight.currency}</p>
@@ -82,18 +97,25 @@ function FlightElCart({ flight }) {
                     </div>
                 </div>
             </li>
+
             <hr className="my-4 border-t border-gray-300" />
+
             {/* Return Flight Card */}
             {flight.returnFlight && (
-                <li className="mb-6 p-8 bg-gradient-to-br from-gray-100 via-white to-indigo-50 rounded-2xl shadow-lg hover:shadow-xl transition-transform transform hover:-translate-y-2 duration-300 ease-in-out">
-                    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-6 gap-6 items-start">
-                        <div className="col-span-full mb-4">
-                            <h3 className="text-2xl font-bold text-indigo-700 uppercase tracking-wider border-b-4 border-indigo-300 pb-2">
+                <li className="mb-6 p-6 sm:p-8 bg-gradient-to-br from-gray-100 via-white to-indigo-50 rounded-2xl shadow-lg hover:shadow-xl transition-transform transform hover:-translate-y-2 duration-300 ease-in-out">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-6 items-start">
+                        <div className="col-span-full text-center sm:text-left">
+                            <h3 className="text-xl sm:text-2xl font-bold text-indigo-700 uppercase tracking-wider border-b-4 border-indigo-300 pb-2">
                                 Return Flight
                             </h3>
                         </div>
-                        <div className="col-span-2">
-                            <h4 className="text-lg font-bold text-gray-800"><LuPlaneTakeoff className="text-3xl text-sky-700 mr-2" />{flight.returnFlight.flyTo || "N/A"}</h4>
+
+                        {/* Виліт */}
+                        <div className="col-span-2 text-center sm:text-left">
+                            <h4 className="text-lg font-bold text-gray-800 flex justify-center sm:justify-start items-center">
+                                <LuPlaneTakeoff className="text-2xl sm:text-3xl text-sky-700 mr-2" />
+                                {flight.returnFlight.flyTo || "N/A"}
+                            </h4>
                             <p className="text-sm text-gray-600 mt-2">
                                 <span className="font-semibold text-indigo-700">Carrier Code:</span> {flight.returnFlight.carrierCode || "N/A"}
                             </p>
@@ -101,20 +123,29 @@ function FlightElCart({ flight }) {
                                 <span className="font-semibold text-indigo-700">Departure:</span> {flight.returnFlight.departure || "N/A"}
                             </p>
                         </div>
-                        <div className="col-span-2 text-center">
+
+                        {/* Тривалість */}
+                        <div className="col-span-2 text-center sm:text-left">
                             <h4 className="text-lg font-bold text-gray-800">Duration</h4>
                             <p className="text-sm text-gray-600 mt-2">{flight.returnFlight.duration || "N/A"}</p>
                             <h4 className="text-lg font-bold text-gray-800 mt-4">Type</h4>
                             <p className="text-sm text-gray-600">{flight.returnFlight.specificType || "N/A"}</p>
                         </div>
-                        <div className="col-span-2">
-                            <h4 className="text-lg font-bold text-gray-800"><LuPlaneLanding className="text-3xl text-sky-700 mr-2" />{flight.returnFlight.flyFrom || "N/A"}</h4>
+
+                        {/* Приземлення */}
+                        <div className="col-span-2 text-center sm:text-left">
+                            <h4 className="text-lg font-bold text-gray-800 flex justify-center sm:justify-start items-center">
+                                <LuPlaneLanding className="text-2xl sm:text-3xl text-sky-700 mr-2" />
+                                {flight.returnFlight.flyFrom || "N/A"}
+                            </h4>
                             <p className="text-sm text-gray-600 mt-2">
                                 <span className="font-semibold text-indigo-700">Arrival:</span> {flight.returnFlight.arrival || "N/A"}
                             </p>
                         </div>
                     </div>
-                    <div className="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-6">
+
+                    {/* Додаткові деталі */}
+                    <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
                         <div>
                             <p className="text-sm font-semibold text-gray-600">Price</p>
                             <p className="text-2xl font-bold text-indigo-700">{flight.returnFlight.price || "N/A"} {flight.returnFlight.currency}</p>
@@ -125,16 +156,15 @@ function FlightElCart({ flight }) {
                         </div>
                     </div>
                 </li>
-
             )}
-            <div className="mt-2 flex justify-end">
-                <Button
-                    onClick={handleRemoveFromCart} id="remove"
-                >
-                </Button>
+
+            {/* Remove Button */}
+            <div className="mt-2 flex justify-center sm:justify-end">
+                <Button onClick={handleRemoveFromCart} id="remove" className="w-full sm:w-auto" />
             </div>
         </div>
     );
+
 }
 
 export default FlightElCart;

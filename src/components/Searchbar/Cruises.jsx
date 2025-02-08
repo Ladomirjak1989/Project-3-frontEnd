@@ -55,12 +55,18 @@ const CruiseSearchForm = () => {
         setCruiseDurationShown(false);
     };
 
+
     return (
         <div className="mx-auto p-4 bg-blue-50 rounded-lg shadow-lg">
-             <label className="text-2xl font-bold mb-6 block text-center">Find your cruises</label>
+            <label className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 block text-center">
+                Find your cruises
+            </label>
+
             <form onSubmit={handleSubmit} className="space-y-4">
-                <div className="flex space-x-4 items-center">
-                    <label className="block text-indigo-900 font-semibold">Trip type</label>
+
+                {/* Trip Type (Flex on larger screens, Stack on mobile) */}
+                <div className="flex flex-col sm:flex-row sm:space-x-4 items-start sm:items-center">
+                    <label className="block text-indigo-900 font-semibold mb-2 sm:mb-0">Trip type</label>
                     <div className="flex items-center space-x-2">
                         <input
                             type="radio"
@@ -85,7 +91,8 @@ const CruiseSearchForm = () => {
                     </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {/* Input Fields - Full width on mobile, Grid on larger screens */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                     <div>
                         <label className="block text-indigo-900 font-semibold">Where from?</label>
                         <input
@@ -120,92 +127,73 @@ const CruiseSearchForm = () => {
                     </div>
                 </div>
 
-                <div className='flex justify-between'>
-                    <div>
-                        <label className="block text-indigo-900 font-semibold">How long?</label>
-                        <div className="relative">
-                            <button
-                                type="button"
-                                onClick={() => setCruiseDurationShown(!isCruiseDurationShown)}
-                                className="form-input w-full p-2 rounded-lg text-left flex justify-between items-center"
-                            >
-                                <span>&#x25BC;</span>
-                                {cruiseSearch.duration}
+                {/* Duration and Guests - Everything in One Row */}
+                <div className="flex flex-col sm:flex-row justify-between space-y-4 sm:space-y-0 sm:space-x-4 items-end">
 
-                            </button>
-                            {isCruiseDurationShown && (
-                                <div className="absolute z-20 w-[300px] mt-2 bg-white border rounded-lg shadow-lg">
-                                    <div className="p-4">
-                                        <div className="flex items-center space-x-2 mb-4">
+                    {/* Cruise Duration */}
+                    <div className="w-full sm:w-auto relative">
+                        <label className="block text-indigo-900 font-semibold">How long?</label>
+                        <button
+                            type="button"
+                            onClick={() => setCruiseDurationShown(!isCruiseDurationShown)}
+                            className="form-input w-full p-2 rounded-lg text-left flex justify-between items-center"
+                        >
+                            <span>&#x25BC;</span>
+                            {cruiseSearch.duration}
+                        </button>
+                        {isCruiseDurationShown && (
+                            <div className="absolute z-20 w-full sm:w-[300px] mt-2 bg-white border rounded-lg shadow-lg">
+                                <div className="p-4">
+                                    {[
+                                        "Up to 7 nights cruise, no hotel stay",
+                                        "10 nights cruise, no hotel stay",
+                                        "8 to 14 nights cruise, no hotel stay",
+                                        "15+ nights cruise, no hotel stay",
+                                    ].map((option) => (
+                                        <div key={option} className="flex items-center space-x-2 mb-4">
                                             <input
                                                 type="radio"
                                                 name="cruiseDuration"
-                                                value="Up to 7 nights cruise, no hotel stay"
-                                                checked={cruiseSearch.duration === 'Up to 7 nights cruise, no hotel stay'}
+                                                value={option}
+                                                checked={cruiseSearch.duration === option}
                                                 onChange={handleDurationChange}
                                                 className="form-radio"
                                             />
-                                            <label> 7 nights cruise, no hotel stay</label>
+                                            <label>{option}</label>
                                         </div>
-                                        <div className="flex items-center space-x-2 mb-4">
-                                            <input
-                                                type="radio"
-                                                name="cruiseDuration"
-                                                value="10 nights cruise, no hotel stay"
-                                                checked={cruiseSearch.duration === '10 nights cruise, no hotel stay'}
-                                                onChange={handleDurationChange}
-                                                className="form-radio"
-                                            />
-                                            <label> 10 nights cruise, no hotel stay</label>
-                                        </div>
-                                        <div className="flex items-center space-x-2 mb-4">
-                                            <input
-                                                type="radio"
-                                                name="cruiseDuration"
-                                                value="8 to 14 nights cruise, no hotel stay"
-                                                checked={cruiseSearch.duration === '8 to 14 nights cruise, no hotel stay'}
-                                                onChange={handleDurationChange}
-                                                className="form-radio"
-                                            />
-                                            <label>8 to 14 nights cruise, no hotel stay</label>
-                                        </div>
-                                        <div className="flex items-center space-x-2">
-                                            <input
-                                                type="radio"
-                                                name="cruiseDuration"
-                                                value="15+ nights cruise, no hotel stay"
-                                                checked={cruiseSearch.duration === '15+ nights cruise, no hotel stay'}
-                                                onChange={handleDurationChange}
-                                                className="form-radio"
-                                            />
-                                            <label>15+ nights cruise, no hotel stay</label>
-                                        </div>
-                                    </div>
+                                    ))}
                                 </div>
-                            )}
+                            </div>
+                        )}
+                    </div>
+
+                    {/* Who's Going + Buttons */}
+                    <div className="w-full sm:w-auto flex flex-col sm:flex-row sm:items-end sm:space-x-4">
+                        <div className="w-full sm:max-w-[250px]">
+                            <label className="block text-indigo-900 font-semibold">Who's going?</label>
+                            <input
+                                type="text"
+                                name="guests"
+                                value={cruiseSearch.guests.adults}
+                                onChange={handleChange}
+                                placeholder="2 Adults 0 Children"
+                                className="form-input w-full p-2 rounded-lg"
+                            />
+                        </div>
+
+                        {/* Buttons - Same Size as Input */}
+                        <div className="flex w-full sm:w-auto space-x-2 mt-4 sm:mt-0">
+                            <Button id="searchButton" />
+                            <Button id="clear" onClick={handleClearSearch} />
                         </div>
                     </div>
-
-                    <div className='max-w-[250px] w-full'>
-                        <label className="block text-indigo-900 font-semibold">Who's going?</label>
-                        <input
-                            type="text"
-                            name="guests"
-                            value={cruiseSearch.guests.adults}
-                            onChange={handleChange}
-                            placeholder="2 Adults 0 Children"
-                            className="form-input w-full p-2 rounded-lg"
-                        />
-                    </div>
-
-                    <div className="flex justify-end space-x-4">
-                        <Button id="searchButton" />
-                        <Button id="clear" onClick={handleClearSearch} />
-                    </div>
                 </div>
+
             </form>
         </div>
     );
+
+
 };
 
 export default CruiseSearchForm;

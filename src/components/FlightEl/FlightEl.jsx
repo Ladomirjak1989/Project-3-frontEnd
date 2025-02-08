@@ -240,13 +240,6 @@ function FlightEl({ flight, isCart, flightApiReturn }) {
         </div>
     );
 
-
-
-
-
-
-
-
 }
 
 export default FlightEl;

@@ -58,12 +58,14 @@ const AttractionPage = () => {
       {error && <p className="text-red-500">{error}</p>}
 
       {/* Filter Buttons */}
-      <div className="flex justify-center space-x-4 mb-8 p-5">
+      <div className="flex flex-wrap justify-center space-x-0 sm:space-x-2 md:space-x-4 mb-4 p-1 sm:p-2 md:p-5">
         {['ALL', 'EXCURSIONS & DAY TRIPS', 'ATTRACTIONS & GUIDED TOURS', 'ACTIVITIES'].map((cat, index) => (
           <button
             key={cat}
-            className={`px-4 py-2 rounded-full hover:underline ${category === cat ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-700'
-              }`}
+            className={`
+            px-2 sm:px-4 text-xs sm:text-sm md:text-base py-1 sm:py-2 rounded-full hover:underline 
+            ${category === cat ? 'bg-blue-600 text-white' : 'bg-gray-300 text-gray-700'}
+          `}
             onClick={() => handleCathegory(cat, index)}
           >
             {cat}
@@ -104,18 +106,20 @@ const AttractionPage = () => {
       </div>
 
 
-      <div className="w-full flex justify-center py-12">
-        <div className="w-[1100px] h-[400px] flex flex-col lg:flex-row-reverse justify-between items-center bg-cover bg-center bg-[url('assets/attraction/save.jpg')] p-12 lg:p-24 rounded-2xl shadow-lg">
+
+      <div className="w-full flex justify-center py-6 sm:py-12">
+        <div className="w-full sm:w-[90%] lg:w-[1100px] h-auto lg:h-[400px] flex flex-col sm:flex-col lg:flex-row-reverse justify-between items-center bg-cover bg-center bg-[url('assets/attraction/save.jpg')] p-6 sm:p-12 lg:p-24 rounded-2xl shadow-lg">
+
           {/* Right Side: Text content */}
-          <div className="flex-1 text-center lg:max-w-md p-8 rounded-lg">
-            <h3 className="text-xl text-blue-900 font-bold mb-4">Created with Care</h3>
-            <h2 className="text-lg font-bold text-blue-900 mb-4">
+          <div className="flex-1 text-center lg:text-left p-4 sm:p-8 rounded-lg">
+            <h3 className="text-lg sm:text-xl text-blue-900 font-bold mb-3 sm:mb-4">Created with Care</h3>
+            <h2 className="text-md sm:text-lg font-bold text-blue-900 mb-3 sm:mb-4">
               YOU CAN RELAX KNOWING WE'VE DESIGNED OUR EXPERIENCES WITH THE UTMOST CARE.
             </h2>
-            <p className="text-md text-blue-900 mb-4">
+            <p className="text-sm sm:text-md text-blue-900 mb-3 sm:mb-4">
               Not only do we carefully check each supplier, we've made sure all experiences meet our high sustainability standards. Plus, for every experience you buy, we donate part of the proceeds to environmental and social impact projects worldwide.
             </p>
-            <p className="text-md text-blue-900">
+            <p className="text-sm sm:text-md text-blue-900">
               So you can have fun and help out at the same time.
             </p>
           </div>

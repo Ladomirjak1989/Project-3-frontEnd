@@ -29,7 +29,7 @@ const Searchbar = () => {
   const currentLang = useSelector(state => state.language.language)
 
   const [tab, setTab] = useState("flights")
- 
+
 
   useEffect(() => {
     const location = pathname.split("/")
@@ -41,7 +41,7 @@ const Searchbar = () => {
 
   return (
     <div className="p-6 bg-cyan-50 rounded-lg shadow-lg">
-      <ul className="flex justify-between border-b-2 border-gray-300 font-bold ">
+      <ul className=" grid grid-cols-3 md:flex justify-between border-b-2 border-gray-300 font-bold ">
         <li
           className={`p-2 cursor-pointer flex items-center ${tab === 'flights' ? 'text-blue-500 border-b-2 border-blue-500' : 'text-gray-700'}`}
           onClick={() => {
@@ -60,7 +60,7 @@ const Searchbar = () => {
             setTab("vacations")
           }}
         >
-          <TbSunset2 className="mr-2 size-8" />{t('searchbar.searchVacation')} 
+          <TbSunset2 className="mr-2 size-8" />{t('searchbar.searchVacation')}
         </li>
 
         <li

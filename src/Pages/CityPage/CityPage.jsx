@@ -28,14 +28,23 @@ const CityPage = () => {
           <div className="container mx-auto p-4">
             <div>
               <h2 className="flex justify-center text-4xl italic underline mb-12 mt-5">Top 10 best cities in the world: </h2>
-              <ul className='grid grid-cols-3 gap-10 w-full mx-auto'>
-                {citySearch.map((city) => (
-                  <li key={city.id} className="flex flex-col gap-2 items-center justify-center bg-gray-100 p-5 rounded-md">
-                    <img src={city.imgUrl} alt={city.name} className="max-w-[350px] max-h-[300px] w-full h-4/5 pt-2" />
-                    <h4 className="text-xl">{city.name}</h4>
-                    <p>{city.country}</p>
-                    <div>
-                      <Link className='px-3 py-2 bg-blue-500 text-white rounded mb-2 hover:bg-blue-700 inline-block' to={`/${currentLang}/city-details/${city._id}`} >
+              <ul className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {cities.map((city) => (
+                  <li key={city.id} className="flex flex-col gap-2 items-center justify-center bg-gray-100 p-5 rounded-md w-full">
+                    <img
+                      src={city.imgUrl}
+                      alt={city.name}
+                      className="w-full max-w-[300px] h-[200px] sm:max-w-[350px] sm:max-h-[300px] object-cover rounded-md"
+                    />
+
+                    <h4 className="text-lg sm:text-xl font-semibold text-center">{city.name}</h4>
+                    <p className="text-gray-700 text-sm sm:text-base">{city.country}</p>
+
+                    <div className="mt-2 w-full flex justify-center">
+                      <Link
+                        className="px-4 py-2 w-full sm:w-auto bg-blue-500 text-white rounded-lg hover:bg-blue-700 text-center"
+                        to={`/${currentLang}/city-details/${city._id}`}
+                      >
                         Show more...
                       </Link>
                     </div>
@@ -44,7 +53,7 @@ const CityPage = () => {
               </ul>
             </div>
           </div>
-        </div>
+        </div >
       </>
     );
   }
@@ -107,18 +116,24 @@ const CityPage = () => {
         <div className="container mx-auto p-4">
           <div>
             <h2 className="flex justify-center text-4xl italic underline mb-12 mt-5">Top 10 best cities in the world: </h2>
-            <ul className="grid grid-cols-3 gap-10 w-full mx-auto">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 gap-6">
               {cities.map((city) => (
-                <li key={city.id} className="flex flex-col gap-2 items-center justify-center bg-gray-100 p-5 rounded-md">
-                  <img src={city.imgUrl} alt={city.name} className="max-w-[350px] max-h-[300px] w-full h-4/5 pt-2" />
-                  <h4 className="text-xl">{city.name}</h4>
-                  <p>{city.country}</p>
-                  <div>
+                <li key={city.id} className="flex flex-col gap-2 items-center justify-center bg-gray-100 p-5 rounded-md w-full">
+                  <img
+                    src={city.imgUrl}
+                    alt={city.name}
+                    className="w-full max-w-[300px] h-[200px] sm:max-w-[350px] sm:max-h-[300px] object-cover rounded-md"
+                  />
+
+                  <h4 className="text-lg sm:text-xl font-semibold text-center">{city.name}</h4>
+                  <p className="text-gray-700 text-sm sm:text-base">{city.country}</p>
+
+                  <div className="mt-2 w-full flex justify-center">
                     <Link
-                      className="px-3 py-2 bg-blue-500 text-white rounded mb-2 hover:bg-blue-700 inline-block"
+                      className="px-4 py-2 w-full sm:w-auto bg-blue-500 text-white rounded-lg hover:bg-blue-700 text-center"
                       to={`/${currentLang}/city-details/${city._id}`}
                     >
-                      SHOW MORE...
+                      Show more...
                     </Link>
                   </div>
                 </li>
@@ -130,32 +145,32 @@ const CityPage = () => {
 
 
       {/* Нова секція */}
-      <div className="flex flex-wrap max-w-7xl items-center bg-orange-100 rounded-md shadow-md ml-32">
-        {/* Зображення ліворуч */}
-        <div className="md:w-1/2">
+      <div className="flex flex-col md:flex-row flex-wrap max-w-7xl items-center bg-orange-100 rounded-md shadow-md mx-auto p-4">
+        <div className="w-full md:w-1/2 flex justify-center">
           <img
             src="https://static.vecteezy.com/system/resources/thumbnails/038/908/604/small_2x/aerial-view-of-the-iconic-tower-bridge-connecting-londong-with-southwark-photo.jpg"
             alt="City"
-            className="rounded-md"
+            className="rounded-md w-full max-w-md md:max-w-full md:h-[300px] object-cover"
           />
         </div>
-        {/* Текст праворуч */}
-        <div className="w-full md:w-1/2 p-2">
+
+        <div className="w-full md:w-1/2 p-4 text-center md:text-left">
           <h3 className="text-2xl font-bold mb-2 text-blue-900">City Breaks</h3>
           <h4 className="text-lg mb-4 text-indigo-800">HOLIDAYS TO THE WORLD’S MOST ICONIC CITIES</h4>
-          <hr className="border-gray-500 mb-4" />
-          <ul className="list-disc pl-5 space-y-2 text-gray-700 columns-2 gap-4">
+          <hr className="border-gray-500 mb-4 mx-auto md:mx-0 w-3/4" />
+
+          <ul className="list-disc pl-5 space-y-2 text-gray-700 sm:columns-1 md:columns-2 gap-4">
             <li>Flights with leading airlines, giving you more choice on when and where you fly.</li>
             <li>Hotels in central locations, including a range of 3T to 5T properties to suit your budget.</li>
             <li>On selected holidays, you can upgrade your booking to include a hassle-free coach transfer.</li>
             <li>Our city breaks are ABTA & ATOL-protected, and come with 24-hour support via our HolidayLine.</li>
           </ul>
-
         </div>
       </div>
 
-      
-      
+
+
+
       {/* New Section: Where Can Our City Breaks Take You? */}
       <div className="container max-w-7xl mx-auto my-12 p-6 bg-white rounded-lg shadow-lg">
         <h2 className="text-center text-2xl font-bold text-blue-900 mb-8">

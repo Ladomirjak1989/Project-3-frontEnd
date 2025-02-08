@@ -71,10 +71,10 @@ const CookieNoticePage = () => {
                                 We also use essential cookies for security, network management, accessibility and to help webpages load quickly. They help us to keep track of what you are booking as you move through each stage of the booking process. Without them, the online booking process cannot take place.
                             </p>
                             <p className="text-sm mb-4">The following essential cookies are placed on your device.</p>
-
-                            <table className="min-w-full border-collapse border border-gray-300">
+                            <div className="overflow-x-auto">
+                            <table className="w-full min-w-[600px] border-collapse border border-gray-300">
                                 <thead>
-                                    <tr className="bg-gray-100">
+                                    <tr className="bg-gray-100 text-xs sm:text-sm">
                                         <th className="border border-gray-300 p-2 text-left">Name</th>
                                         <th className="border border-gray-300 p-2 text-left">Provider</th>
                                         <th className="border border-gray-300 p-2 text-left">Description</th>
@@ -83,7 +83,7 @@ const CookieNoticePage = () => {
                                 </thead>
                                 <tbody>
                                     {/* Essential cookies table content (similar to your original table rows) */}
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td className="border border-gray-300 p-2">AMCV_#@AdobeOrg</td>
                                         <td className="border border-gray-300 p-2">Adobe - Visitor API</td>
                                         <td className="border border-gray-300 p-2">
@@ -91,7 +91,7 @@ const CookieNoticePage = () => {
                                         </td>
                                         <td className="border border-gray-300 p-2">2 years</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">AMCVS_####@AdobeOrg</td>
                                         <td class="border border-gray-300 p-2">Adobe - Visitor API</td>
                                         <td class="border border-gray-300 p-2">
@@ -99,7 +99,7 @@ const CookieNoticePage = () => {
                                         </td>
                                         <td class="border border-gray-300 p-2">Session</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">gpv_pn</td>
                                         <td class="border border-gray-300 p-2">Adobe Analytics</td>
                                         <td class="border border-gray-300 p-2">
@@ -107,85 +107,85 @@ const CookieNoticePage = () => {
                                         </td>
                                         <td class="border border-gray-300 p-2">30 minutes</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">PIM-SESSION-ID</td>
                                         <td class="border border-gray-300 p-2">Akamai</td>
                                         <td class="border border-gray-300 p-2">Cookie used for Akamai Page Integrity Manager, a solution used to monitor the integrity of assets loaded on our site.</td>
                                         <td class="border border-gray-300 p-2">Session</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">AWSALB</td>
                                         <td class="border border-gray-300 p-2">Amazon Web Services</td>
                                         <td class="border border-gray-300 p-2">Registers which server cluster is serving visitors to our site. Is used for load balancing to maintain site performance.</td>
                                         <td class="border border-gray-300 p-2">7 days</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">AWSALBCORS</td>
                                         <td class="border border-gray-300 p-2">Amazon Web Services</td>
                                         <td class="border border-gray-300 p-2">Registers which server cluster is serving visitors to our site. Is used for load balancing to maintain site performance.</td>
                                         <td class="border border-gray-300 p-2">7 days</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">da_lid</td>
                                         <td class="border border-gray-300 p-2">Decibel Insight</td>
                                         <td class="border border-gray-300 p-2">These cookies are used to collect information about how people use the website. This allows us to ensure the website is meeting your needs and to help us understand what we could improve.</td>
                                         <td class="border border-gray-300 p-2">1 year</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">da_sid</td>
                                         <td class="border border-gray-300 p-2">Decibel Insight</td>
                                         <td class="border border-gray-300 p-2">These cookies are used to collect information about how people use the website. It helps us understand what we could improve. This is the decibel session ID.</td>
                                         <td class="border border-gray-300 p-2">Session</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">dtCookie</td>
                                         <td class="border border-gray-300 p-2">Dynatrace</td>
                                         <td class="border border-gray-300 p-2">Primary cookie for Dynatrace site monitoring.</td>
                                         <td class="border border-gray-300 p-2">Session</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">dtLatC</td>
                                         <td class="border border-gray-300 p-2">Dynatrace</td>
                                         <td class="border border-gray-300 p-2">Cookie used for site monitoring. Stores the server ID.</td>
                                         <td class="border border-gray-300 p-2">Session</td>
-                                    </tr>
-                                    <tr>
+                                    </tr >
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">dtPC</td>
                                         <td class="border border-gray-300 p-2">Dynatrace</td>
                                         <td class="border border-gray-300 p-2">Cookie used for site monitoring. Stores the server ID.</td>
                                         <td class="border border-gray-300 p-2">Session</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">dtrckSession</td>
                                         <td class="border border-gray-300 p-2">Dynatrace</td>
                                         <td class="border border-gray-300 p-2">Cookie used for site monitoring.</td>
                                         <td class="border border-gray-300 p-2">Session</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">rxVisitor</td>
                                         <td class="border border-gray-300 p-2">Dynatrace</td>
                                         <td class="border border-gray-300 p-2">Cookie used for site monitoring. Stores the visitor ID.</td>
                                         <td class="border border-gray-300 p-2">Session</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">rxvt</td>
                                         <td class="border border-gray-300 p-2">Dynatrace</td>
                                         <td class="border border-gray-300 p-2">Cookie used for site monitoring. Stores the timestamp.</td>
                                         <td class="border border-gray-300 p-2">Session</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">vvct</td>
                                         <td class="border border-gray-300 p-2">Eptica Live Chat</td>
                                         <td class="border border-gray-300 p-2">This is the visit cookie for Live Chat.</td>
                                         <td class="border border-gray-300 p-2">30 minutes</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">vvcu</td>
                                         <td class="border border-gray-300 p-2">Eptica Live Chat</td>
                                         <td class="border border-gray-300 p-2">This is a permanent cookie for Live Chat.</td>
                                         <td class="border border-gray-300 p-2">3 years</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">__utma</td>
                                         <td class="border border-gray-300 p-2">Google Analytics</td>
                                         <td class="border border-gray-300 p-2">
@@ -193,13 +193,13 @@ const CookieNoticePage = () => {
                                         </td>
                                         <td class="border border-gray-300 p-2">2 years</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">_ga and _ga_R1P4W35ZRQ</td>
                                         <td class="border border-gray-300 p-2">Google Analytics</td>
                                         <td class="border border-gray-300 p-2">Used to distinguish visitors.</td>
                                         <td class="border border-gray-300 p-2">2 years</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">_gac_</td>
                                         <td class="border border-gray-300 p-2">Google Analytics</td>
                                         <td class="border border-gray-300 p-2">
@@ -207,31 +207,31 @@ const CookieNoticePage = () => {
                                         </td>
                                         <td class="border border-gray-300 p-2">90 days</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">_gat_tui2</td>
                                         <td class="border border-gray-300 p-2">Google Analytics</td>
                                         <td class="border border-gray-300 p-2">Used to limit request rate. Used for the Google Analytics tracker tui2.</td>
                                         <td class="border border-gray-300 p-2">1 minute</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">_gat_tuinew</td>
                                         <td class="border border-gray-300 p-2">Google Analytics</td>
                                         <td class="border border-gray-300 p-2">Used to limit request rate. Used for the Google Analytics tracker tuinew.</td>
                                         <td class="border border-gray-300 p-2">1 minute</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">_gid</td>
                                         <td class="border border-gray-300 p-2">Google Analytics</td>
                                         <td class="border border-gray-300 p-2">Used to distinguish visitors.</td>
                                         <td class="border border-gray-300 p-2">24 hours</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">_ga2 / _gaDuplicate</td>
                                         <td class="border border-gray-300 p-2">Google Analytics / TUI</td>
                                         <td class="border border-gray-300 p-2">Replicates the behaviour of the _ga cookie but is set from our server.</td>
                                         <td class="border border-gray-300 p-2">2 years</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">_omappvs</td>
                                         <td class="border border-gray-300 p-2">Optin Monster</td>
                                         <td class="border border-gray-300 p-2">
@@ -239,43 +239,43 @@ const CookieNoticePage = () => {
                                         </td>
                                         <td class="border border-gray-300 p-2">11 years</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">omSeen-i8uit3mw9zvaaypdcnnv</td>
                                         <td class="border border-gray-300 p-2">Optin Monster</td>
                                         <td class="border border-gray-300 p-2">Used alongside Uniqodo solution to show modal windows on the site.</td>
                                         <td class="border border-gray-300 p-2">25 days</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">QSI_HistorySession</td>
                                         <td class="border border-gray-300 p-2">Qualtrics</td>
                                         <td class="border border-gray-300 p-2">A session cookie that stores what pages a visitor has visited for the current session.</td>
                                         <td class="border border-gray-300 p-2">Session</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">QSI_SI_XXX_intercept</td>
                                         <td class="border border-gray-300 p-2">Qualtrics</td>
                                         <td class="border border-gray-300 p-2">Cookie used to prevent repeated display of our customer surveys.</td>
                                         <td class="border border-gray-300 p-2">Up to 90 days</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">QST</td>
                                         <td class="border border-gray-300 p-2">Qualtrics</td>
                                         <td class="border border-gray-300 p-2">Enables us to record that a survey response has been submitted and prevent the user from taking a survey again.</td>
                                         <td class="border border-gray-300 p-2">6 months</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">CONSENTMGR</td>
                                         <td class="border border-gray-300 p-2">Tealium</td>
                                         <td class="border border-gray-300 p-2">Saves preferences from the Tealium Consent Tool.</td>
                                         <td class="border border-gray-300 p-2">1 year</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">utag_main</td>
                                         <td class="border border-gray-300 p-2">Tealium</td>
                                         <td class="border border-gray-300 p-2">Tealium cookie that provides the Tag Manager functionalities.</td>
                                         <td class="border border-gray-300 p-2">1 year</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">ab_####_V#</td>
                                         <td class="border border-gray-300 p-2">TUI</td>
                                         <td class="border border-gray-300 p-2">
@@ -283,19 +283,19 @@ const CookieNoticePage = () => {
                                         </td>
                                         <td class="border border-gray-300 p-2">2 months</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">consent</td>
                                         <td class="border border-gray-300 p-2">TUI</td>
                                         <td class="border border-gray-300 p-2">Saves whether you have interacted with the cookie policy or not.</td>
                                         <td class="border border-gray-300 p-2">3 years</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">mytui.uid</td>
                                         <td class="border border-gray-300 p-2">TUI</td>
                                         <td class="border border-gray-300 p-2">Cookie associated with logging into your account.</td>
                                         <td class="border border-gray-300 p-2">Session or 400 days</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">_uqd_param</td>
                                         <td class="border border-gray-300 p-2">Uniqodo</td>
                                         <td class="border border-gray-300 p-2">
@@ -303,7 +303,7 @@ const CookieNoticePage = () => {
                                         </td>
                                         <td class="border border-gray-300 p-2">Session</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">_uqd_sctk</td>
                                         <td class="border border-gray-300 p-2">Uniqodo</td>
                                         <td class="border border-gray-300 p-2">
@@ -311,7 +311,7 @@ const CookieNoticePage = () => {
                                         </td>
                                         <td class="border border-gray-300 p-2">30 days</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">_uqd_st_pn</td>
                                         <td class="border border-gray-300 p-2">Uniqodo</td>
                                         <td class="border border-gray-300 p-2">
@@ -319,7 +319,7 @@ const CookieNoticePage = () => {
                                         </td>
                                         <td class="border border-gray-300 p-2">1 hour</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">_uqd_tr_uid</td>
                                         <td class="border border-gray-300 p-2">Uniqodo</td>
                                         <td class="border border-gray-300 p-2">
@@ -327,7 +327,7 @@ const CookieNoticePage = () => {
                                         </td>
                                         <td class="border border-gray-300 p-2">30 days</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">_uqd_trigger</td>
                                         <td class="border border-gray-300 p-2">Uniqodo</td>
                                         <td class="border border-gray-300 p-2">
@@ -335,7 +335,7 @@ const CookieNoticePage = () => {
                                         </td>
                                         <td class="border border-gray-300 p-2">30 days</td>
                                     </tr>
-                                    <tr>
+                                    <tr className="text-xs sm:text-sm">
                                         <td class="border border-gray-300 p-2">_uqd_ue</td>
                                         <td class="border border-gray-300 p-2">Uniqodo</td>
                                         <td class="border border-gray-300 p-2">
@@ -345,6 +345,7 @@ const CookieNoticePage = () => {
                                     </tr>
                                 </tbody>
                             </table>
+                            </div>
                         </div>
                     </div>
                 )}

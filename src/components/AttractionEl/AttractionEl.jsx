@@ -76,7 +76,7 @@ function AttractionEl({ id, bookingLink, description, minimumDuration, name, pic
                         {pictures.map((picture) => (
                             <SwiperSlide key={picture}>
                                 <img src={picture} alt={name} className="w-full h-64 object-cover rounded-lg" />
-                                <div className="absolute top-0 left-0 bg-blue-100 text-blue-800 text-xs px-3 py-1 rounded-lg shadow-md">
+                                <div className="absolute p-1  top-0 left-0 bg-blue-100 text-blue-800 text-xs md:px-3 py-1 rounded-lg shadow-md">
                                    {kindOfAttractions}
 
                                 </div>

@@ -17,7 +17,7 @@ import { fetchHotelAsyncApi } from '../../Store/Slices/fetchHotelSliceAsync';
 const Hotels = () => {
   const dispatch = useDispatch();
   const hotelSearch = useSelector((state) => state.hotelSearch);
-  
+
   const [isHotelRoomsShown, setHotelRoomsShown] = useState(false)
   const [hotelRooms, setHotelRooms] = useState([{ adults: 2, children: 0 }]);
   const [result, setResults] = useState("");
@@ -78,11 +78,126 @@ const Hotels = () => {
     console.log('Done button clicked');
   };
 
+  // return (
+  //   <div className="bg-white p-6 rounded-lg shadow-md">
+  //      <label className="text-2xl font-bold mb-6 block text-center">Find your hotel</label>
+  //     <form onSubmit={handleSubmit} className="flex flex-wrap gap-4 justify-between items-center">
+  //       <div className="flex-1">
+  //         <label className="block text-indigo-900 font-semibold mb-2">Destination</label>
+  //         <div className="flex items-center border border-gray-300 p-2 rounded">
+  //           <LuPlaneLanding className="text-indigo-900 mr-2" />
+  //           <input
+  //             type="text"
+  //             placeholder="city"
+  //             name="destination"
+  //             value={hotelSearch.destination}
+  //             onChange={(e) => handleInputChange(e, null, "input")}
+  //             className="flex-1 outline-none"
+  //           />
+  //         </div>
+  //       </div>
+  //       <div className="flex-1">
+  //         <label className="block text-indigo-900 font-semibold mb-2">Check-in - Check-out</label>
+  //         <div className="flex items-center border border-gray-300 p-2 rounded">
+  //           <FaCalendarAlt className="text-indigo-900 mr-2" />
+  //           <input
+  //             type="date"
+  //             name="checkInDate"
+  //             value={hotelSearch.checkInDate}
+  //             onChange={(e) => handleInputChange(e, null, "input")}
+  //             className="outline-none"
+  //           />
+  //           <span className="mx-2">-</span>
+  //           <input
+  //             type="date"
+  //             name="checkOutDate"
+  //             value={hotelSearch.checkOutDate}
+  //             onChange={(e) => handleInputChange(e, null, "input")}
+  //             className="outline-none"
+  //           />
+  //         </div>
+  //       </div>
+
+  //       <div className="flex-1 relative">
+  //         <label className="block text-indigo-900 font-semibold mb-2">Rooms and Guests</label>
+  //         <div onClick={() => setHotelRoomsShown(prev => !prev)} className="flex items-center border border-gray-300 p-2 rounded cursor-pointer">
+  //           <BsPerson className="text-indigo-900 mr-2" />
+  //           <span className="flex-1">{hotelRooms.length} room(s), {hotelRooms.reduce((sum, hotelRoom) => sum + parseInt(hotelRoom.adults), 0)} adults, {hotelRooms.reduce((sum, hotelRoom) => sum + parseInt(hotelRoom.children), 0)} children</span>
+  //         </div>
+  //         {isHotelRoomsShown && <div className="absolute top-full mt-2 left-0 bg-white border border-gray-300 p-4 rounded shadow-lg z-10">
+
+  //           {hotelRooms.map((hotelRoom, index) => (
+  //             <div key={index} className="mb-4">
+  //               <div className="flex justify-between items-center mb-2">
+  //                 <span className="text-indigo-900 font-semibold">Room {index + 1}</span>
+  //                 {index > 0 && (
+  //                   <button type="button" onClick={() => removeHotelRoom(index)} className="text-red-500">Remove</button>
+  //                 )}
+  //               </div>
+
+  //               <div className="flex space-x-2">
+  //                 <div className="flex-1">
+  //                   <label className="block text-indigo-900">Adults</label>
+  //                   <select
+  //                     name="adults"
+  //                     value={hotelRoom.adults}
+  //                     onChange={(e) => handleInputChange(e, index, "hotelRoom")}
+  //                     className="border border-gray-300 p-2 rounded w-full"
+  //                   >
+  //                     {[...Array(5)].map((_, i) => <option key={i} value={i}>{i}</option>)}
+  //                   </select>
+  //                 </div>
+  //                 <div className="flex-1">
+  //                   <label className="block text-indigo-900">Children</label>
+  //                   <select
+  //                     name="children"
+  //                     value={hotelRoom.children}
+  //                     onChange={(e) => handleInputChange(e, index, "hotelRoom")}
+  //                     className="border border-gray-300 p-2 rounded w-full"
+  //                   >
+  //                     {[...Array(5)].map((_, i) => <option key={i} value={i}>{i}</option>)}
+  //                   </select>
+  //                 </div>
+  //               </div>
+  //             </div>
+  //           ))}
+  //           <button type="button" onClick={addHotelRoom} className="text-blue-500">+ Add room</button>
+  //           <div className="flex justify-between mt-4">
+  //             <button type="button" onClick={() => setHotelRooms([{ adults: 2, children: 0 }])} className="text-blue-500">Clear all</button>
+  //             <button type="button" onClick={handleDone} className="bg-blue-500 text-white py-2 px-4 rounded">Done</button>
+  //           </div>
+  //         </div>}
+
+  //       </div>
+  //       <div className="flex space-x-2">
+  //         <Button id="searchButton" />
+  //         <Button onClick={handleClearSearch} id="clear" />
+  //       </div>
+  //     </form>
+  //     {/* Render the result content here */}
+  //     <div>
+  //       {!!result.length && result.map((result) => (
+  //         <div
+  //           onClick={() => handleResultClick(result)}
+  //           key={result.origin}
+  //         >
+  //           {/* Render result content here */}
+  //         </div>
+  //       ))}
+  //     </div>
+  //   </div>
+  // );
+
   return (
-    <div className="bg-white p-6 rounded-lg shadow-md">
-       <label className="text-2xl font-bold mb-6 block text-center">Find your hotel</label>
-      <form onSubmit={handleSubmit} className="flex flex-wrap gap-4 justify-between items-center">
-        <div className="flex-1">
+    <div className="bg-white p-4 sm:p-6 rounded-lg shadow-md">
+      <label className="text-xl sm:text-2xl font-bold mb-4 sm:mb-6 block text-center">
+        Find your hotel
+      </label>
+
+      <form onSubmit={handleSubmit} className="flex flex-col sm:flex-wrap gap-4 sm:justify-between sm:items-center">
+
+        {/* Destination */}
+        <div className="w-full sm:flex-1">
           <label className="block text-indigo-900 font-semibold mb-2">Destination</label>
           <div className="flex items-center border border-gray-300 p-2 rounded">
             <LuPlaneLanding className="text-indigo-900 mr-2" />
@@ -96,97 +211,107 @@ const Hotels = () => {
             />
           </div>
         </div>
-        <div className="flex-1">
+
+        {/* Check-in & Check-out */}
+        <div className="w-full sm:flex-1">
           <label className="block text-indigo-900 font-semibold mb-2">Check-in - Check-out</label>
-          <div className="flex items-center border border-gray-300 p-2 rounded">
+          <div className="flex flex-col sm:flex-row items-center border border-gray-300 p-2 rounded">
             <FaCalendarAlt className="text-indigo-900 mr-2" />
             <input
               type="date"
               name="checkInDate"
               value={hotelSearch.checkInDate}
               onChange={(e) => handleInputChange(e, null, "input")}
-              className="outline-none"
+              className="outline-none w-full sm:w-auto"
             />
-            <span className="mx-2">-</span>
+            <span className="mx-2 hidden sm:block">-</span>
             <input
               type="date"
               name="checkOutDate"
               value={hotelSearch.checkOutDate}
               onChange={(e) => handleInputChange(e, null, "input")}
-              className="outline-none"
+              className="outline-none w-full sm:w-auto mt-2 sm:mt-0"
             />
           </div>
         </div>
 
-        <div className="flex-1 relative">
+        {/* Rooms & Guests */}
+        <div className="w-full sm:flex-1 relative">
           <label className="block text-indigo-900 font-semibold mb-2">Rooms and Guests</label>
           <div onClick={() => setHotelRoomsShown(prev => !prev)} className="flex items-center border border-gray-300 p-2 rounded cursor-pointer">
             <BsPerson className="text-indigo-900 mr-2" />
-            <span className="flex-1">{hotelRooms.length} room(s), {hotelRooms.reduce((sum, hotelRoom) => sum + parseInt(hotelRoom.adults), 0)} adults, {hotelRooms.reduce((sum, hotelRoom) => sum + parseInt(hotelRoom.children), 0)} children</span>
+            <span className="flex-1 text-sm sm:text-base">
+              {hotelRooms.length} room(s), {hotelRooms.reduce((sum, room) => sum + parseInt(room.adults), 0)} adults, {hotelRooms.reduce((sum, room) => sum + parseInt(room.children), 0)} children
+            </span>
           </div>
-          {isHotelRoomsShown && <div className="absolute top-full mt-2 left-0 bg-white border border-gray-300 p-4 rounded shadow-lg z-10">
 
-            {hotelRooms.map((hotelRoom, index) => (
-              <div key={index} className="mb-4">
-                <div className="flex justify-between items-center mb-2">
-                  <span className="text-indigo-900 font-semibold">Room {index + 1}</span>
-                  {index > 0 && (
-                    <button type="button" onClick={() => removeHotelRoom(index)} className="text-red-500">Remove</button>
-                  )}
-                </div>
+          {/* Dropdown for selecting rooms */}
+          {isHotelRoomsShown && (
+            <div className="absolute top-full left-0 w-full bg-white border border-gray-300 p-4 rounded shadow-lg z-10">
+              {hotelRooms.map((hotelRoom, index) => (
+                <div key={index} className="mb-4">
+                  <div className="flex justify-between items-center mb-2">
+                    <span className="text-indigo-900 font-semibold">Room {index + 1}</span>
+                    {index > 0 && (
+                      <button type="button" onClick={() => removeHotelRoom(index)} className="text-red-500 text-sm sm:text-base">
+                        Remove
+                      </button>
+                    )}
+                  </div>
 
-                <div className="flex space-x-2">
-                  <div className="flex-1">
-                    <label className="block text-indigo-900">Adults</label>
-                    <select
-                      name="adults"
-                      value={hotelRoom.adults}
-                      onChange={(e) => handleInputChange(e, index, "hotelRoom")}
-                      className="border border-gray-300 p-2 rounded w-full"
-                    >
-                      {[...Array(5)].map((_, i) => <option key={i} value={i}>{i}</option>)}
-                    </select>
-                  </div>
-                  <div className="flex-1">
-                    <label className="block text-indigo-900">Children</label>
-                    <select
-                      name="children"
-                      value={hotelRoom.children}
-                      onChange={(e) => handleInputChange(e, index, "hotelRoom")}
-                      className="border border-gray-300 p-2 rounded w-full"
-                    >
-                      {[...Array(5)].map((_, i) => <option key={i} value={i}>{i}</option>)}
-                    </select>
+                  <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+                    <div className="flex-1">
+                      <label className="block text-indigo-900">Adults</label>
+                      <select
+                        name="adults"
+                        value={hotelRoom.adults}
+                        onChange={(e) => handleInputChange(e, index, "hotelRoom")}
+                        className="border border-gray-300 p-2 rounded w-full"
+                      >
+                        {[...Array(5)].map((_, i) => <option key={i} value={i}>{i}</option>)}
+                      </select>
+                    </div>
+                    <div className="flex-1">
+                      <label className="block text-indigo-900">Children</label>
+                      <select
+                        name="children"
+                        value={hotelRoom.children}
+                        onChange={(e) => handleInputChange(e, index, "hotelRoom")}
+                        className="border border-gray-300 p-2 rounded w-full"
+                      >
+                        {[...Array(5)].map((_, i) => <option key={i} value={i}>{i}</option>)}
+                      </select>
+                    </div>
                   </div>
                 </div>
+              ))}
+              <button type="button" onClick={addHotelRoom} className="text-blue-500 text-sm sm:text-base">+ Add room</button>
+              <div className="flex justify-between mt-4">
+                <button type="button" onClick={() => setHotelRooms([{ adults: 2, children: 0 }])} className="text-blue-500 text-sm sm:text-base">Clear all</button>
+                <button type="button" onClick={handleDone} className="bg-blue-500 text-white py-2 px-4 rounded text-sm sm:text-base">Done</button>
               </div>
-            ))}
-            <button type="button" onClick={addHotelRoom} className="text-blue-500">+ Add room</button>
-            <div className="flex justify-between mt-4">
-              <button type="button" onClick={() => setHotelRooms([{ adults: 2, children: 0 }])} className="text-blue-500">Clear all</button>
-              <button type="button" onClick={handleDone} className="bg-blue-500 text-white py-2 px-4 rounded">Done</button>
             </div>
-          </div>}
-
+          )}
         </div>
-        <div className="flex space-x-2">
+
+        {/* Buttons */}
+        <div className="w-full flex flex-col sm:flex-row gap-2 sm:gap-4">
           <Button id="searchButton" />
           <Button onClick={handleClearSearch} id="clear" />
         </div>
       </form>
-      {/* Render the result content here */}
+
+      {/* Search Results */}
       <div>
         {!!result.length && result.map((result) => (
-          <div
-            onClick={() => handleResultClick(result)}
-            key={result.origin}
-          >
+          <div onClick={() => handleResultClick(result)} key={result.origin}>
             {/* Render result content here */}
           </div>
         ))}
       </div>
     </div>
   );
+
 };
 
 
