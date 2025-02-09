@@ -4,7 +4,7 @@ import { FaHeart } from 'react-icons/fa6';
 import { FaShoppingCart } from 'react-icons/fa';
 import { CgProfile } from "react-icons/cg";
 import LanguageChange from '../LanguageChange/LanguageChange';
-import { FaBars, FaTimes } from "react-icons/fa";
+import { FaTimes } from "react-icons/fa";
 
 const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t, user, onClick }) => {
    

@@ -7,7 +7,6 @@ import { setCartHotelWithUser } from '../../Store/Slices/hotelSliceReducer';
 import { setCartCruiseWithUser } from '../../Store/Slices/cruiseSliceReducer';
 import { setCartFlightWithUser } from '../../Store/Slices/flightSliceReducer';
 import { setCartVacationWithUser } from '../../Store/Slices/vacationSliceReducer';
-import PopUpMessage from '../../components/PopUpMessage/PopUpMessage';
 import { setPopUp } from "../../Store/Slices/popUpSliceReducer"
 
 const Profile = () => {
@@ -15,7 +14,10 @@ const Profile = () => {
   const dispatch = useDispatch();
   const [isUpdateFormShown, setUpdateFormShown] = useState(false);
   const [isUpdatePassword, setUpdatePassword] = useState(false);
-  const popUp = useSelector(state => state.popUp.popUp);
+  const [isDeleteConfirmOpen, setDeleteConfirmOpen] = useState(false);
+  const [successMessage, setSuccessMessage] = useState(null);
+
+
   const form = useSelector(state => state.profile);
   const user = useSelector(state => state.session.user);
   const [password, setPassword] = useState('');
@@ -23,19 +25,19 @@ const Profile = () => {
 
 
   useEffect(() => {
-    if (popUp) {
+    if (successMessage) {
       setTimeout(() => {
-        dispatch(setPopUp(null));
-      }, 9000);
+        dispatch(setSuccessMessage(null));
+      }, 5000);
     }
-  }, [popUp, dispatch]);
+  }, [successMessage, dispatch]);
 
   useEffect(() => {
     if (isUpdateFormShown) {
       dispatch(updateProfile({ field: "name", value: user.name }));
       dispatch(updateProfile({ field: "email", value: user.email }));
     }
-  }, [isUpdateFormShown, user])
+  }, [isUpdateFormShown, user, dispatch])
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -56,6 +58,7 @@ const Profile = () => {
     const { payload } = await dispatch(fetchUpdateProfileAsync({ ...form, id: user._id }));
     dispatch(setPopUp(payload.message));
     setUpdateFormShown(false)
+    setSuccessMessage("✅ Profile updated successfully!");
   };
 
   const handleChangePassword = async (e) => {
@@ -65,14 +68,15 @@ const Profile = () => {
 
       dispatch(setPopUp(payload.message));
       setUpdatePassword(false)
+      setSuccessMessage("✅ Password changed successfully!");
     } else {
       dispatch(setPopUp("Please enter a new password."));
     }
   };
 
   const handleDeleteProfile = async (e) => {
-    e.preventDefault()
-
+    setDeleteConfirmOpen(false);
+    // e.preventDefault()
     const { payload } = await dispatch(fetchDeleteAsync(user._id));
     if (payload) {
       dispatch(setPopUp(payload.message));
@@ -80,6 +84,7 @@ const Profile = () => {
       dispatch(setCartCruiseWithUser([]));
       dispatch(setCartFlightWithUser([]));
       dispatch(setCartVacationWithUser([]));
+      setSuccessMessage("✅ Profile deleted successfully!");
     }
 
   }
@@ -88,7 +93,6 @@ const Profile = () => {
   return (
     <main className="p-4">
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 items-start justify-center relative">
-        {popUp && <PopUpMessage />}
 
         {/* Профіль користувача */}
         <div className="bg-slate-100 p-6 rounded-lg shadow-lg w-full sm:max-w-lg">
@@ -149,12 +153,31 @@ const Profile = () => {
             </button>
 
             <button
-              onClick={handleDeleteProfile}
+              onClick={() => setDeleteConfirmOpen(true)}
               className="w-full sm:w-40 py-2 px-3 text-center bg-red-600 hover:bg-red-700 text-white font-semibold rounded-lg text-sm transition duration-300"
             >
               DELETE PROFILE
             </button>
+            {successMessage && (
+              <div className="fixed top-40 left-5 bg-green-600 text-white px-4 py-2 rounded-lg shadow-md">
+                {successMessage}
+              </div>
+            )}
           </div>
+
+          {/* Модальне вікно підтвердження видалення */}
+          {isDeleteConfirmOpen && (
+            <div className="fixed inset-0 flex justify-center items-center bg-[rgba(0,0,0,0.5)] z-50">
+              <div className="bg-white p-6 rounded-lg shadow-lg text-center max-w-sm">
+                <h2 className="text-lg font-bold text-gray-900">Are you sure you want to delete your profile?</h2>
+                <p className="text-gray-700 mt-2">This action cannot be undone.</p>
+                <div className="flex justify-center gap-4 mt-4">
+                  <button onClick={handleDeleteProfile} className="bg-red-600 hover:bg-red-700 text-white px-4 py-2 rounded-lg">Yes, Delete</button>
+                  <button onClick={() => setDeleteConfirmOpen(false)} className="bg-gray-500 hover:bg-gray-600 text-white px-4 py-2 rounded-lg">Cancel</button>
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Форма оновлення профілю */}
           {isUpdateFormShown && (

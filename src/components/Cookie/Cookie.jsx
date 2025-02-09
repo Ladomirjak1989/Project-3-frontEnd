@@ -2,8 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '../Button/Button';
 import { resetCookieState, setCookiePopUp } from '../../Store/Slices/cookieSliceReducer';
-import axios from 'axios';
-import { API_URL } from '../../utils/variables';
 import { Link } from 'react-router-dom';
 
 const Cookie = () => {
@@ -18,9 +16,6 @@ const Cookie = () => {
         advertising: false,
     });
 
-
-
-
     // Тоглінг для різних типів cookie
     const handleToggle = (key) => {
         setCookieSettings((prevState) => ({
@@ -31,8 +26,8 @@ const Cookie = () => {
 
     const handleRefuseCookie = (e) => {
         e.preventDefault();
-         // Зберігаємо згоду в Local Storage
-         localStorage.setItem('cookiesAccepted', true);
+        // Зберігаємо згоду в Local Storage
+        localStorage.setItem('cookiesAccepted', true);
         // dispatch(resetCookieState(false));
         document.cookie = "cookiesAccepted=true; path=/; max-age=2592000"
         dispatch(setCookiePopUp(false))
@@ -40,67 +35,20 @@ const Cookie = () => {
 
     const handleSaveSelectionCookie = (e) => {
         e.preventDefault();
-         // Зберігаємо згоду в Local Storage
-         localStorage.setItem('cookiesAccepted', true);
+        // Зберігаємо згоду в Local Storage
+        localStorage.setItem('cookiesAccepted', true);
         // dispatch(resetCookieState(cookieSettings));
         document.cookie = "cookiesAccepted=true; path=/; max-age=2592000"
         dispatch(setCookiePopUp(false))
     };
 
 
-     // Функція для збереження згоди на cookie
+    // Функція для збереження згоди на cookie
     const handleAcceptCookie = async (e) => {
         e.preventDefault();
         document.cookie = "cookiesAccepted=true; path=/;  max-age=2592000"; // Зберігаємо згоду на 1 місяц
-   dispatch(setCookiePopUp(false))
+        dispatch(setCookiePopUp(false))
     }
-
-    // Функція для збереження згоди на cookie
-    // const handleAcceptCookie = async (e) => {
-    //     e.preventDefault();
-
-
-    //     try {
-    //         const response = await axios.post(`${API_URL}/cookie/consent`,
-    //             { consent: true },
-    //             { withCredentials: true },
-    //         );
-
-    //         if (response.status === 200) {
-    //             console.log('Cookie consent saved successfully');
-               
-    //             // Зберігаємо згоду в Local Storage
-    //         localStorage.setItem('cookiesAccepted', true);
-                
-    //         // Оновлюємо Redux-стан
-    //             dispatch(resetCookieState({ cookiesAccepted: true, cookiePopUp: false }));
-    //         } else {
-    //             console.error('Failed to save cookie consent');
-    //         }
-    //     } catch (error) {
-    //         console.error('Error saving cookie consent:', error);
-    //     }
-    // };
-
-    // useEffect(() => {
-    //     let isMounted = true; // Додаємо прапорець
-    //     const fetchCookieConsent = async () => {
-    //         try {
-    //             const response = await axios.get(`${API_URL}/cookie/consent`, { withCredentials: true });
-    //             if (isMounted) {
-    //                 // Обробляємо дані тільки якщо компонент ще "монтується"
-    //                 console.log('Fetched cookie consent:', response.data);
-    //             }
-    //         } catch (error) {
-    //             console.error('Error fetching cookie consent:', error);
-    //         }
-    //     };
-    //     fetchCookieConsent();
-
-    //     return () => {
-    //         isMounted = false; // Очищення прапорця при розмонтуванні компонента
-    //     };
-    // }, []);
 
 
     // Якщо банер не потрібно показувати, приховуємо компонент
@@ -122,6 +70,9 @@ const Cookie = () => {
                     </p>
                     <p className="text-sm text-gray-600">
                         For more information about cookies, please see the <Link className=" text-blue-600 hover:underline" to={`/${currentLang}/cookie`}>Cookies Notice</Link>. If you select <span className='font-bold'>"Refuse"</span> and decline your consent, no individual offer can be made, only the necessary cookies are then active.
+                    </p>
+                    <p className="text-sm text-gray-600 font-semibold">
+                        This site is also protected by <span className='text-blue-600'>Google reCAPTCHA</span>, and the Google <Link className="text-blue-600 hover:underline" to={`/${currentLang}/privacy`}>Privacy Policy</Link> and <Link className="text-blue-600 hover:underline" to={`/${currentLang}/terms`}>Terms and Conditions</Link> apply.
                     </p>
                     <div className="flex items-center space-x-4">
                         <div>
