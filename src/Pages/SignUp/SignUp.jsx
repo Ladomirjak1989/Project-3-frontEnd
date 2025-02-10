@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
 import { FaUser, FaLock, } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
@@ -31,8 +31,8 @@ function Signup() {
     const [isTermsChecked, setIsTermsChecked] = useState(false); // Track the checkbox state
     const [termsError, setTermsError] = useState(""); // Track terms and conditions error
 
-    // 🔹 useEffect для перевірки авторизації
-    useEffect(() => {
+    // useEffect для перевірки авторизації
+    useEffect (() => {
         const token = document.cookie.split('; ').find(row => row.startsWith('authToken='));
         if (token) {
             console.log("✅ Token found, redirecting...");
