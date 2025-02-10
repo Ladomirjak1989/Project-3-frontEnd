@@ -263,7 +263,8 @@ const LoginPage = () => {
                         {/* Social Login Buttons */}
                         <div className="flex flex-row justify-between items-center gap-4">
                             <a
-                                href="http://localhost:4010/auth/google"
+                                // href="http://localhost:4010/auth/google"
+                                href={`${process.env.BACKEND_URL}/auth/google`}
                                 className="flex items-center gap-3 w-full py-2 px-4 bg-gray-300 border border-gray-400 text-gray-700 text-center rounded-full font-bold shadow-sm hover:bg-gray-400 transition-transform duration-300 hover:scale-105"
                             >
                                 <img src={googleIcon} alt="Gmail Icon" className="h-6 w-6" />
@@ -271,7 +272,8 @@ const LoginPage = () => {
                             </a>
                             {/* <button onClick={handleGmail} > </button> */}
                             <a
-                                href="http://localhost:4010/auth/facebook"
+                                // href="http://localhost:4010/auth/facebook"
+                                href={`${process.env.BACKEND_URL}/auth/facebook`}
                                 className="flex items-center gap-3 w-full py-2 px-4 bg-red-500 border border-gray-500 text-white text-center rounded-full font-bold shadow-md hover:bg-red-700 transition-transform duration-300 hover:scale-105"
                             >
                                 <img src={facebookIcon} alt="Facebook Icon" className="h-6 w-6" />

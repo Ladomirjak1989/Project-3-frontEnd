@@ -11,6 +11,7 @@ export default defineConfig({
     proxy: {
       '/api': {
         target: 'http://localhost:4010',
+        // target: {`${process.env.BACKEND_URL}/auth/google`},
         changeOrigin: true,
         secure: false,
       },

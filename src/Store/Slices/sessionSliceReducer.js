@@ -291,6 +291,8 @@ const sessionSlice = createSlice({
                 state.error = action.payload;
             })
 
+            
+            
             .addCase(fetchConfirmEmail.pending, (state) => {
                 state.loading = true;
                 state.error = null;
