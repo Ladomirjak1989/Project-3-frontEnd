@@ -31,14 +31,7 @@ function Signup() {
     const [isTermsChecked, setIsTermsChecked] = useState(false); // Track the checkbox state
     const [termsError, setTermsError] = useState(""); // Track terms and conditions error
 
-    // useEffect для перевірки авторизації
-    useEffect (() => {
-        const token = document.cookie.split('; ').find(row => row.startsWith('authToken='));
-        if (token) {
-            console.log("✅ Token found, redirecting...");
-            navigate(`/${currentLang}/`); // Перенаправляємо на homepage
-        }
-    }, [navigate, currentLang]); // Залежності: перевіряє зміну маршруту та мови
+
 
 
 
@@ -74,6 +67,13 @@ function Signup() {
             return;
 
         }
+
+        useEffect(() => {
+            if (user) {
+                navigate(`/${currentLang}/`)
+            }
+
+        }, [user, navigate, currentLang])
 
 
     };
