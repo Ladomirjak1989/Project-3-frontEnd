@@ -18,6 +18,8 @@ function Signup() {
 
     const dispatch = useDispatch()
     const error = useSelector(state => state.session.error)
+    const navigate = useNavigate();
+    const currentLang = useSelector(state => state.language.language)
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -28,9 +30,16 @@ function Signup() {
     const [inputError, setInputError] = useState("");
     const [isTermsChecked, setIsTermsChecked] = useState(false); // Track the checkbox state
     const [termsError, setTermsError] = useState(""); // Track terms and conditions error
-    const currentLang = useSelector(state => state.language.language)
 
-    const navigate = useNavigate();
+    // 🔹 useEffect для перевірки авторизації
+    useEffect(() => {
+        const token = document.cookie.split('; ').find(row => row.startsWith('authToken='));
+        if (token) {
+            console.log("✅ Token found, redirecting...");
+            navigate(`/${currentLang}/`); // Перенаправляємо на homepage
+        }
+    }, [navigate, currentLang]); // Залежності: перевіряє зміну маршруту та мови
+
 
 
     const handleSignupSubmit = async (e) => {
