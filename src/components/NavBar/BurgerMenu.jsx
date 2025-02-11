@@ -10,7 +10,6 @@ import { useDispatch, useSelector } from 'react-redux';
 const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t, user, onClick }) => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const token = useSelector(state => state.session.token);
 
     const onLogOut = async () => {
         try {
@@ -59,7 +58,7 @@ const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t
 
             {/* Login/Logout Button */}
             <div className="mt-6">
-                {token && (
+                {user && (
                     <button
                         className="text-gray-900 bg-green-200 hover:bg-green-400 p-3 font-semibold rounded transition-all duration-300 ease-in-out"
                         onClick={onLogOut}
