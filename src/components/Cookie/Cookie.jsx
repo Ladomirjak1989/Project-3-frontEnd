@@ -128,25 +128,25 @@ const Cookie = () => {
 
     return (
         <div className="fixed top-0 bottom-0 right-0 left-0 flex justify-center items-center bg-[rgba(0,0,0,0.5)] p-4">
-            <div className="max-w-[700px] bg-white p-6 md:p-8 rounded-lg shadow-lg flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 w-full">
+            <div className="max-w-[700px] bg-white p-6 md:p-8 rounded-lg shadow-lg flex flex-col space-y-6 w-full">
 
                 {/* Текстовий блок */}
                 <div className="space-y-4 w-full">
-                    <h2 className="text-lg font-semibold text-center md:text-left">We use cookies</h2>
+                    <h2 className="text-lg font-semibold">We use cookies</h2>
                     <p className="text-sm text-gray-600">
-                        We use <span className="font-bold">cookies</span> and other technologies that are necessary for the services and functions of our website.
+                        We use <span className="font-bold">cookies</span> and other technologies necessary for the services and functions of our website.
                     </p>
                     <p className="text-sm text-gray-600">
-                        Furthermore, and to the extent that you consent and select <span className="font-bold">"Accept"</span>, we may place cookies on your device, use other technologies and collect and process personal data [e.g. IP address] about you to offer you personalized content.
+                        If you select <span className="font-bold">"Accept"</span>, we may place cookies on your device, use other technologies and collect and process personal data (e.g. IP address) to offer personalized content.
                     </p>
                     <p className="text-sm text-gray-600">
-                        For more information, please see the{" "}
+                        For more information, see the{" "}
                         <Link className="text-blue-600 hover:underline" to={`/${currentLang}/cookie`}>
                             Cookies Notice
                         </Link>. If you select <span className="font-bold">"Refuse"</span>, only necessary cookies will be active.
                     </p>
                     <p className="text-sm text-gray-600 font-semibold">
-                        This site is also protected by <span className="text-blue-600">Google reCAPTCHA</span>, and the{" "}
+                        This site is protected by <span className="text-blue-600">Google reCAPTCHA</span>, and the{" "}
                         <Link className="text-blue-600 hover:underline" to={`/${currentLang}/privacy`}>
                             Privacy Policy
                         </Link>{" "}
@@ -156,41 +156,40 @@ const Cookie = () => {
                         </Link>{" "}
                         apply.
                     </p>
-
-                    {/* Налаштування кукі */}
-                    <div className="grid grid-cols-2 md:flex md:items-center gap-4 text-sm text-gray-700">
-                        <label className="flex items-center space-x-2">
-                            <input type="checkbox" checked={cookieSettings.necessary} readOnly className="form-checkbox" />
-                            <span>Necessary</span>
-                        </label>
-                        <label className="flex items-center space-x-2">
-                            <input type="checkbox" checked={cookieSettings.functional} onChange={() => handleToggle('functional')} className="form-checkbox" />
-                            <span>Functional</span>
-                        </label>
-                        <label className="flex items-center space-x-2">
-                            <input type="checkbox" checked={cookieSettings.performance} onChange={() => handleToggle('performance')} className="form-checkbox" />
-                            <span>Performance</span>
-                        </label>
-                        <label className="flex items-center space-x-2">
-                            <input type="checkbox" checked={cookieSettings.advertising} onChange={() => handleToggle('advertising')} className="form-checkbox" />
-                            <span>Advertising</span>
-                        </label>
-                    </div>
-                    {/* Блок кнопок */}
-                    <div className="flex flex-col md:flex-row w-full md:w-auto space-y-3 md:space-y-0 md:space-x-3">
-                        <button onClick={handleAcceptCookie} className="w-full md:w-auto bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
-                            Accept
-                        </button>
-                        <button onClick={handleSaveSelectionCookie} className="w-full md:w-auto bg-gray-300 text-black px-4 py-2 rounded-lg hover:bg-gray-400 transition">
-                            Save Selection
-                        </button>
-                        <button onClick={handleRefuseCookie} className="w-full md:w-auto bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition">
-                            Refuse
-                        </button>
-                    </div>
                 </div>
 
+                {/* Налаштування кукі (ЧЕКБОКСИ) */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm text-gray-700">
+                    <label className="flex items-center space-x-2">
+                        <input type="checkbox" checked={cookieSettings.necessary} readOnly className="form-checkbox" />
+                        <span>Necessary</span>
+                    </label>
+                    <label className="flex items-center space-x-2">
+                        <input type="checkbox" checked={cookieSettings.functional} onChange={() => handleToggle('functional')} className="form-checkbox" />
+                        <span>Functional</span>
+                    </label>
+                    <label className="flex items-center space-x-2">
+                        <input type="checkbox" checked={cookieSettings.performance} onChange={() => handleToggle('performance')} className="form-checkbox" />
+                        <span>Performance</span>
+                    </label>
+                    <label className="flex items-center space-x-2">
+                        <input type="checkbox" checked={cookieSettings.advertising} onChange={() => handleToggle('advertising')} className="form-checkbox" />
+                        <span>Advertising</span>
+                    </label>
+                </div>
 
+                {/* 📌 КНОПКИ - тепер вони ПІД чекбоксами */}
+                <div className="flex flex-col md:flex-row justify-center md:justify-between w-full space-y-3 md:space-y-0 md:space-x-3 pt-4">
+                    <button onClick={handleRefuseCookie} className="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition">
+                        Refuse
+                    </button>
+                    <button onClick={handleSaveSelectionCookie} className="bg-gray-300 text-black px-6 py-2 rounded-lg hover:bg-gray-400 transition">
+                        Save Selection
+                    </button>
+                    <button onClick={handleAcceptCookie} className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition">
+                        Accept
+                    </button>
+                </div>
 
             </div>
         </div>
