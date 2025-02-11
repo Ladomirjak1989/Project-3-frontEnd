@@ -8,12 +8,22 @@ import { FaTimes } from "react-icons/fa";
 
 const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t, user, onClick }) => {
     const navigate = useNavigate();
-    const handleLogout = () => {
-        localStorage.removeItem("token");
-        localStorage.removeItem("user");
-        onClick(false); 
-        navigate(`/${currentLang}/`)  
-    };
+    
+    const onLogOut = async () => {
+        try {
+          localStorage.removeItem("token");
+          localStorage.removeItem("user");
+    
+          await dispatch(fetchLogout());
+          await dispatch(clearAllCarts());
+    
+          navigate(`/${currentLang}/`);
+        } catch (error) {
+          console.error("Error during logout:", error);
+        }
+      };
+
+
     return (
         <div className="fixed top-0 left-0 w-full h-screen z-50 bg-blue-500 bg-opacity-95 backdrop-blur-md flex flex-col items-center justify-center">
             {/* Закриття меню */}
@@ -76,14 +86,16 @@ const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t
                 </div>
 
                 {/* Logout Button */}
-                {user && (
-                    <button
-                        onClick={handleLogout}
-                        className="w-full bg-red-500 text-white text-lg font-semibold p-3 rounded-lg shadow-lg hover:bg-red-700 hover:scale-105 transition-transform"
-                    >
-                        {t("navbar.navLogOut")}
-                    </button>
-                )}
+                {token &&
+              <li>
+                <button
+                  className='text-gray-900 bg-green-200 hover:bg-green-400 p-2 font-semibold rounded transition-all duration-300 ease-in-out'
+                  onClick={onLogOut}
+                >
+                  {t("navbar.navLogOut")}
+                </button>
+              </li>
+            }
 
             </div>
 
