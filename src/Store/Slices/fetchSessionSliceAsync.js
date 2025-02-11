@@ -2,16 +2,34 @@ import { createAsyncThunk, } from "@reduxjs/toolkit";
 import axios from 'axios'
 import { AMADEUS_KEY, AMADEUS_SECRET_KEY, AMADEUS_URL, API_URL } from "../../utils/variables";
 
-export const fetchSessionAsync = createAsyncThunk("login/fetchLogin", async (formData, { rejectWithValue }) => {
-    try {
-        const response = await axios.post(`${API_URL}/auth/login`, formData)
-        localStorage.setItem("token", response.data.authToken)
-        localStorage.setItem("user", JSON.stringify(response.data.user))
-        return response.data
-    } catch (e) { return rejectWithValue(e.response.data.message); }
+// export const fetchSessionAsync = createAsyncThunk("login/fetchLogin", async (formData, { rejectWithValue }) => {
+//     try {
+//         const response = await axios.post(`${API_URL}/auth/login`, formData)
+//         localStorage.setItem("token", response.data.authToken)
+//         localStorage.setItem("user", JSON.stringify(response.data.user))
+//         return response.data
+//     } catch (e) { return rejectWithValue(e.response.data.message); }
 
 
-})
+// })
+
+export const fetchSessionAsync = createAsyncThunk(
+    "login/fetchLogin",
+    async (formData, { rejectWithValue }) => {
+        try {
+            const response = await axios.post(`${API_URL}/auth/login`, formData, {
+                withCredentials: true, // ✅ Дозволяє передавати cookies
+            });
+
+            localStorage.setItem("token", response.data.authToken);
+            localStorage.setItem("user", JSON.stringify(response.data.user));
+
+            return response.data;
+        } catch (e) {
+            return rejectWithValue(e.response.data.message);
+        }
+    }
+);
 
 export const fetchGetUserByIdAsync = createAsyncThunk("user/fetchUser", async (formData, { rejectWithValue }) => {
     try {
@@ -51,17 +69,32 @@ export const fetchTokenAmadeus = createAsyncThunk("user/fetchToken", async (_, {
 
 
 
-export const fetchSignUpAsync = createAsyncThunk("signup/fetchSignup", async (formData, { rejectWithValue }) => {
-    try {
-        const response = await axios.post(`${API_URL}/auth/signup`, formData)
-        return response.data
+// export const fetchSignUpAsync = createAsyncThunk("signup/fetchSignup", async (formData, { rejectWithValue }) => {
+//     try {
+//         const response = await axios.post(`${API_URL}/auth/signup`, formData)
+//         return response.data
 
-    } catch (e) {
+//     } catch (e) {
 
-        return rejectWithValue(e.response.data.message);
+//         return rejectWithValue(e.response.data.message);
+//     }
+
+// })
+
+export const fetchSignUpAsync = createAsyncThunk(
+    "signup/fetchSignup",
+    async (formData, { rejectWithValue }) => {
+        try {
+            const response = await axios.post(`${API_URL}/auth/signup`, formData, {
+                withCredentials: true, // ✅ Дозволяє передавати cookies
+            });
+
+            return response.data;
+        } catch (e) {
+            return rejectWithValue(e.response.data.message);
+        }
     }
-
-})
+);
 
 export const fetchUpdateAsync = createAsyncThunk("cart/fetchUpdateCart", async (formData, { rejectWithValue, getState }) => {
     try {
@@ -100,7 +133,7 @@ export const fetchRemoveCartAsync = createAsyncThunk(
                     },
                 }
             );
-            localStorage.setItem("user",JSON.stringify(response.data.user) )
+            localStorage.setItem("user", JSON.stringify(response.data.user))
             return response.data;
         } catch (e) {
             return rejectWithValue(e.response.data.message);
@@ -194,25 +227,25 @@ export const fetchUpdatePasswordAsync = createAsyncThunk("update/fetchUpdatePass
 export const fetchUser = createAsyncThunk(
     "user/fetchUserFacebook",
     async (_, { rejectWithValue }) => {
-      try {
-        const response = await axios.get(`${API_URL}/users`, {
-          withCredentials: true, // ✅ Дозволяє передавати кукі між бекендом і фронтом
-        });
-  
-        console.log("✅ User Data:", response.data); // 🔹 Логуємо отримані дані
-  
-        // Зберігаємо токен та користувача в localStorage
-        localStorage.setItem("token", response.data.authToken);
-        localStorage.setItem("user", JSON.stringify(response.data.user));
-  
-        return response.data;
-      } catch (error) {
-        console.error("❌ Error fetching user:", error.response?.data);
-        return rejectWithValue(error.response?.data || "Error fetching user");
-      }
+        try {
+            const response = await axios.get(`${API_URL}/users`, {
+                withCredentials: true, // ✅ Дозволяє передавати кукі між бекендом і фронтом
+            });
+
+            console.log("✅ User Data:", response.data); // 🔹 Логуємо отримані дані
+
+            // Зберігаємо токен та користувача в localStorage
+            localStorage.setItem("token", response.data.authToken);
+            localStorage.setItem("user", JSON.stringify(response.data.user));
+
+            return response.data;
+        } catch (error) {
+            console.error("❌ Error fetching user:", error.response?.data);
+            return rejectWithValue(error.response?.data || "Error fetching user");
+        }
     }
-  );
-  
+);
+
 
 
 
