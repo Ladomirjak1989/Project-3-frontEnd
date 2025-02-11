@@ -59,7 +59,7 @@ const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t
 
             {/* Login/Logout Button */}
             <div className="mt-6">
-                {token(
+                {token && (
                     <button
                         className="text-gray-900 bg-green-200 hover:bg-green-400 p-3 font-semibold rounded transition-all duration-300 ease-in-out"
                         onClick={onLogOut}
