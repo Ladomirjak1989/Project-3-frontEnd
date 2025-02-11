@@ -10,19 +10,20 @@ import { useSelector } from 'react-redux';
 const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t, user, onClick }) => {
     const navigate = useNavigate();
     const token = useSelector(state => state.session.token);
+   
     const onLogOut = async () => {
         try {
-          localStorage.removeItem("token");
-          localStorage.removeItem("user");
-    
-          await dispatch(fetchLogout());
-          await dispatch(clearAllCarts());
-    
-          navigate(`/${currentLang}/`);
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+
+            await dispatch(fetchLogout());
+            await dispatch(clearAllCarts());
+
+            navigate(`/${currentLang}/`);
         } catch (error) {
-          console.error("Error during logout:", error);
+            console.error("Error during logout:", error);
         }
-      };
+    };
 
 
     return (
@@ -52,6 +53,17 @@ const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t
                         </Link>
                     </li>
                 ))}
+                {/* Logout Button */}
+                {token &&
+                    <li>
+                        <button
+                            className='text-gray-900 bg-green-200 hover:bg-green-400 p-2 font-semibold rounded transition-all duration-300 ease-in-out'
+                            onClick={onLogOut}
+                        >
+                            {t("navbar.navLogOut")}
+                        </button>
+                    </li>
+                }
             </ul>
 
             {/* Додаткові функції (Shortlist, Profile, Cart) */}
@@ -85,18 +97,6 @@ const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t
                         </span>
                     )}
                 </div>
-
-                {/* Logout Button */}
-                {token &&
-              <li>
-                <button
-                  className='text-gray-900 bg-green-200 hover:bg-green-400 p-2 font-semibold rounded transition-all duration-300 ease-in-out'
-                  onClick={onLogOut}
-                >
-                  {t("navbar.navLogOut")}
-                </button>
-              </li>
-            }
 
             </div>
 
