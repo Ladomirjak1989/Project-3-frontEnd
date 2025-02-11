@@ -5,6 +5,7 @@ import { FaShoppingCart } from 'react-icons/fa';
 import { CgProfile } from "react-icons/cg";
 import LanguageChange from '../LanguageChange/LanguageChange';
 import { FaTimes } from "react-icons/fa";
+import { useSelector } from 'react-redux';
 
 const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t, user, onClick }) => {
     const navigate = useNavigate();
