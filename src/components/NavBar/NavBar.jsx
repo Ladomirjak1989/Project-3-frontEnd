@@ -83,7 +83,7 @@ const Navbar = () => {
       await dispatch(fetchLogout());
       await dispatch(clearAllCarts());
 
-      navigate(`/${currentLang}/login`);
+      navigate(`/${currentLang}/`);
     } catch (error) {
       console.error("Error during logout:", error);
     }

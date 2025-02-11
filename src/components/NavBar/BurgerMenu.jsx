@@ -9,10 +9,10 @@ import { FaTimes } from "react-icons/fa";
 const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t, user, onClick }) => {
     const navigate = useNavigate();
     const handleLogout = () => {
-        localStorage.removeItem("token");  // Видаляємо токен
-        localStorage.removeItem("user");   // Видаляємо збереженого користувача
-        onClick(false); // Закриваємо бургер-меню
-        navigate("/");  // Перенаправлення на головну сторінку
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        onClick(false); 
+        navigate(`/${currentLang}/`)  
     };
     return (
         <div className="fixed top-0 left-0 w-full h-screen z-50 bg-blue-500 bg-opacity-95 backdrop-blur-md flex flex-col items-center justify-center">
