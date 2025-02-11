@@ -180,16 +180,39 @@ export const fetchUpdatePasswordAsync = createAsyncThunk("update/fetchUpdatePass
 
 
 // Асинхронна дія для отримання користувача
-export const fetchUser = createAsyncThunk('user/fetchUserFacebook', async (_, { rejectWithValue }) => {
-    try {
-        const response = await axios.get(`${API_URL}/users`, { withCredentials: true });
-        localStorage.setItem("token", response.data.authToken)
-        localStorage.setItem("user", JSON.stringify(response.data.user))
+// export const fetchUser = createAsyncThunk('user/fetchUserFacebook', async (_, { rejectWithValue }) => {
+//     try {
+//         const response = await axios.get(`${API_URL}/user`, { withCredentials: true });
+//         localStorage.setItem("token", response.data.authToken)
+//         localStorage.setItem("user", JSON.stringify(response.data.user))
+//         return response.data;
+//     } catch (error) {
+//         return rejectWithValue(error.response?.data || 'Error fetching user');
+//     }
+// });
+
+export const fetchUser = createAsyncThunk(
+    "user/fetchUserFacebook",
+    async (_, { rejectWithValue }) => {
+      try {
+        const response = await axios.get(`${API_URL}/users`, {
+          withCredentials: true, // ✅ Дозволяє передавати кукі між бекендом і фронтом
+        });
+  
+        console.log("✅ User Data:", response.data); // 🔹 Логуємо отримані дані
+  
+        // Зберігаємо токен та користувача в localStorage
+        localStorage.setItem("token", response.data.authToken);
+        localStorage.setItem("user", JSON.stringify(response.data.user));
+  
         return response.data;
-    } catch (error) {
-        return rejectWithValue(error.response?.data || 'Error fetching user');
+      } catch (error) {
+        console.error("❌ Error fetching user:", error.response?.data);
+        return rejectWithValue(error.response?.data || "Error fetching user");
+      }
     }
-});
+  );
+  
 
 
 
