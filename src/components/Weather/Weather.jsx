@@ -32,7 +32,7 @@ const Weather = () => {
     if (query.length >= 2) {
       try {
         const response = await axios.get(
-          `http://api.weatherapi.com/v1/search.json?key=${VITE_WEATHER_KEY}&q=${query}`
+          `https://api.weatherapi.com/v1/search.json?key=${VITE_WEATHER_KEY}&q=${query}`
         );
         setSuggestions(response.data);
       } catch (err) {
@@ -48,7 +48,7 @@ const Weather = () => {
     try {
 
       const response = await axios.get(
-        `http://api.weatherapi.com/v1/forecast.json?key=${VITE_WEATHER_KEY}&q=${city}&days=14`
+        `https://api.weatherapi.com/v1/forecast.json?key=${VITE_WEATHER_KEY}&q=${city}&days=14`
       );
       setCity(city)
       setWeatherData(response.data);

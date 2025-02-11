@@ -2,16 +2,6 @@ import { createAsyncThunk, } from "@reduxjs/toolkit";
 import axios from 'axios'
 import { AMADEUS_KEY, AMADEUS_SECRET_KEY, AMADEUS_URL, API_URL } from "../../utils/variables";
 
-// export const fetchSessionAsync = createAsyncThunk("login/fetchLogin", async (formData, { rejectWithValue }) => {
-//     try {
-//         const response = await axios.post(`${API_URL}/auth/login`, formData)
-//         localStorage.setItem("token", response.data.authToken)
-//         localStorage.setItem("user", JSON.stringify(response.data.user))
-//         return response.data
-//     } catch (e) { return rejectWithValue(e.response.data.message); }
-
-
-// })
 
 export const fetchSessionAsync = createAsyncThunk(
     "login/fetchLogin",
@@ -67,19 +57,6 @@ export const fetchTokenAmadeus = createAsyncThunk("user/fetchToken", async (_, {
 
 })
 
-
-
-// export const fetchSignUpAsync = createAsyncThunk("signup/fetchSignup", async (formData, { rejectWithValue }) => {
-//     try {
-//         const response = await axios.post(`${API_URL}/auth/signup`, formData)
-//         return response.data
-
-//     } catch (e) {
-
-//         return rejectWithValue(e.response.data.message);
-//     }
-
-// })
 
 export const fetchSignUpAsync = createAsyncThunk(
     "signup/fetchSignup",
@@ -210,19 +187,6 @@ export const fetchUpdatePasswordAsync = createAsyncThunk("update/fetchUpdatePass
 
 })
 
-
-
-// Асинхронна дія для отримання користувача
-// export const fetchUser = createAsyncThunk('user/fetchUserFacebook', async (_, { rejectWithValue }) => {
-//     try {
-//         const response = await axios.get(`${API_URL}/user`, { withCredentials: true });
-//         localStorage.setItem("token", response.data.authToken)
-//         localStorage.setItem("user", JSON.stringify(response.data.user))
-//         return response.data;
-//     } catch (error) {
-//         return rejectWithValue(error.response?.data || 'Error fetching user');
-//     }
-// });
 
 export const fetchUser = createAsyncThunk(
     "user/fetchUserFacebook",
