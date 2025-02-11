@@ -1,5 +1,5 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { FaHeart } from 'react-icons/fa6';
 import { FaShoppingCart } from 'react-icons/fa';
 import { CgProfile } from "react-icons/cg";
@@ -7,8 +7,13 @@ import LanguageChange from '../LanguageChange/LanguageChange';
 import { FaTimes } from "react-icons/fa";
 
 const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t, user, onClick }) => {
-   
-
+    const navigate = useNavigate();
+    const handleLogout = () => {
+        localStorage.removeItem("token");  // Видаляємо токен
+        localStorage.removeItem("user");   // Видаляємо збереженого користувача
+        onClick(false); // Закриваємо бургер-меню
+        navigate("/");  // Перенаправлення на головну сторінку
+    };
     return (
         <div className="fixed top-0 left-0 w-full h-screen z-50 bg-blue-500 bg-opacity-95 backdrop-blur-md flex flex-col items-center justify-center">
             {/* Закриття меню */}
@@ -69,6 +74,17 @@ const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t
                         </span>
                     )}
                 </div>
+
+                {/* Logout Button */}
+                {user && (
+                    <button
+                        onClick={handleLogout}
+                        className="w-full bg-red-500 text-white text-lg font-semibold p-3 rounded-lg shadow-lg hover:bg-red-700 hover:scale-105 transition-transform"
+                    >
+                        {t("navbar.navLogOut")}
+                    </button>
+                )}
+
             </div>
 
             {/* Зміна мови */}
