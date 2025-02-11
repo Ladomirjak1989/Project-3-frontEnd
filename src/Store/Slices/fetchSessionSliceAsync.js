@@ -182,7 +182,7 @@ export const fetchUpdatePasswordAsync = createAsyncThunk("update/fetchUpdatePass
 // Асинхронна дія для отримання користувача
 export const fetchUser = createAsyncThunk('user/fetchUserFacebook', async (_, { rejectWithValue }) => {
     try {
-        const response = await axios.get(`${API_URL}/user`, { withCredentials: true });
+        const response = await axios.get(`${API_URL}/users`, { withCredentials: true });
         localStorage.setItem("token", response.data.authToken)
         localStorage.setItem("user", JSON.stringify(response.data.user))
         return response.data;
