@@ -176,20 +176,21 @@ const Cookie = () => {
                             <span>Advertising</span>
                         </label>
                     </div>
+                    {/* Блок кнопок */}
+                    <div className="flex flex-col md:flex-row w-full md:w-auto space-y-3 md:space-y-0 md:space-x-3">
+                        <button onClick={handleAcceptCookie} className="w-full md:w-auto bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
+                            Accept
+                        </button>
+                        <button onClick={handleSaveSelectionCookie} className="w-full md:w-auto bg-gray-300 text-black px-4 py-2 rounded-lg hover:bg-gray-400 transition">
+                            Save Selection
+                        </button>
+                        <button onClick={handleRefuseCookie} className="w-full md:w-auto bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition">
+                            Refuse
+                        </button>
+                    </div>
                 </div>
 
-                {/* Блок кнопок */}
-                <div className="flex flex-col md:flex-row w-full md:w-auto space-y-3 md:space-y-0 md:space-x-3">
-                    <button onClick={handleAcceptCookie} className="w-full md:w-auto bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">
-                        Accept
-                    </button>
-                    <button onClick={handleSaveSelectionCookie} className="w-full md:w-auto bg-gray-300 text-black px-4 py-2 rounded-lg hover:bg-gray-400 transition">
-                        Save Selection
-                    </button>
-                    <button onClick={handleRefuseCookie} className="w-full md:w-auto bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700 transition">
-                        Refuse
-                    </button>
-                </div>
+
 
             </div>
         </div>
