@@ -5,12 +5,13 @@ import { FaShoppingCart } from 'react-icons/fa';
 import { CgProfile } from "react-icons/cg";
 import LanguageChange from '../LanguageChange/LanguageChange';
 import { FaTimes } from "react-icons/fa";
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t, user, onClick }) => {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const token = useSelector(state => state.session.token);
-   
+
     const onLogOut = async () => {
         try {
             localStorage.removeItem("token");
@@ -53,18 +54,29 @@ const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t
                         </Link>
                     </li>
                 ))}
-                {/* Logout Button */}
-                {token &&
-                    <li>
-                        <button
-                            className='text-gray-900 bg-green-200 hover:bg-green-400 p-2 font-semibold rounded transition-all duration-300 ease-in-out'
-                            onClick={onLogOut}
-                        >
-                            {t("navbar.navLogOut")}
-                        </button>
-                    </li>
-                }
+
             </ul>
+
+
+            {/* Login/Logout Button */}
+            <div className="mt-6">
+                {token ? (
+                    <button
+                        className="text-gray-900 bg-green-200 hover:bg-green-400 p-3 font-semibold rounded transition-all duration-300 ease-in-out"
+                        onClick={onLogOut}
+                    >
+                        {t("navbar.navLogOut")}
+                    </button>
+                ) : (
+                    <Link
+                        to={`/${currentLang}/login`}
+                        className="text-gray-900 bg-blue-200 hover:bg-blue-400 p-3 font-semibold rounded transition-all duration-300 ease-in-out"
+                        onClick={() => onClick(false)}
+                    >
+                        {t("navbar.navLogin")}
+                    </Link>
+                )}
+            </div>
 
             {/* Додаткові функції (Shortlist, Profile, Cart) */}
             <div className="flex flex-col items-center mt-8 space-y-4 w-full max-w-sm">
