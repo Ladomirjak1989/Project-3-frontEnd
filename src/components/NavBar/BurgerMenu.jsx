@@ -8,7 +8,7 @@ import { FaTimes } from "react-icons/fa";
 
 const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t, user, onClick }) => {
     const navigate = useNavigate();
-    
+    const token = useSelector(state => state.session.token);
     const onLogOut = async () => {
         try {
           localStorage.removeItem("token");
