@@ -225,7 +225,7 @@ export const fetchUser = createAsyncThunk(
 export const fetchLogout = createAsyncThunk('logout/fetchLogout', async (_, { rejectWithValue }) => {
     try {
         await axios.get(`${API_URL}/auth/logout`, { withCredentials: true });
-        return null; // Очищаємо стан користувача
+        return response.data;
     } catch (error) {
         return rejectWithValue(error.response?.data || 'Logout failed');
     }

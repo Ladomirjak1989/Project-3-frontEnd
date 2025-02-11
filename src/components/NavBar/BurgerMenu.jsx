@@ -18,7 +18,6 @@ const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t
             localStorage.removeItem("user");
 
             await dispatch(fetchLogout());
-            await dispatch(clearAllCarts());
 
             navigate(`/${currentLang}/`);
         } catch (error) {
