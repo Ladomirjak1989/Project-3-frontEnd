@@ -6,7 +6,7 @@ import { CgProfile } from "react-icons/cg";
 import LanguageChange from '../LanguageChange/LanguageChange';
 import { FaTimes } from "react-icons/fa";
 import { fetchLogout } from '../../Store/Slices/fetchSessionSliceAsync';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setToken, setUser } from "../../Store/Slices/sessionSliceReducer";
 
 const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t, onClick }) => {
