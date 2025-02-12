@@ -9,31 +9,31 @@ import { fetchLogout } from '../../Store/Slices/fetchSessionSliceAsync';
 import { useDispatch } from 'react-redux';
 import { setToken, setUser } from "../../Store/Slices/sessionSliceReducer";
 
-const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t, onClick, token, user }) => {
+const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t, onClick, token, user, onLogOut }) => {
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const onLogOut = async () => {
-        try {
-            // Видалення з localStorage
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
+    // const onLogOut = async () => {
+    //     try {
+    //         // Видалення з localStorage
+    //         localStorage.removeItem("token");
+    //         localStorage.removeItem("user");
 
-            // Очищення Redux state
-            dispatch(setToken(null));
-            dispatch(setUser(null));
+    //         // Очищення Redux state
+    //         dispatch(setToken(null));
+    //         dispatch(setUser(null));
 
-            // Вихід з сесії (якщо потрібно повідомити бекенд)
-            await dispatch(fetchLogout());
+    //         // Вихід з сесії (якщо потрібно повідомити бекенд)
+    //         await dispatch(fetchLogout());
 
-            // Перенаправлення на головну сторінку
-            navigate(`/${currentLang}/`);
+    //         // Перенаправлення на головну сторінку
+    //         navigate(`/${currentLang}/`);
 
-        } catch (error) {
-            console.error("Error during logout:", error);
-        }
-    };
+    //     } catch (error) {
+    //         console.error("Error during logout:", error);
+    //     }
+    // };
 
 
 

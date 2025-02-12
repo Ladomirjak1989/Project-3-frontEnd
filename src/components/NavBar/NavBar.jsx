@@ -219,7 +219,7 @@ const Navbar = () => {
         </div>
       </nav>
       {isMobileMenuOpen &&
-        <BurgerMenu navBarConfig={navBarConfig} currentLang={currentLang} cartCount={cartCount} count={count} activeLink={activeLink} t={t} user={user} onClick={setMobileMenuOpen} />
+        <BurgerMenu navBarConfig={navBarConfig} currentLang={currentLang} cartCount={cartCount} count={count} activeLink={activeLink} t={t} user={user} onClick={setMobileMenuOpen} onLogOut={onLogOut} />
       }
     </div>
   );
