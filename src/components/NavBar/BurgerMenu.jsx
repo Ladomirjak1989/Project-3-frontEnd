@@ -11,7 +11,29 @@ import { setToken, setUser } from "../../Store/Slices/sessionSliceReducer";
 
 const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t, onClick, token, user }) => {
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
+    const onLogOut = async () => {
+        try {
+            // Видалення з localStorage
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+
+            // Очищення Redux state
+            dispatch(setToken(null));
+            dispatch(setUser(null));
+
+            // Вихід з сесії (якщо потрібно повідомити бекенд)
+            await dispatch(fetchLogout());
+
+            // Перенаправлення на головну сторінку
+            navigate(`/${currentLang}/`);
+
+        } catch (error) {
+            console.error("Error during logout:", error);
+        }
+    };
 
 
 
@@ -43,6 +65,29 @@ const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t
                     </li>
                 ))}
             </ul>
+
+            {/* Login/Logout Button */}
+            <div className="mt-6">
+                {token ? (
+                    <button
+                        className="text-gray-900 bg-red-500 hover:bg-red-600 p-3 font-semibold rounded transition-all duration-300 ease-in-out"
+                        onClick={() => {
+                            onClick(false); // Закриває меню
+                            onLogOut(); 
+                        }}
+                    >
+                        {t("navbar.navLogOut")}
+                    </button>
+                ) : (
+                    <Link
+                        className="text-gray-900 bg-green-500 hover:bg-green-600 p-3 font-semibold rounded transition-all duration-300 ease-in-out"
+                        to={`/${currentLang}/login`}
+                        onClick={() => onClick(false)}
+                    >
+                        {t("navbar.navLogIn")}
+                    </Link>
+                )}
+            </div>
 
 
             {/* Додаткові функції (Shortlist, Profile, Cart) */}
