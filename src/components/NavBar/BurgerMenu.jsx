@@ -1,14 +1,29 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { FaHeart } from 'react-icons/fa6';
 import { FaShoppingCart } from 'react-icons/fa';
 import { CgProfile } from "react-icons/cg";
 import LanguageChange from '../LanguageChange/LanguageChange';
 import { FaTimes } from "react-icons/fa";
 import { fetchLogout } from '../../Store/Slices/fetchSessionSliceAsync';
+import { useDispatch } from 'react-redux';
 
 const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t, user, onClick, token, onLogOut }) => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
+    const onLogOut = async () => {
+        try {
+            localStorage.removeItem("token");
+            localStorage.removeItem("user");
+
+            await dispatch(fetchLogout());
+
+            navigate(`/${currentLang}/`);
+        } catch (error) {
+            console.error("Error during logout:", error);
+        }
+    };
 
     return (
         <div className="fixed top-0 left-0 w-full h-screen z-50 bg-blue-500 bg-opacity-95 backdrop-blur-md flex flex-col items-center justify-center">
