@@ -32,19 +32,19 @@ function Signup() {
     const [termsError, setTermsError] = useState(""); // Track terms and conditions error
 
 
-    useEffect(() => {
-        // Видаляємо `#_=_` з URL (Facebook issue)
-        if (window.location.hash === "#_=_") {
-            window.history.replaceState({}, document.title, window.location.pathname);
-        }
+    // useEffect(() => {
+    //     // Видаляємо `#_=_` з URL (Facebook issue)
+    //     if (window.location.hash === "#_=_") {
+    //         window.history.replaceState({}, document.title, window.location.pathname);
+    //     }
 
-        // Перевіряємо, чи є `authToken` у cookie
-        const token = document.cookie.split('; ').find(row => row.startsWith('authToken='));
-        if (token) {
-            console.log("✅ Token found, redirecting to homepage...");
-            navigate(`/${currentLang}/`)
-        }
-    }, [navigate]);
+    //     // Перевіряємо, чи є `authToken` у cookie
+    //     const token = document.cookie.split('; ').find(row => row.startsWith('authToken='));
+    //     if (token) {
+    //         console.log("✅ Token found, redirecting to homepage...");
+    //         navigate(`/${currentLang}/`)
+    //     }
+    // }, [navigate]);
 
 
     const handleSignupSubmit = async (e) => {
@@ -79,24 +79,15 @@ function Signup() {
             return;
 
         }
-
-        // useEffect(() => {
-        //     if (user) {
-        //         navigate(`/${currentLang}/`)
-        //     }
-
-        // }, [user, navigate, currentLang])
-
-
     };
 
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-50 to-blue-100">
-            <div className="flex max-w-4xl w-full shadow-lg rounded-lg overflow-hidden bg-white">
+        <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-50 to-blue-100 p-4">
+            <div className="flex flex-col lg:flex-row max-w-5xl w-full shadow-lg rounded-lg overflow-hidden bg-white">
 
                 {/* Left Side */}
-                <div className="hidden lg:flex flex-col justify-center items-center bg-gradient-to-br from-blue-700 to-blue-500 text-white w-1/2 p-4 rounded-l-lg shadow-lg">
+                <div className="hidden lg:flex flex-col justify-center items-center bg-gradient-to-br from-blue-700 to-blue-500 text-white w-1/2 p-6 rounded-l-lg shadow-lg">
                     {/* Welcome Image */}
                     <img
                         src={welkomImg}
@@ -134,13 +125,13 @@ function Signup() {
                 <div className="w-full lg:w-1/2 p-8">
                     <div className="flex flex-col items-center mb-6">
                         <IoPersonCircle className="text-black text-6xl mb-4 animate-pulse" />
-                        <h1 className="text-2xl font-bold text-black mb-2 text-center leading-tight">
+                        <h1 className="text-2xl font-bold text-black text-center">
                             Sign Up
                         </h1>
                     </div>
 
 
-                    <form className="flex flex-col gap-4" onSubmit={handleSignupSubmit}>
+                    <form className="flex flex-col gap-4 p-4" onSubmit={handleSignupSubmit}>
                         {/* Username Input */}
                         <div className="relative">
                             <input
@@ -249,7 +240,7 @@ function Signup() {
 
                         {/* Sign Up Button */}
                         <button
-                            className="w-full py-3 bg-blue-500 text-white rounded-full font-bold text-lg hover:bg-blue-600 transition-transform duration-300 hover:scale-105"
+                            className="w-full py-3 bg-blue-500 text-white rounded-full font-bold text-lg hover:bg-blue-600 transition-transform hover:scale-105"
                             type="submit"
                         >
                             Sign Up
@@ -265,9 +256,8 @@ function Signup() {
                         </div>
 
                         {/* Social Login Buttons */}
-                        <div className="flex flex-row justify-between items-center gap-4">
+                        <div className="flex justify-between">
                             <a
-                                // href="http://localhost:4010/auth/google"
                                 href={`${import.meta.env.VITE_URL}/auth/google`}
                                 className="flex items-center gap-3 w-full py-2 px-4 bg-gray-300 border border-gray-400 text-gray-700 text-center rounded-full font-bold shadow-sm hover:bg-gray-400 transition-transform duration-300 hover:scale-105"
                             >
@@ -278,7 +268,6 @@ function Signup() {
                                 Google
                             </a>
                             <a
-                                // href="http://localhost:4010/auth/facebook"
                                 href={`${import.meta.env.VITE_URL}/auth/facebook`}
 
                                 className="flex items-center gap-3 w-full py-2 px-4 bg-red-500 border border-gray-500 text-white text-center rounded-full font-bold shadow-md hover:bg-red-700 transition-transform duration-300 hover:scale-105"
@@ -312,3 +301,7 @@ function Signup() {
 }
 
 export default Signup
+
+
+
+
