@@ -124,16 +124,16 @@ const LoginPage = () => {
 
 
     return (
-        <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-50 to-blue-100">
-            <div className="flex max-w-4xl w-full shadow-lg rounded-lg overflow-hidden bg-white">
+        <div className="flex justify-center items-center min-h-screen bg-gradient-to-r from-blue-50 to-blue-100 p-4">
+            <div className="flex flex-col lg:flex-row max-w-5xl w-full shadow-lg rounded-lg overflow-hidden bg-white">
 
                 {/* Left Side */}
-                <div className="hidden lg:flex flex-col justify-center items-center bg-gradient-to-br from-blue-700 to-blue-500 text-white w-1/2 p-4 rounded-l-lg shadow-lg">
+                <div className="hidden lg:flex flex-col justify-center items-center bg-gradient-to-br from-blue-700 to-blue-500 text-white w-1/2 p-6 rounded-l-lg shadow-lg">
                     {/* Welcome Image */}
                     <img
                         src={welkomImg}
                         alt="Welcome Img"
-                        className="w-[200px] h-[200px] object-contain" 
+                        className="w-[200px] h-[200px] object-contain"
                     />
 
                     {/* Welcome Text */}
@@ -169,7 +169,7 @@ const LoginPage = () => {
                     </div>
 
 
-                    <form className="flex flex-col gap-4" onSubmit={handleLoginSubmit}>
+                    <form className="flex flex-col gap-4 p-4" onSubmit={handleLoginSubmit}>
                         {/* Email Input */}
                         <div className="relative">
                             <input
@@ -227,7 +227,7 @@ const LoginPage = () => {
 
                         {/* Login Button */}
                         <button
-                            className="w-full py-3 bg-blue-500 text-white rounded-full font-bold text-lg hover:bg-blue-600 transition-transform duration-300 hover:scale-105"
+                            className="w-full py-3 bg-blue-500 text-white rounded-full font-bold text-lg hover:bg-blue-600 transition-transform hover:scale-105"
                             type="submit"
                         >
                             Login
@@ -261,25 +261,21 @@ const LoginPage = () => {
                         </div>
 
                         {/* Social Login Buttons */}
-                        <div className="flex flex-row justify-between items-center gap-4">
+                        <div className="flex justify-between">
                             <a
-                                // href="http://localhost:4010/auth/google"
                                 href={`${process.env.VITE_URL}/auth/google`}
                                 className="flex items-center gap-3 w-full py-2 px-4 bg-gray-300 border border-gray-400 text-gray-700 text-center rounded-full font-bold shadow-sm hover:bg-gray-400 transition-transform duration-300 hover:scale-105"
                             >
                                 <img src={googleIcon} alt="Gmail Icon" className="h-6 w-6" />
                                 Google
                             </a>
-                            {/* <button onClick={handleGmail} > </button> */}
                             <a
-                                // href="http://localhost:4010/auth/facebook"
                                 href={`${process.env.VITE_URL}/auth/facebook`}
                                 className="flex items-center gap-3 w-full py-2 px-4 bg-red-500 border border-gray-500 text-white text-center rounded-full font-bold shadow-md hover:bg-red-700 transition-transform duration-300 hover:scale-105"
                             >
                                 <img src={facebookIcon} alt="Facebook Icon" className="h-6 w-6" />
                                 Facebook
                             </a>
-                            {/* <button onClick={handleFacebook} > </button> */}
                         </div>
 
                         {/* Sign Up Link */}

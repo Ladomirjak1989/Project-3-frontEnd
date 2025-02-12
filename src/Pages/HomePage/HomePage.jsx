@@ -119,7 +119,6 @@ const HomePage = () => {
         </div>
       )}
 
-      {/* {cookiePopUp && <Cookie />} */}
 
       <div className="relative bg-gray-100">
         {/* Верхній Gradient */}
@@ -153,10 +152,15 @@ const HomePage = () => {
 
       <div className='mx-auto my-0 max-w-7xl bg-gray-50 '>
         <div className="container mx-auto py-8">
-          <div className="py-4 sm:px-8 lg:px-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">{t('homeMain.homeMainTitle')}</h2>
-            <p className="text-lg text-gray-700">{t('homeMain.homeMainSubTitle')}</p>
+          <div className="py-4 px-4 sm:px-8 lg:px-12 text-center sm:text-left">
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 sm:mb-4">
+              {t('homeMain.homeMainTitle')}
+            </h2>
+            <p className="text-base sm:text-lg lg:text-xl text-gray-700 leading-relaxed">
+              {t('homeMain.homeMainSubTitle')}
+            </p>
           </div>
+
           <div>
             <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {config.map(item => (

@@ -80,8 +80,8 @@ const Footer = () => {
   }, [submitted, errorMessage])
 
   return (
-    <footer className="bg-blue-900 text-white">
-      <div className="container mx-auto py-6 mt-5">
+    <footer className="bg-blue-900 text-white px-4">
+      <div className="container mx-auto py-6 mt-5 flex flex-wrap justify-center gap-4 text-2xl">
         <div className="flex justify-center space-x-4 text-2xl">
           <FaYoutube className="text-red-500 transition duration-300" />
           <FaFacebook className="text-blue-600 transition duration-300" />
@@ -92,7 +92,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="flex flex-col sm:flex-row justify-center items-center space-x-2 text-white py-4 bg-blue-800">
+      <div className="flex flex-col sm:flex-row justify-center items-center space-y-2 sm:space-y-0 sm:space-x-4 text-white py-4 bg-blue-800 text-center sm:text-left">
         <p>Tel: +(31) 618234567</p>
         <span className="hidden sm:inline mx-2">|</span>
         <p className="hidden sm:block font-semibold text-yellow-300">dreamvoyaged@gmail.com</p>
@@ -108,7 +108,7 @@ const Footer = () => {
 
       <div className="bg-blue-700 py-6">
         <div className="container mx-auto">
-          <ul className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 text-lg">
+          <ul className="flex flex-wrap flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6 text-lg">
             {/* Динамічне рендеринг посилань з footerConfig */}
             {footerConfig.map((item, index) => (
               <li
@@ -141,7 +141,7 @@ const Footer = () => {
         </div>
       </div>
 
-      <div className="bg-blue-900 py-4">
+      <div className="bg-blue-900 py-4 text-center">
         <div className="container mx-auto">
           <span className="block text-center text-sm">&copy; {t('footer.footerAllRights')} </span>
         </div>
