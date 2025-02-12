@@ -6,14 +6,12 @@ import { CgProfile } from "react-icons/cg";
 import LanguageChange from '../LanguageChange/LanguageChange';
 import { FaTimes } from "react-icons/fa";
 import { fetchLogout } from '../../Store/Slices/fetchSessionSliceAsync';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { setToken, setUser } from "../../Store/Slices/sessionSliceReducer";
 
-const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t, onClick }) => {
+const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t, onClick, token, user }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const token = useSelector(state => state.user.token);
-    const user = useSelector(state => state.user.data);
 
     const onLogOut = async () => {
         try {
