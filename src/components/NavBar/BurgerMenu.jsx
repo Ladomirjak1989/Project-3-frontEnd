@@ -7,15 +7,21 @@ import LanguageChange from '../LanguageChange/LanguageChange';
 import { FaTimes } from "react-icons/fa";
 import { fetchLogout } from '../../Store/Slices/fetchSessionSliceAsync';
 import { useDispatch } from 'react-redux';
+import { setToken, setUser } from "../../Store/Slices/sessionSliceReducer";
 
 const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t, user, onClick, token }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const token = useSelector(state => state.user.token);
+    const user = useSelector(state => state.user.data);
 
     const onLogOut = async () => {
         try {
             localStorage.removeItem("token");
             localStorage.removeItem("user");
+            // Очищаємо глобальний стан користувача
+            dispatch(setUser(null));
+            dispatch(setToken(null));
 
             await dispatch(fetchLogout());
 
@@ -55,18 +61,27 @@ const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t
 
                 {/* Login/Logout Button */}
                 <div className="mt-6">
-                    {token && (
+                    {token ? (
                         <button
                             className="text-gray-900 bg-red-500 hover:bg-red-600 p-3 font-semibold rounded transition-all duration-300 ease-in-out"
                             onClick={() => {
-                                onClick(false); // Закриває меню
                                 onLogOut(); // Викликає logout
+                                onClick(false); // Закриває меню
                             }}
                         >
                             {t("navbar.navLogOut")}
                         </button>
+                    ) : (
+                        <Link
+                            className="text-gray-900 bg-green-500 hover:bg-green-600 p-3 font-semibold rounded transition-all duration-300 ease-in-out"
+                            to={`/${currentLang}/login`}
+                            onClick={() => onClick(false)}
+                        >
+                            {t("navbar.navLogin")}
+                        </Link>
                     )}
                 </div>
+
             </ul>
 
 

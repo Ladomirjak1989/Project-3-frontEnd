@@ -28,7 +28,6 @@ const DeleteInstructionUser = () => {
 
     const handleConfirmDelete = async () => {
         const payload = await dispatch(fetchDeleteUserByMail(email));
-        console.log(payload, 777)
         if (payload.payload.message === "User profile deleted successfully") {
             localStorage.clear()
             document.cookie.split(";").forEach((cookie) => {
