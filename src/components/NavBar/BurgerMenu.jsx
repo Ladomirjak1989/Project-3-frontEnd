@@ -12,8 +12,6 @@ import { setToken, setUser } from "../../Store/Slices/sessionSliceReducer";
 const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t, user, onClick, token }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const token = useSelector(state => state.user.token);
-    const user = useSelector(state => state.user.data);
 
     const onLogOut = async () => {
         try {
