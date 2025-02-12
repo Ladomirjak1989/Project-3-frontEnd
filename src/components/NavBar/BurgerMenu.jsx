@@ -1,28 +1,13 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { FaHeart } from 'react-icons/fa6';
 import { FaShoppingCart } from 'react-icons/fa';
 import { CgProfile } from "react-icons/cg";
 import LanguageChange from '../LanguageChange/LanguageChange';
 import { FaTimes } from "react-icons/fa";
-import { useDispatch, useSelector } from 'react-redux';
+import { fetchLogout } from '../../Store/Slices/fetchSessionSliceAsync';
 
-const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t, user, onClick }) => {
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
-
-    const onLogOut = async () => {
-        try {
-            localStorage.removeItem("token");
-            localStorage.removeItem("user");
-
-            await dispatch(fetchLogout());
-
-            navigate(`/${currentLang}/`);
-        } catch (error) {
-            console.error("Error during logout:", error);
-        }
-    };
+const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t, user, onClick, token, onLogOut }) => {
 
 
     return (
@@ -53,21 +38,19 @@ const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t
                     </li>
                 ))}
 
+                {/* Login/Logout Button */}
+                <div className="mt-6">
+                    {token && (
+                        <button
+                            className="text-gray-900 bg-green-200 hover:bg-green-400 p-3 font-semibold rounded transition-all duration-300 ease-in-out"
+                            onClick={onLogOut}
+                        >
+                            {t("navbar.navLogOut")}
+                        </button>
+                    )}
+                </div>
             </ul>
 
-
-            {/* Login/Logout Button */}
-            <div className="mt-6">
-                {user && (
-                    <button
-                        className="text-gray-900 bg-green-200 hover:bg-green-400 p-3 font-semibold rounded transition-all duration-300 ease-in-out"
-                        onClick={onLogOut}
-                    >
-                        {t("navbar.navLogOut")}
-                    </button>
-
-                )}
-            </div>
 
             {/* Додаткові функції (Shortlist, Profile, Cart) */}
             <div className="flex flex-col items-center mt-8 space-y-4 w-full max-w-sm">
