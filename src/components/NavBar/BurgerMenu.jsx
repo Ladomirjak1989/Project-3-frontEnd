@@ -8,7 +8,7 @@ import { FaTimes } from "react-icons/fa";
 import { fetchLogout } from '../../Store/Slices/fetchSessionSliceAsync';
 import { useDispatch } from 'react-redux';
 
-const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t, user, onClick, token, onLogOut }) => {
+const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t, user, onClick, token }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
