@@ -211,20 +211,9 @@ export const fetchUser = createAsyncThunk(
 );
 
 
-
-
-// export const fetchLogout = createAsyncThunk('logout/fetchLogout', async (_, { rejectWithValue }) => {
-//     try {
-//         const response = await axios.get(`${API_URL}/auth/logout`, { withCredentials: true });
-//         return response.data;
-//     } catch (error) {
-//         return rejectWithValue(error.response?.data || 'Error fetching logout');
-//     }
-// });
-
 export const fetchLogout = createAsyncThunk('logout/fetchLogout', async (_, { rejectWithValue }) => {
     try {
-        await axios.get(`${API_URL}/auth/logout`, { withCredentials: true });
+        const response = await axios.get(`${API_URL}/auth/logout`, { withCredentials: true });
         return response.data;
     } catch (error) {
         return rejectWithValue(error.response?.data || 'Logout failed');

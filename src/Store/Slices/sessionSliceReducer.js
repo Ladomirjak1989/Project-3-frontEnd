@@ -269,6 +269,7 @@ const sessionSlice = createSlice({
             .addCase(fetchLogout.fulfilled, (state, action) => {
                 state.user = null;
                 state.token = null;
+                console.log(state.token,222)
             })
             .addCase(fetchLogout.rejected, (state, action) => {
                 state.loading = false;

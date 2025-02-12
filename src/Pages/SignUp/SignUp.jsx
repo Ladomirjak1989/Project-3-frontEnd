@@ -12,6 +12,7 @@ import facebookIcon from '../../assets/flags/icons8-facebook-50.png';
 import welkomImg from '../../assets/flags/welkom.jpg'
 import { IoPersonCircle } from "react-icons/io5";
 import welkomImage from '../../assets/flags/welkom2.avif'
+import { VITE_URL } from '../../utils/variables';
 
 
 function Signup() {
@@ -258,7 +259,7 @@ function Signup() {
                         {/* Social Login Buttons */}
                         <div className="flex justify-between">
                             <a
-                                href={`${import.meta.env.VITE_URL}/auth/google`}
+                                href={`${VITE_URL}/auth/google`}
                                 className="flex items-center gap-3 w-full py-2 px-4 bg-gray-300 border border-gray-400 text-gray-700 text-center rounded-full font-bold shadow-sm hover:bg-gray-400 transition-transform duration-300 hover:scale-105"
                             >
                                 <img src={googleIcon}
@@ -268,7 +269,7 @@ function Signup() {
                                 Google
                             </a>
                             <a
-                                href={`${import.meta.env.VITE_URL}/auth/facebook`}
+                                href={`${VITE_URL}/auth/facebook`}
 
                                 className="flex items-center gap-3 w-full py-2 px-4 bg-red-500 border border-gray-500 text-white text-center rounded-full font-bold shadow-md hover:bg-red-700 transition-transform duration-300 hover:scale-105"
                             >

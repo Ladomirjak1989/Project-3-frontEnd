@@ -9,3 +9,4 @@ export const AMADEUS_URL = import.meta.env.VITE_AMADEUS_API_URL
 export const AMADEUS_KEY = import.meta.env.VITE_AMADEUS_API_KEY
 export const AMADEUS_SECRET_KEY = import.meta.env.VITE_AMADEUS_API_SECRET
 export const SECRET_KEY = import.meta.env.VITE_SECRET_KEY
+export const VITE_URL = import.meta.env.VITE_URL

@@ -22,6 +22,7 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation(); // React Router hook to get the current location
   const token = useSelector(state => state.session.token);
+  console.log(token,111)
   const { t } = useTranslation();
   const currentLang = useSelector(state => state.language.language)
 
@@ -219,7 +220,7 @@ const Navbar = () => {
         </div>
       </nav>
       {isMobileMenuOpen &&
-        <BurgerMenu navBarConfig={navBarConfig} isCartOpen={isCartOpen} toggleCart={toggleCart} currentLang={currentLang} cartCount={cartCount} count={count} activeLink={activeLink} t={t} user={user} onClick={setMobileMenuOpen} onLogOut={onLogOut} />
+        <BurgerMenu navBarConfig={navBarConfig} token={token} isCartOpen={isCartOpen} toggleCart={toggleCart} currentLang={currentLang} cartCount={cartCount} count={count} activeLink={activeLink} t={t} user={user} onClick={setMobileMenuOpen} onLogOut={onLogOut} />
       }
     </div>
   );

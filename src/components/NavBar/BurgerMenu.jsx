@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux';
 import { setToken, setUser } from "../../Store/Slices/sessionSliceReducer";
 
 const BurgerMenu = ({ navBarConfig, currentLang, cartCount, isCartOpen, count, activeLink, t, toggleCart, onClick, token, user, onLogOut }) => {
-
+console.log(token,333)
     return (
         <div className="fixed top-0 left-0 w-full h-screen z-50 bg-blue-500 bg-opacity-95 backdrop-blur-md flex flex-col items-center justify-center">
             {/* Закриття меню */}
