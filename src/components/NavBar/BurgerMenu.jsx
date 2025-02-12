@@ -9,9 +9,11 @@ import { fetchLogout } from '../../Store/Slices/fetchSessionSliceAsync';
 import { useDispatch } from 'react-redux';
 import { setToken, setUser } from "../../Store/Slices/sessionSliceReducer";
 
-const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t, user, onClick, token }) => {
+const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t, onClick }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const token = useSelector(state => state.user.token);
+    const user = useSelector(state => state.user.data);
 
     const onLogOut = async () => {
         try {
@@ -75,7 +77,7 @@ const BurgerMenu = ({ navBarConfig, currentLang, cartCount, count, activeLink, t
                             to={`/${currentLang}/login`}
                             onClick={() => onClick(false)}
                         >
-                            {t("navbar.navLogin")}
+                            {t("navbar.navLogIn")}
                         </Link>
                     )}
                 </div>
