@@ -22,7 +22,6 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation(); // React Router hook to get the current location
   const token = useSelector(state => state.session.token);
-  console.log(token,111)
   const { t } = useTranslation();
   const currentLang = useSelector(state => state.language.language)
 

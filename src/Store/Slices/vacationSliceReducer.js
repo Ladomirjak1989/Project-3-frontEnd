@@ -138,47 +138,6 @@ const vacationSlice = createSlice({
                 state.error = action.payload
             })
 
-            // .addCase(fetchVacationAsync.fulfilled, (state, action) => {
-            //     console.log("Fetched data:", action.payload); // Лог для діагностики
-            
-            //     if (!Array.isArray(action.payload)) {
-            //         console.error("❌ fetchVacationAsync повернув НЕ масив:", action.payload);
-            //         state.vacations = {}; // Уникнути помилок
-            //         return;
-            //     }
-            
-            //     state.loading = false;
-            //     let counter = 0;
-            //     let countCart = 0;
-            //     const cartStorage = JSON.parse(localStorage.getItem("cart"));
-            //     const storage = JSON.parse(localStorage.getItem("favorite"));
-            
-            //     const data = action.payload.map(item => {
-            //         const randomRating = (Math.random() * (5 - 2) + 2).toFixed(1);
-            //         const randomReviews = Math.floor(Math.random() * 10000);
-            
-            //         item.isCart = cartStorage && cartStorage.includes(item._id);
-            //         if (item.isCart) countCart += 1;
-            
-            //         item.isFavorite = storage && storage.includes(item._id);
-            //         if (item.isFavorite) counter += 1;
-            
-            //         return { ...item, randomReviews, rating: randomRating };
-            //     });
-            
-            //     const vacation = data.reduce((acc, cur) => {
-            //         acc[cur._id] = cur;
-            //         return acc;
-            //     }, {});
-            
-            //     state.favoriteVacation = data.filter(item => item.isFavorite);
-            //     state.cartVacation = data.filter(item => item.isCart);
-            //     state.countFavorite = counter;
-            //     state.countCart = countCart;
-            //     state.vacations = vacation;
-            // })
-            
-
 
 
             .addCase(createVacationAsync.pending, (state) => {

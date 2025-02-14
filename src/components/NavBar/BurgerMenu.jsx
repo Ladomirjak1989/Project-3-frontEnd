@@ -5,12 +5,11 @@ import { FaShoppingCart } from 'react-icons/fa';
 import { CgProfile } from "react-icons/cg";
 import LanguageChange from '../LanguageChange/LanguageChange';
 import { FaTimes } from "react-icons/fa";
-import { fetchLogout } from '../../Store/Slices/fetchSessionSliceAsync';
-import { useDispatch } from 'react-redux';
-import { setToken, setUser } from "../../Store/Slices/sessionSliceReducer";
+
+
+
 
 const BurgerMenu = ({ navBarConfig, currentLang, cartCount, isCartOpen, count, activeLink, t, toggleCart, onClick, token, user, onLogOut }) => {
-console.log(token,333)
     return (
         <div className="fixed top-0 left-0 w-full h-screen z-50 bg-blue-500 bg-opacity-95 backdrop-blur-md flex flex-col items-center justify-center">
             {/* Закриття меню */}
@@ -30,7 +29,6 @@ console.log(token,333)
                             }`}
                         onClick={() => {
                             onClick(false);
-                            // handleLinkClick(item.link);
                         }}
                     >
                         <Link onClick={() => onClick(false)} to={item.link}>
@@ -46,7 +44,7 @@ console.log(token,333)
                     <button
                         className="text-gray-900 bg-green-200 hover:bg-green-400 p-3 font-semibold rounded transition-all duration-300 ease-in-out"
                         onClick={() => {
-                            onClick(false); // Закриває меню
+                            onClick(false);
                             onLogOut();
                         }}
                     >
@@ -79,12 +77,6 @@ console.log(token,333)
 
                 {/* Cart */}
                 <div className="w-full flex items-center justify-center relative bg-yellow-300 p-3 rounded-lg shadow-lg hover:scale-105 transition-transform">
-                    {/* <Link onClick={(toggleCart) => onClick(false)} to={`/${currentLang}/cart`} className="flex items-center text-gray-900">
-                        <div className='bg-yellow-100 p-2 rounded-lg shadow-md hover:scale-105 transition-transform duration-200'>
-                            <FaShoppingCart className="text-2xl" />
-                        </div>
-                    </Link> */}
-
                     <Link to={`/${currentLang}/cart`} className="flex items-center text-gray-900" onClick={(e) => {
                         e.preventDefault(); // Запобігаємо навігації, щоб лише відкривався кошик
                         toggleCart();

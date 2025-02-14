@@ -130,7 +130,6 @@ const sessionSlice = createSlice({
             .addCase(fetchRemoveCartAsync.fulfilled, (state, action) => {
                 state.loading = false
                 state.user = action.payload.user
-                console.log(action.payload.user, 123)
                 state.token = action.payload.token
 
             })
@@ -269,7 +268,6 @@ const sessionSlice = createSlice({
             .addCase(fetchLogout.fulfilled, (state, action) => {
                 state.user = null;
                 state.token = null;
-                console.log(state.token,222)
             })
             .addCase(fetchLogout.rejected, (state, action) => {
                 state.loading = false;

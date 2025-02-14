@@ -10,7 +10,6 @@ const FlightDetailsAdmin = () => {
     const [isLoading, setIsLoading] = useState(true);
 
     useEffect(() => {
-        console.log("Flight ID from URL:", id); // Діагностика
         if (!id) {
             console.error("ID is undefined");
             setIsLoading(false);

@@ -33,20 +33,6 @@ function Signup() {
     const [termsError, setTermsError] = useState(""); // Track terms and conditions error
 
 
-    // useEffect(() => {
-    //     // Видаляємо `#_=_` з URL (Facebook issue)
-    //     if (window.location.hash === "#_=_") {
-    //         window.history.replaceState({}, document.title, window.location.pathname);
-    //     }
-
-    //     // Перевіряємо, чи є `authToken` у cookie
-    //     const token = document.cookie.split('; ').find(row => row.startsWith('authToken='));
-    //     if (token) {
-    //         console.log("✅ Token found, redirecting to homepage...");
-    //         navigate(`/${currentLang}/`)
-    //     }
-    // }, [navigate]);
-
 
     const handleSignupSubmit = async (e) => {
         e.preventDefault();
@@ -62,7 +48,6 @@ function Signup() {
             // Дані для валідації
             const requestBody = { email, password, confirmPassword, name: user };
             const validData = await schema.validate(requestBody, { abortEarly: false });
-            console.log('Valid:', validData);
             const token = await dispatch(fetchSignUpAsync(requestBody))
 
             if (token.payload.authToken) {
