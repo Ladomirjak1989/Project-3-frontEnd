@@ -208,12 +208,19 @@ const HomePage = () => {
 
 
       {/* Holiday Offers Section */}
-      <div className="flex p-32 py-8">
-        <FaEnvelope className="text-blue-900 text-2xl mr-2" />
-        <p className="text-blue-500 font-semibold">
-          Don't miss out!  <Link to={`/${currentLang}/holiday`} className="underline text-indigo-900 hover:text-yellow-500">Sign up for holiday offers</Link>
+      <div className="flex flex-col sm:flex-row items-center justify-center p-4 sm:p-8 lg:p-12">
+        <FaEnvelope className="text-blue-900 text-2xl mb-2 sm:mb-0 sm:mr-2" />
+        <p className="text-blue-500 font-semibold text-center sm:text-left">
+          Don't miss out!
+          <Link
+            to={`/${currentLang}/holiday`}
+            className="underline text-indigo-900 hover:text-yellow-500 ml-1"
+          >
+            Sign up for holiday offers
+          </Link>
         </p>
       </div>
+
     </>
   );
 }

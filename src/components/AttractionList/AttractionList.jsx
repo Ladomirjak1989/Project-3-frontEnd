@@ -38,21 +38,21 @@ const AttractionList = ({ attractions, index }) => {
     return (
         <div>
             {/* List of attractions for the current page */}
-            <ul className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+            <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8 lg:gap-10">
                 {currentItems.map((item) => (
                     <AttractionEl {...item} key={item.id} />
                 ))}
             </ul>
 
             {/* Pagination */}
-            <Stack spacing={2} className="mt-8 flex justify-center">
+            <Stack spacing={2} className="mt-6 sm:mt-8 flex justify-center">
                 <Pagination
                     count={count}
                     page={currentPage}
                     onChange={handleChange}
                     variant="outlined"
                     color="primary"
-                    size="large"
+                    size="medium"
                 />
             </Stack>
         </div>

@@ -95,17 +95,17 @@ const DashboardPage = () => {
         <>
             {user?.role !== "admin" && <Searchbar />}
             <FlightBanner />
-            <main className='mt-5'>
-                <div className="flex justify-between items-center max-w-5xl mx-auto px-4 mb-6">
-                    <div>
-                        <label htmlFor="sort" className="block text-gray-700 text-sm font-semibold mb-1">
+            <main className='mt-5 px-4 sm:px-6 lg:px-8'>
+                <div className="flex flex-col sm:flex-row sm:justify-between items-center max-w-5xl mx-auto mb-6 space-y-4 sm:space-y-0">
+                    <div className='w-full sm:w-auto'>
+                        <label htmlFor="sort" className="block text-gray-700 text-sm font-semibold mb-1 sm:mb-0">
                             SORT BY:
                         </label>
                         <select
                             id="sort"
                             value={sortOption}
                             onChange={handleSortChange}
-                            className="px-4 py-2 border rounded-md text-gray-700"
+                            className="w-full sm:w-auto px-4 py-2 border rounded-md text-gray-700"
                         >
                             <option value="recommended">Our recommended</option>
                             <option value="lowToHigh">Price - low to high</option>
@@ -137,13 +137,13 @@ const DashboardPage = () => {
 
                 <div className='mx-auto my-0 max-w-5xl'>
                     <div className='bg-slate-50'>
-                        <div className="border-dotted bg-amber-200 border-2 border-blue-900 p-4  rounded-lg">
-                            <p className="text-center text-blue-800">
+                        <div className="border-dotted bg-amber-200 border-2 border-blue-900 p-4 rounded-lg">
+                            <p className="text-center text-blue-800 text-sm sm:text-base">
                                 <span className="font-bold">10kg hand luggage</span> and <span className="font-bold">underseat bag</span> included in the price <span className="font-bold">on all flights.</span>
                             </p>
                         </div>
-                        <div>
-                            <h3 className="text-xl font-semibold mb-2">Alternative Flights</h3>
+                        <div  className="mt-4">
+                            <h3 className="text-lg sm:text-xl font-semibold mb-2 text-center sm:text-left">Alternative Flights</h3>
                         </div>
                         <div className='relative'>
                             {!memoizedVisibleFlights.length && (
@@ -165,7 +165,7 @@ const DashboardPage = () => {
                                 ))}
                             </ul>
 
-                            {!flightApi.length && user?.role !== "admin" && <h2 className='font-semibold'>Search for your flight above🡹</h2>}
+                            {!flightApi.length && user?.role !== "admin" && <h2 className='font-semibold text-center mt-4'>Search for your flight above🡹</h2>}
                             {popUp && <PopUpMessage />}
                         </div>
                     </div>
