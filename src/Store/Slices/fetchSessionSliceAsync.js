@@ -2,7 +2,6 @@ import { createAsyncThunk, } from "@reduxjs/toolkit";
 import axios from 'axios'
 import { AMADEUS_KEY, AMADEUS_SECRET_KEY, AMADEUS_URL, API_URL } from "../../utils/variables";
 
-
 export const fetchSessionAsync = createAsyncThunk(
     "login/fetchLogin",
     async (formData, { rejectWithValue }) => {
