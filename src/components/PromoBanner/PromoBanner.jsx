@@ -19,7 +19,7 @@ const PromoBanner = () => {
       <div className="relative z-10 flex flex-col items-start justify-center text-center sm:text-left px-4 sm:px-10">
         <div className="bg-white bg-opacity-80 p-3 sm:p-5 rounded-lg shadow-md">
           <h2 className="text-xl sm:text-2xl lg:text-3xl font-bold text-blue-900 mb-3">
-            SAVE <span className="text-red-600">€200</span> ON MARELLA CRUISES
+            SAVE <span className="text-red-500">€200</span> ON MARELLA CRUISES
           </h2>
           <p className="text-sm sm:text-lg text-gray-700 mb-2">
             Applicable on October, November & December 2025 cruises using your code.
