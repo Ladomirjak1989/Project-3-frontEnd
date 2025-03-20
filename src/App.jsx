@@ -34,14 +34,20 @@ const App = () => {
             const cruise = await dispatch(fetchCruiseAsync())
             const flights = await dispatch(fetchFlightAsync())
             await dispatch(fetchTokenAmadeus())
-            const token = await localStorage.getItem("token")
-            const storage = await JSON.parse(localStorage.getItem("user"))
-            console.log(token,111)
-            console.log(storage,222)
+            // const token = await localStorage.getItem("token")
+            // Функція для отримання значення cookie за його ім'ям
+            const getCookie = (name) => {
+                const value = `; ${document.cookie}`;
+                const parts = value.split(`; ${name}=`);
+                if (parts.length === 2) return parts.pop().split(';').shift();
+            };
 
-            if (storage && token) {
-                console.log(333)
-                // const { payload } = await dispatch(fetchGetUserByIdAsync({ id: storage._id }))
+            // Отримуємо `token` з cookie
+            const token = getCookie("authToken");
+            // const storage = await JSON.parse(localStorage.getItem("user"))
+           
+            if ( token) {
+                const { payload } = await dispatch(fetchGetUserByIdAsync({ id: storage._id }))
                 await dispatch(setCartCruiseWithUser(payload.user.cruises))
                 await dispatch(setCartFlightWithUser(payload.user.flights))
                 await dispatch(setCartVacationWithUser(payload.user.vacations))
