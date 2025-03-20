@@ -106,7 +106,7 @@ const Weather = () => {
         {/* Error handling with image */}
         {error && (
           <div className="text-center">
-            <p className="text-red-600 text-xl sm:text-3xl text-center mt-4">{error}</p>
+            <p className="text-red-500 text-xl sm:text-3xl text-center mt-4">{error}</p>
             <img src={assets} className="mx-auto mt-4 w-20 sm:w-25 h-20 sm:h-25" />
           </div>
         )}
