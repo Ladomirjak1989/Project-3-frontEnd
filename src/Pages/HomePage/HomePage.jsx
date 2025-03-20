@@ -70,13 +70,13 @@ const HomePage = () => {
   ];
   useToken()
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    const token = localStorage.getItem('token')
-    if (!token) {
-      dispatch(fetchUser());
-    }
-  }, [dispatch]);
+  //   const token = localStorage.getItem('token')
+  //   if (!token) {
+  //     dispatch(fetchUser());
+  //   }
+  // }, [dispatch]);
 
 
   useEffect(() => {

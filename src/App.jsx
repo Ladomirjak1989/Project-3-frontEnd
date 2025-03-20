@@ -36,9 +36,12 @@ const App = () => {
             await dispatch(fetchTokenAmadeus())
             const token = await localStorage.getItem("token")
             const storage = await JSON.parse(localStorage.getItem("user"))
+            console.log(token,111)
+            console.log(storage,222)
 
             if (storage && token) {
-                const { payload } = await dispatch(fetchGetUserByIdAsync({ id: storage._id }))
+                console.log(333)
+                // const { payload } = await dispatch(fetchGetUserByIdAsync({ id: storage._id }))
                 await dispatch(setCartCruiseWithUser(payload.user.cruises))
                 await dispatch(setCartFlightWithUser(payload.user.flights))
                 await dispatch(setCartVacationWithUser(payload.user.vacations))
